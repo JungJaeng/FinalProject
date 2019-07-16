@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.face.LoginDao">
+
+	<insert id="insertLogin" parameterType="web.dto.Login">
+		INSERT INTO logintb (id, pw, email, phone)
+		VALUES (#{id }, #{pw }, #{email }, #{phone })
+	</insert>
+
+	<select id="selectCntLogin"
+	 parameterType="web.dto.Login"
+	 resultType="int">
+		SELECT COUNT(*) FROM logintb
+		WHERE id = #{id } AND pw = #{pw }	
+	</select>
+
+	<select id="selectLoginById"
+	 parameterType="web.dto.Login"
+	 resultType="web.dto.Login">
+		SELECT * FROM logintb
+		WHERE id = #{id }
+	</select>
+</mapper>

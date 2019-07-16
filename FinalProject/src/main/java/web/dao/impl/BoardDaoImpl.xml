@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.face.BoardDao">
+
+	<select id="selectCntAll" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM board
+		<where>
+			<if test="name!=null and search!=null">
+				<choose>
+					<when test="name.equals('title')">
+						title LIKE '%'||#{search}||'%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Board">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+				board_no, title, content, writer_id, writer_nick, hit, write_date FROM board
+				<where>
+					<if test="name!=null and search!=null">
+						<choose>
+						<when test="name.equals('title')">
+							title LIKE '%'||#{search}||'%'
+						</when>
+						</choose>
+					</if>
+				</where>
+				ORDER BY board_no DESC 
+				) B
+			ORDER BY rnum
+		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectBoardByboard_no" parameterType="int" resultType="web.dto.Board">
+		SELECT board_no, title, content, writer_id, writer_nick, hit, write_date FROM board
+		WHERE board_no=#{board_no}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE board SET hit=hit+1 WHERE board_no = #{board_no}
+	</update>
+	
+	<insert id="insert" parameterType="web.dto.Board">
+		INSERT INTO board ( BOARD_NO, TITLE, CONTENT, WRITER_ID, WRITER_NICK, HIT ) 
+		VALUES ( board_seq.nextval, #{title}, #{content}, #{writer_id}, #{writer_nick}, 0 )
+	</insert>
+	
+	<update id="update" parameterType="web.dto.Board">
+		UPDATE board SET title=#{title},content=#{content} WHERE board_no = #{board_no}
+	</update>
+	
+	<delete id="deleteBoardByboard_no" parameterType="int">
+		DELETE board WHERE board_no=#{board_no}
+	</delete>
+	
+	<select id="selectCommentByboard_no" parameterType="int" resultType="web.dto.Comment">
+<!-- 		SELECT * FROM commentTB WHERE board_no=#{board_no} ORDER BY commentno -->
+		SELECT * FROM commentTB
+		WHERE board_no=#{board_no}
+		START WITH ref_commentno = 0 --계층구조 기준노드
+		CONNECT BY PRIOR commentno = ref_commentno --계층구조 하위노드
+		ORDER SIBLINGS BY write_date --계층구조 유지하며 정렬
+
+	</select>
+	
+
+	<insert id="insertComment" parameterType="web.dto.Comment">
+		INSERT INTO commentTB(commentno,board_no,ref_commentno,dept,writer_nick,content) 
+		VALUES(comment_seq.nextval,#{board_no},#{ref_commentno}
+		,#{dept},#{writer_nick},#{content})
+	</insert>
+</mapper>
