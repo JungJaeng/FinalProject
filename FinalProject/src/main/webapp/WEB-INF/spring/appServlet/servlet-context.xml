@@ -19,14 +19,25 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order" value="1" /> <!-- 우선순위 -->
+		<beans:property name="order" value="2" /> <!-- 우선순위 -->
 	</beans:bean>
 
-	<!-- URL기반의 ViewResolver
+<!-- 	 URL기반의 ViewResolver -->
 	<beans:bean id ="tilesViewResolver" class ="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
-		<beans:property name="order" value="1" /> 우선순위
-	</beans:bean> -->
+		<beans:property name="order" value="1" /> <!-- 우선순위 -->
+	</beans:bean>
+	 
+	<!-- UI 레이아웃 구성 설정파일 -->
+	<beans:bean id="tilesConfigurer"
+	 class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles/template.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
 	<!-- 자바 스프링 빈 기반의 ViewResolver -->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0" /> <!-- 우선순위 -->
