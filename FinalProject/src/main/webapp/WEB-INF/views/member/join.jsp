@@ -214,7 +214,7 @@ $(function() {
 
 $(document).ready(function() {
 	//가입 버튼 클릭 시 form submit
-	$("#btnJoin").click(function() {
+	$("#btn_join").click(function() {
 		if(ch_id==true && ch_pw==true && ch_pw2==true 
 			&& ch_nick==true && ch_email==true){
 			$(this).parents("form").submit();
@@ -227,6 +227,8 @@ $(document).ready(function() {
 	})
 });	
 </script>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -277,17 +279,15 @@ $(document).ready(function() {
 				</h3>
 				<span class="intext"> <input type="email" id="user_email"
 					name="user_email" class="inputtext" maxlength="100" />
-				</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>
+				</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>	
 				
 				<div class="btnarea">
-					<button type="button" id="btnJoin" class="btn_type">
+					<button type="button" id="btn_join" class="btn_type">
 						<span>가입하기</span>
 					</button>
-				</div>
-						
+				</div>					
 			</div>
 		</div>
 	</form>
-
 </body>
 </html>

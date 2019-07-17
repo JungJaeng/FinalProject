@@ -44,4 +44,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public boolean idFind(Member memberDate) {
+		if( memberDao.selectCntIdFind(memberDate) > 0 ) {
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public Member idFindSelectMember(Member member) {
+		return memberDao.idFindSelectMember(member);
+	}
+
+
 }

@@ -11,5 +11,9 @@ public interface MemberDao {
 	public int idcheck(String user_id);
 	
 	public void insert(Member member);
+
+	public int selectCntIdFind(Member memberDate);
+
+	public Member idFindSelectMember(Member member);
 	
 }

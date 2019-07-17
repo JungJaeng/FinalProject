@@ -15,6 +15,12 @@ public interface MemberService {
 
 	// 회원가입
 	public void insert(Member member);
+
+	// 회원 아이디찾기
+	public boolean idFind(Member member);
+
+	// 아이디찾기 회원조회
+	public Member idFindSelectMember(Member member);
 	
 
 

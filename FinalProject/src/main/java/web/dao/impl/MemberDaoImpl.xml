@@ -27,4 +27,15 @@
 		WHERE user_id = #{user_id }	
 	</select>
 	
+	<select id="selectCntIdFind" parameterType="web.dto.Member" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE user_nick = #{user_nick } AND user_email = #{user_email }
+	</select> 
+	
+	<select id="idFindSelectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
+		SELECT RPAD(SUBSTR(user_id,0,LENGTH(user_id)-2), LENGTH(user_id),'*') as user_id FROM member
+		WHERE user_nick = #{user_nick } AND user_email = #{user_email } 
+	</select> 
+		
+	
 </mapper>
