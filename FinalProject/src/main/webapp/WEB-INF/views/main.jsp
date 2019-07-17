@@ -19,7 +19,7 @@
 			<strong>로그인이 필요합니다</strong><br>
 			<a href="/member/login"><button>로그인</button></a>
 			<a href="/member/join"><button>회원가입</button></a>
-			<a href="/member/idfind"><button>아이디찾기</button></a>
+			<a href="/member/idFind"><button>아이디찾기</button></a>
 			<a href=""><button>비밀번호찾기</button></a>
 		</c:if>
 		

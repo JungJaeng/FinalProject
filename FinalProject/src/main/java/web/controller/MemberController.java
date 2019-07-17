@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +24,7 @@ public class MemberController {
 
 	// 서비스 객체
 	@Autowired MemberService memberService;
-	
-	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public void main() { logger.info("메인 페이지"); }
-	
+
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login() { logger.info("로그인 페이지"); }
@@ -113,6 +111,37 @@ public class MemberController {
 		
 		return "redirect:/main"; 
 		
+	}
+	
+	
+	@RequestMapping(value="/member/idFind", method=RequestMethod.GET)
+	public void idFind() { logger.info("아이디찾기 페이지"); }
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/member/idFind", method=RequestMethod.POST)
+	public void idFindProc(
+			Member member, 
+			Model model,
+			HttpSession session
+			) {
+		logger.info("아이디 찾기 처리");
+		
+		if( memberService.idFind(member) ) {
+			
+			Member idFind = memberService.idFindSelectMember(member);
+			
+//			logger.info("idFind="+idFind.toString());
+						
+			model.addAttribute("idFind", idFind.getUser_id());
+			
+//			session.setAttribute("idFind", idFind.getUser_id());
+
+			logger.info("idFindId="+idFind.getUser_id());
+			
+					
+		}
+			
 	}
 	
 	
