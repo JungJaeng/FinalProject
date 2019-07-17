@@ -95,7 +95,9 @@ public class BoardController {
 	public String CommenetInsert(Comment comment) {
 		logger.info(comment.toString());
 		
-//		boardService.commentInsert(comment);
+		boardService.commentInsert(comment);
 		return "redirect:/board/view?board_no="+comment.getBoard_no();
 	}
-}
+	
+
+}	
