@@ -13,31 +13,38 @@
  src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
-/* 모든 페이지에 적용되는 자바스크립트 */ 
+var last_top = 0;
+$(window).scroll(function() {
+  var this_top = $(this).scrollTop();
+  if( this_top > last_top ) {
+    $(".subbar").addClass("hide");
+  }
+  else {
+    $(".subbar").removeClass("hide");
+  }
+	last_top = this_top;  
+});
 </script>
 
 <style type="text/css">
 /* 모든 페이지에 적용되는 스타일 CSS */
 
 .wrap {
-	width: 980px;
+	padding: 0 10%;
+	width: 1080px;
 }
-
-.header {
-	border: 1px solid red;
-}
-
-.footer {
-	border: 1px solid blue;
+.header{
+	width: 1200px;
 }
 </style>
 
 </head>
 <body>
-
+<div class="container">
 <!-- HEADER -->
+<div class="header">
 <tiles:insertAttribute name="header" />
-
+</div>
 <!-- BODY -->
 <div class="wrap">
 	<tiles:insertAttribute name="body" />
@@ -45,7 +52,7 @@
 
 <!-- FOOTER -->
 <tiles:insertAttribute name="footer" />
-
+</div>
 </body>
 </html>
 
