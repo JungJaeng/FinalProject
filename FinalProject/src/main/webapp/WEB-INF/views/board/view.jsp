@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	var commentno;
 	var dept
-	$(".recommentanchor").click(function() {
+	var board_no = ${board.board_no};
+	var writer_nick = "${board.writer_nick}";
+	
+	$("#commentdiv").on("click", ".recommentanchor", function() {
 		$("#recommentdiv").remove();
 		if(commentno == $(this).parent().attr("data-commentno")){commentno = 0; return false;}
 		commentno = $(this).parent().attr("data-commentno");
@@ -18,25 +17,24 @@ $(document).ready(function() {
 				"<div id='recommentdiv'><textarea id='recommentcontent'></textarea><button id='recommentBtn'>댓글입력</button></div>");
 	})
 	
-	$(".comment").on("click", "#recommentBtn", function() {
+	$("#commentdiv").on("click", "#recommentBtn", function() {
 // 		console.log("reocomment btn clicked")
 		dept = $(this).parent().parent().attr("data-dept");
-		var board_no = ${board.board_no};
-		var content =  $("#recommentcontent").val();
-		var writer_nick = "${board.writer_nick}";
+		var recommentcontent =  $("#recommentcontent").val();
 //		console.log($(this).parent().parent().attr("data-commentno"))
-///	console.log($(this).parent().parent().attr("data-dept"))
+//		console.log($(this).parent().parent().attr("data-dept"))
 		$.ajax({
-			url : "댓글달기",
+			url : "/comment/insert",
 			type : "POST",
 			data : {"board_no":board_no,
-					"content":content,
+					"content":recommentcontent,
 					"writer_nick":writer_nick,
 					"commentno":commentno,
 					"dept":dept},
-			dataType:"json",
+			dataType:"html",
 	  		success: function(res){
-				
+	  			console.log(res);
+	  			$("#commentdiv").html(res);
 			} 
 			, error: function(res){
 
@@ -45,6 +43,28 @@ $(document).ready(function() {
 		});		
 		
 	})
+	$("#commentinsert").click(function(){
+		commentno = 0
+		var commentcontent =  $("#commentcontent").val();
+		$.ajax({
+			url : "/comment/insert",
+			type : "POST",
+			data : {"board_no":board_no,
+					"content":commentcontent,
+					"writer_nick":writer_nick},
+			dataType:"html",
+	  		success: function(res){
+	  			console.log(res);
+	  			$("#commentdiv").html(res);
+				$("#commentcontent").val("");
+			} 
+			, error: function(res){
+
+			}
+			
+		});
+	})
+
 });
 
 
@@ -81,6 +101,7 @@ $(document).ready(function() {
 
 
 <hr>
+<div id="commentdiv">
 <c:forEach var="c" items="${commentlist }">
 <div class="comment" data-commentno="${c.commentno }" data-ref_commentno="${c.ref_commentno }" data-dept="${c.dept }">
 	<c:forEach  begin="1" end="${c.dept }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
@@ -95,13 +116,7 @@ $(document).ready(function() {
 	<div></div>
 </div>
 </c:forEach>
-<form action="/comment/insert" method="post">
-<input type="hidden" name="board_no" value="${board.board_no }">
-<input type="hidden" name="writer_nick" value="${board.writer_nick }"/>
-
-${board.writer_nick}
-<textarea name="content"></textarea>
-<button>댓글입력</button>
-</form>
-</body>
-</html>
+</div>
+${login_nick}
+<textarea id="commentcontent" name="commentcontent"></textarea>
+<button id=commentinsert>댓글입력</button>
