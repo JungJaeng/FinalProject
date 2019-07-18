@@ -15,5 +15,6 @@ public interface MemberDao {
 	public int selectCntIdFind(Member memberDate);
 
 	public Member idFindSelectMember(Member member);
-	
+
+
 }

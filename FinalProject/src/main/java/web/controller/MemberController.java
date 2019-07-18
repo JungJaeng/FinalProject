@@ -118,7 +118,6 @@ public class MemberController {
 	public void idFind() { logger.info("아이디찾기 페이지"); }
 	
 	
-	@ResponseBody
 	@RequestMapping(value="/member/idFind", method=RequestMethod.POST)
 	public void idFindProc(
 			Member member, 
@@ -131,18 +130,34 @@ public class MemberController {
 			
 			Member idFind = memberService.idFindSelectMember(member);
 			
-//			logger.info("idFind="+idFind.toString());
-						
-			model.addAttribute("idFind", idFind.getUser_id());
-			
-//			session.setAttribute("idFind", idFind.getUser_id());
+			logger.info("idFind="+idFind.toString());
 
-			logger.info("idFindId="+idFind.getUser_id());
+			model.addAttribute("idFind", idFind.getUser_id());
+			model.addAttribute("userNick", idFind.getUser_nick());
+			model.addAttribute("userEmail", idFind.getUser_email());
+			
 			
 					
 		}
 			
 	}
+			
+	
+	@RequestMapping(value="/member/pwFind", method=RequestMethod.GET)
+	public void pwFind() { logger.info("비밀번호찾기 페이지"); }
+	
+	
+	@RequestMapping(value="/member/pwFind", method=RequestMethod.POST)
+	public void pwFindProc(
+			Member member, 
+			Model model,
+			HttpSession session
+			) {
+		logger.info("비밀번호 찾기 처리");
+		
+			
+	}
+	
 	
 	
 	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
