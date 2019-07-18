@@ -92,11 +92,14 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	@RequestMapping(value = "/comment/insert", method = RequestMethod.POST)
-	public String CommenetInsert(Comment comment) {
-		logger.info(comment.toString());
+	public String CommenetInsert(Comment comment ,Model model) {
+//		logger.info(comment.toString());
 		
 		boardService.commentInsert(comment);
-		return "redirect:/board/view?board_no="+comment.getBoard_no();
+		
+		List<Comment> list = boardService.commentView(comment.getBoard_no());
+		model.addAttribute("commentlist",list);
+		return "/board/comment";
 	}
 	
 
