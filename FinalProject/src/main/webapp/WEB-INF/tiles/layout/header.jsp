@@ -13,7 +13,7 @@ $(window).scroll(function() {
     $(".subbar").removeClass("hide");
   }
 	last_top = this_top;  
-});
+}); 
  
 
 </script>
@@ -69,26 +69,26 @@ a{
 	<div class="subbar">
 	<!--       비로그인상태 -->
 	      <c:if test="${empty login }">
-			<a href="/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/member/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!--       로그인상태 -->
 	      <c:if test="${login }">
 			<a href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	</div>
 
 	<div class="menubar">
 		<div class="pagename menu">
-			<a>여행어쩌고</a>
+			<a href="/main">여행어쩌고</a>
 		</div>
 		<div class="menuname menu">
-			<a>Home</a>
+			<a href="/main">Home</a>
 			<a>펜션예약</a>
 			<a>여행지 추천</a>
-			<a>커뮤니티</a>			
+			<a href="/board/list">커뮤니티</a>			
 		</div>
 	
 	</div>
