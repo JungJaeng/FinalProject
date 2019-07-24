@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Board;
+import web.dto.Board_Image;
 import web.dto.Comment;
 import web.util.Paging;
 
@@ -48,5 +49,11 @@ public interface BoardDao {
 	public int selectref_commentno(Comment comment);
 
 	public void insertComment(Comment comment);
+
+	public void deleteComment(Comment comment);
+
+	public int getBoard_no();
+
+	public void insertImage(Board_Image upimage);
 	
 }

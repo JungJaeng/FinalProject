@@ -71,8 +71,8 @@
 .btn_type {
 	display: block;
 	width: 100%;
-	padding: 21px 0 17px;
-	font-size: 20px;
+	padding: 15px 0 15px;
+	font-size: 15px;
 	font-weight: 700;
 	text-align: center;
 	cursor: pointer;
@@ -281,6 +281,11 @@ $(document).ready(function() {
 					name="user_email" class="inputtext" maxlength="100" />
 				</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>	
 				
+				<br><br>
+				
+				<input type="radio" id="user_join_no" name="user_join_no" value="1"  checked="checked"/> 일반회원
+				<input type="radio" id="user_join_no" name="user_join_no" value="2" /> 펜션주인
+
 				<div class="btnarea">
 					<button type="button" id="btn_join" class="btn_type">
 						<span>가입하기</span>

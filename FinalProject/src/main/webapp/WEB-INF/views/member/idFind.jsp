@@ -9,65 +9,152 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js"></script>
 
+<style>
 
+.idFind_content {
+	margin: 0 auto;
+	max-width: 335px;
+	min-width: 200px;
+}
+
+.row_group {
+	overflow: hidden;
+	width: 100%;
+}
+
+.idFind_title {
+	margin: 19px 0 8px;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.inputtext {
+	border: none;
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 29px;
+}
+
+.intext, .genderdiv {
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 51px;
+	border: solid 1px #dadada;
+	padding: 10px 14px 10px 14px;
+	background: #fff;
+	box-sizing: border-box;
+	vertical-align: top;
+}
+
+.gen {
+	width: 100%;
+	height: 29px;
+	font-size: 15px;
+	line-height: 18px;
+	color: #000;
+	border: none;
+	border-radius: 0;
+	height: auto;
+	margin-top: 3px;
+}
+
+.btnarea {
+	margin: 0px 0 0px;
+	text-align: center;
+}
+
+.msg {
+	text-align: center;
+}
+
+.btn_type {
+	display: block;
+	width: 100%;
+	padding: 15px 0 15px;
+	font-size: 15px;
+	font-weight: 700;
+	text-align: center;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+</style>
 
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-	
-	
-	//아이디찾기 버튼 동작
-	$("#btn_idFind").click(function() {
-				
-		$("form").submit();	
-
-	});
-	
-	
-	
-	
-	
-	//취소버튼 동작
-	$("#btn_Cancel").click(function() {
-		history.go(-1);
-	});
+   
+   //아이디찾기 버튼 동작
+   $("#btn_idFind").click(function() {
+      $("form").submit();   
+   });
+   
+   //취소버튼 동작
+   $("#btn_Cancel").click(function() {
+		location.href="/member/login";
+   });
 });
-</script>	
+</script>   
 
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>아이디 찾기</h1>
-	<hr>
-	
-	<form action="/member/idFind" method="post">
-		<label>닉네임 : <input type="text" name="user_nick"/></label>
-		<label>이메일 : <input type="text" name="user_email"/></label>
-	</form>
-	<br><br> 
-	
-<!-- 	<div id="idFindMsg"> -->
-<%-- 		<p>회원님의 아이디는 <p id="idFind">${idFind }<p>입니다<p><br> --%>
-<!-- 	</div>  -->
-	 
-<!-- 	<div id="idFindError"> -->
-<!-- 		<span>정보와 일치한 ID가 없습니다.</span> -->
-<!-- 	</div> -->
-	
-	<div>
-		${idFind }
-	</div>
-	
-	<br><br>
-	
-	<div>
-		<button type="button" id="btn_idFind">아이디 찾기</button>
-		<button type="button" id="btn_Cancel">취소</button>
-	</div>
-	
+   <h1>아이디 찾기</h1>
+   <hr>
+   
+   <form action="/member/idFind" method="post">
+   
+	   <div class="idFind_content">
+			<div class="row_group">
+				<h3 class="idFind_title">
+					<label for="nick">닉네임</label>
+				</h3>
+				<span class="intext">
+					<input type="text" name="user_nick" id="user_nick" class="inputtext" maxlength="20" autofocus/>
+				</span>
+			</div>
+				
+			<div class="row_group">
+				<h3 class="idFind_title">
+					<label for="email">이메일</label>
+				</h3>
+				<span class="intext">
+					<input type="text" name="user_email" id="user_email" class="inputtext" maxlength="100"/>
+				</span>
+			</div>
+			
+		   <br>
+		   
+			<div class="msg">
+			   <p style="color:blue;">${idFind }</p>
+			
+			   
+			   <c:if test="${idFind2 == 0 }">
+			      <p style="color:red;">만족하는 ID가 없습니다</p>
+			   </c:if>
+			</div>
+		
+		   <br>
+		    
+		   <div class="btnarea">
+		      
+		      <button type="button" id="btn_idFind" class="btn_type" >
+		     	 <span>아이디 찾기</span>
+		      </button>
+		     
+		      <button type="button" id="btn_Cancel" class="btn_type" >
+		     	 <span>취소</span>
+		      </button>
+		      
+		   </div>
+   
+   		</div>	
+   </form>
+   
 
 </body>
 </html>

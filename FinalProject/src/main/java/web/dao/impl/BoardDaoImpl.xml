@@ -78,4 +78,16 @@
 		VALUES(comment_seq.nextval,#{board_no},#{ref_commentno}
 		,#{dept},#{writer_nick},#{content})
 	</insert>
+	
+	<delete id="deleteComment" parameterType="web.dto.Comment">
+		DELETE commentTB WHERE commentno=#{commentno}
+	</delete>
+	<select id="getBoard_no" resultType="int">
+		SELECT board_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertImage" parameterType="web.dto.Board_Image">
+		INSERT INTO board_image(fileno,board_no,origin_name,stored_name,filesize)
+		VALUES (board_image_seq.nextval,#{board_no},#{origin_name},#{stored_name},#{filesize})
+	</insert>
 </mapper>

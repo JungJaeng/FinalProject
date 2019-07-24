@@ -7,36 +7,51 @@
     
 <mapper namespace="web.dao.face.MemberDao">
 
-	<select id="selectCntLogin" parameterType="web.dto.Member" resultType="int">
-		SELECT COUNT(*) FROM member
-		WHERE user_id = #{user_id } AND user_pw = #{user_pw }
-	</select> 
-	
-	<select id="selectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
-		SELECT user_no, user_id, user_pw, user_nick, user_email, verify FROM member
-		WHERE user_id = #{user_id } 
-	</select>
-	
-	<insert id="insert" parameterType="web.dto.Member">
-		INSERT INTO member( user_no, user_id, user_pw, user_nick, user_email )
-		VALUES (member_seq.nextval, #{user_id }, #{user_pw }, #{user_nick }, #{user_email })
-	</insert>
-	
-	<select id="idcheck" parameterType="web.dto.Member" resultType="int">
-		SELECT COUNT(*) FROM member
-		WHERE user_id = #{user_id }	
-	</select>
-	
-	<select id="selectCntIdFind" parameterType="web.dto.Member" resultType="int">
-		SELECT COUNT(*) FROM member
-		WHERE user_nick = #{user_nick } AND user_email = #{user_email }
-	</select> 
-	
-	<select id="idFindSelectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
-		SELECT RPAD(SUBSTR(user_id,0,LENGTH(user_id)-2), LENGTH(user_id),'*') as user_id FROM member
-		WHERE user_nick = #{user_nick } AND user_email = #{user_email } 
-	</select> 
-	
-	
-	
+
+   <select id="selectCntLogin" parameterType="web.dto.Member" resultType="int">
+      SELECT COUNT(*) FROM member
+      WHERE user_id = #{user_id } AND user_pw = #{user_pw }
+   </select> 
+   
+   <select id="selectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
+      SELECT * FROM member
+      WHERE user_id = #{user_id } 
+   </select>
+   
+   <insert id="insert" parameterType="web.dto.Member">
+      INSERT INTO member( user_no, user_id, user_pw, user_nick, user_email, user_join_no )
+      VALUES (member_seq.nextval, #{user_id }, #{user_pw }, #{user_nick }, #{user_email }, #{user_join_no } ) 
+   </insert>
+   
+   <select id="idcheck" parameterType="web.dto.Member" resultType="int">
+      SELECT COUNT(*) FROM member
+      WHERE user_id = #{user_id }   
+   </select>
+   
+   <select id="selectCntIdFind" parameterType="web.dto.Member" resultType="int">
+      SELECT COUNT(*) FROM member
+      WHERE user_nick = #{user_nick } AND user_email = #{user_email }
+   </select> 
+   
+   <select id="idFindSelectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
+      SELECT RPAD(SUBSTR(user_id,0,LENGTH(user_id)-2), LENGTH(user_id),'*') as user_id, user_nick, user_email, user_pw FROM member
+      WHERE user_nick = #{user_nick } AND user_email = #{user_email } 
+   </select> 
+   
+   <select id="pwFindSelectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
+      SELECT user_id, user_nick, user_email, user_pw FROM member
+      WHERE user_id = #{user_id } AND user_email = #{user_email } 
+   </select> 
+   
+   <update id="pwUpdate" parameterType="web.dto.Member" >
+      UPDATE member 
+      SET user_pw = #{user_pw }
+      WHERE user_id = #{user_id }
+   
+   </update>
+
+   
+      
+   
+
 </mapper>
