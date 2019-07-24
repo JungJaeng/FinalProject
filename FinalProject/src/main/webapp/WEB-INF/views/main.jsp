@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
+// ajax 공공api json 형식 데이터 값 가져오기
 $(document).ready(function() {
 	$("#btnSearch").click(function() {
 		
@@ -19,45 +20,44 @@ $(document).ready(function() {
 				,contentType: "application/x-www-form-urlencoded"
 				,data:{
 					"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
+					,"_type":"json"
 					, "MobileOS": "ETC"
 					, "MobileApp": "AppTest"
-					, "cat1": $("cat1").val()
+					, "cat1": $("[name='cat1']").val()
 					, "cat2": ""
 					, "cat3": ""
 					, "areacode": $("[name='areacode']").val()
 					, "sigungucode": $("[name='sigungucode']").val()
 					, "keyword": $("[name='keyword']").val()
-					, "numOfRows": 5
-					, "pageNo": 2
+					, "numOfRows": 10
+					, "pageNo": 1
 				}
-				,dataType:"xml"
+				,dataType:"json"
 				,success:function(res){
 					console.log(res);
-					
-					var body = res.getElementsByTagName("body")[0];
-// 					console.log(body);
-					
-					var items = body.getElementsByTagName("items")[0];
-// 					console.log(items);
-					
-					var item_list = items.getElementsByTagName("item");
-// 					console.log(item_list);
-					
-// 					var totalCount = body.getElementsByTagName("totalCount")[0];
-// 					var cnt = totalCount.textContent
-					
-					var numOfRows = body.getElementsByTagName("numOfRows")[0];
-					var cnt = numOfRows.textContent
-// 					console.log("총 : "+cnt+"개")
-					
-					for(var i=0; i<cnt; i++) {
-						var title = item_list[i].getElementsByTagName("title")[0];
-						var title_text = title.textContent
-						
-						console.log("-----")
-						console.log(title_text)
-					}
 
+					var response = res.response;
+					
+					var header = response.header;
+					
+					var body = response.body;
+					
+					var numOfRows = body.numOfRows;
+					var items = body.items.item;
+					
+					console.log("rows : " + numOfRows);
+					for(var i=0; i<numOfRows; i++) {
+						console.log(items[i]);
+						
+						$("<div>").append(
+								$("<img>")
+									.attr("src", items[i].firstimage)
+									.css({"height":"130px", "width":"200px"})
+						).appendTo( $(document.body) );
+					
+						
+						
+					}
 				}
 		})
 	})
@@ -83,15 +83,6 @@ cnt[15] = new Array("시/군구선택","고창군","군산시","김제시","남�
 cnt[16] = new Array("시/군구선택","강진군","고흥군","곡성군","광양시","구례군","나주시","담양군","목포시","무안군","보성군","순천시","신안군","여수시","영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군");
 cnt[17] = new Array("시/군구선택","남제주군","북제주군","서귀포시","제주시");
 
-function change(add) {
-	sel=document.form.sigungucode
-	for (i=sel.length-1; i>=0; i--){
-		sel.options[i] = null
-	}
-	for (i=0; i < cnt[add].length;i++){                     
-		sel.options[i] = new Option(cnt[add][i], i);
-	}         
-}
 
 </script>
 </head>
@@ -100,7 +91,6 @@ function change(add) {
 <!-- 	<form name="form" action="/main/search" method="post"> -->
 	<input type="hidden" name="cat2">
 	<input type="hidden" name="cat3">
-	
 	<div>
 		<label>분류</label>
 		<select id="cat1" title="대분류" name="cat1">
@@ -115,6 +105,7 @@ function change(add) {
 		</select>
 	</div>
 	<div>
+	<span id="test"></span>
 		<label>시/도</label>
 		 <select name="areacode" onchange="change(this.selectedIndex);" >
                        <option value="">시/도 선택</option>
@@ -144,11 +135,12 @@ function change(add) {
 		</select>
 	</div>
 	
-	<div>
+	<div id="search">
 		<label>검색</label>
 		<input type="text" name="keyword" value="강원" /><button id="btnSearch">검색</button>
 	</div>
 <!-- 	</form> -->
 </div>
+<div id="result"></div>
 </body>
 </html>
