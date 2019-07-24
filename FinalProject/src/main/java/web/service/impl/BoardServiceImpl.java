@@ -1,17 +1,23 @@
 package web.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
-
+import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import web.dao.face.BoardDao;
 import web.dto.Board;
+import web.dto.Board_Image;
 import web.dto.Comment;
 import web.service.face.BoardService;
 import web.util.Paging;
@@ -84,5 +90,46 @@ public class BoardServiceImpl implements BoardService {
 			boardDao.insertComment(comment);
 		}
 		
+	}
+
+	@Override
+	public void commentDelete(Comment comment) {
+		boardDao.deleteComment(comment);
+		
+	}
+
+	@Override
+	public Board_Image imgsave(Board_Image board_image, MultipartFile file, ServletContext context) {
+		String storedPath = context.getRealPath("WEB-INF/upload");
+		String uId = UUID.randomUUID().toString().split("-")[4];
+		
+		//저장될 파일의 이름(원본이름+UUID)
+		String name=file.getOriginalFilename()+"_"+uId;
+		
+		
+		//저장될 파일 객체
+		File dest = new File(storedPath,name);
+		
+		//파일 저장
+		try {
+			file.transferTo(dest); //실제 저장
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Board_Image upimage = new Board_Image();
+		if(board_image.getBoard_no() == 0) {
+			upimage.setBoard_no(boardDao.getBoard_no());
+		}else {
+			upimage.setBoard_no(board_image.getBoard_no());
+		}
+		upimage.setOrigin_name(file.getOriginalFilename());
+		upimage.setStored_name(name);
+		upimage.setFilesize((int)file.getSize());
+		
+		logger.info(upimage.toString());
+//		boardDao.insertImage(upimage);
+		return upimage;
 	}
 }
