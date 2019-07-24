@@ -13,7 +13,7 @@
 	</select> 
 	
 	<select id="selectMember" parameterType="web.dto.Member" resultType="web.dto.Member">
-		SELECT * FROM member
+		SELECT user_no, user_id, user_pw, user_nick, user_email, verify FROM member
 		WHERE user_id = #{user_id } 
 	</select>
 	

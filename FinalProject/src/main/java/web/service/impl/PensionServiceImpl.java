@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.face.PensionDao;
+import web.dto.Member;
 import web.dto.Pension;
 import web.service.face.PensionService;
 import web.util.Paging;
@@ -24,6 +25,8 @@ public class PensionServiceImpl implements PensionService {
 		
 		Paging paging = new Paging(totalCount,curPage);
 		
+		paging.setName((String)map.get("name"));
+		paging.setSearch((String)map.get("search"));
 		
 		return paging;
 	}
@@ -31,7 +34,9 @@ public class PensionServiceImpl implements PensionService {
 	@Override
 	public List<Pension> getList(Paging paging) {
 		return pensionDao.selectAll(paging);
-	}
+	}	
 	
+
+
 	
 }

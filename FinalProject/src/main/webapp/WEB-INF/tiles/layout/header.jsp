@@ -73,10 +73,17 @@ a{
 			<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!--       로그인상태 -->
-	      <c:if test="${login }">
+	      <c:if test="${login and login_nick ne '관리자'  }">
 			<a href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	      </c:if>
+	<!-- 		관리자상태 -->
+		  <c:if test="${login_nick eq '관리자' }">
+			<a href="/admin/member_list">회원관리</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/admin/pen_reg">펜션등록</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/admin/pen_check">펜션요청확인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	</div>
 
@@ -86,7 +93,7 @@ a{
 		</div>
 		<div class="menuname menu">
 			<a href="/main">Home</a>
-			<a>펜션예약</a>
+			<a href="/pension/reservation">펜션예약</a>
 			<a>여행지 추천</a>
 			<a href="/board/list">커뮤니티</a>			
 		</div>

@@ -93,7 +93,7 @@ table .content:hover{
 </c:forEach>
 </tbody>
 </table>
-<c:if test="${usernick eq '관리자'}">
+<c:if test="${loginnick eq '관리자'}">
 <button type="button" id="btnlistDelete" class="btn btn-primary" onclick="checklist();">체크 삭제</button>
 </c:if>
 </div>

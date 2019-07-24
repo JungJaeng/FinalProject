@@ -7,12 +7,14 @@ public class Member {
 	private String user_pw;
 	private String user_nick;
 	private String user_email;
+	private int verify;
+	
 	
 	
 	@Override
 	public String toString() {
 		return "Member [user_no=" + user_no + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_nick="
-				+ user_nick + ", user_email=" + user_email + "]";
+				+ user_nick + ", user_email=" + user_email + ", verify=" + verify + "]";
 	}
 	
 	public int getUser_no() {
@@ -45,7 +47,12 @@ public class Member {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	
+	public int getVerify() {
+		return verify;
+	}
+	public void setVerify(int verify) {
+		this.verify = verify;
+	}
 	
 	
 	
