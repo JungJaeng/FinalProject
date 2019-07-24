@@ -25,4 +25,50 @@
 		SELECT * FROM logintb
 		WHERE id = #{id }
 	</select>
+	
+	<delete id="infoWithdrawDao"
+	parameterType="String">
+	DELETE FROM logintb
+	WHERE id= #{id}
+	
+	</delete>
+	
+	<update id="updateDao"
+	parameterType="web.dto.Login">
+	UPDATE logintb
+	SET 
+		
+		pw= #{pw},
+		email=#{email},
+		phone=#{phone}
+	WHERE
+		id=#{id}
+	</update>
+	
+	<insert id="insertFile"
+	parameterType="web.dto.Filetest">
+	INSERT INTO fileupload(fileno,userid,origin_name,stored_name)
+	VALUES(fileupload_seq.nextval,#{userid},#{origin_name},#{stored_name})
+	</insert>
+	
+	<select id="selectImgDao"
+	parameterType="String"
+	resultType="web.dto.Filetest">
+	SELECT * FROM fileupload
+	WHERE userid=#{loginid}
+	</select>
+	
+	<select id="selectImgCnt"
+	 parameterType="String"
+	 resultType="int">
+		SELECT COUNT(*) FROM fileupload
+		WHERE userid = #{userid }
+	</select>
+	
+	<delete id="Imgdelete"
+	parameterType="String">
+	DELETE FROM fileupload WHERE userid=#{userid}
+	</delete>
+	
+	
 </mapper>

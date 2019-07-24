@@ -1,5 +1,10 @@
 package web.service.face;
 
+import javax.servlet.ServletContext;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import web.dto.Filetest;
 import web.dto.Login;
 
 public interface LoginService {
@@ -26,5 +31,15 @@ public interface LoginService {
 	 * @return Login - 조회 결과
 	 */
 	public Login info(Login login);
+
+	public void infoWithdraw(String id);
+
+	public void update(Login login);
+
+	public void filesave(MultipartFile file,ServletContext context,String userid );
+
+	public Filetest selectImg(String loginid);
+
+	public int ImgCnt(String loginid); 
 	
 }

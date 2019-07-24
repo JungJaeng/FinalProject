@@ -19,6 +19,8 @@
 	<a href="/login/mypage"><button>마이페이지</button></a>
 	<a href="/login/logout"><button>로그아웃</button></a>
 	<a href="/board/list"><button>게시판 가기</button></a>
+	<a href="/login/withdraw"><button>회원 탈퇴</button></a>
+	<a href="/login/infochange"><button>내 정보 변경</button></a>
 </c:if>
 
 <!-- 비로그인상태 -->

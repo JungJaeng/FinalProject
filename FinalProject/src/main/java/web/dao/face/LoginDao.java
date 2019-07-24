@@ -1,8 +1,10 @@
 package web.dao.face;
 
+import web.dto.Filetest;
 import web.dto.Login;
 
 public interface LoginDao {
+
 
 	/**
 	 * 회원정보 삽입
@@ -26,4 +28,17 @@ public interface LoginDao {
 	 * @return Login - 조회 결과
 	 */
 	public Login selectLoginById(Login login);
+
+	public void infoWithdrawDao(String id);
+
+	public void updateDao(Login login);
+
+	public void insertFile(Filetest filetest);
+
+	public Filetest selectImgDao(String loginid);
+	
+	public int selectImgCnt(String userid);
+
+	public void Imgdelete(String userid);
+
 }
