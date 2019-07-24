@@ -21,6 +21,12 @@ public interface MemberService {
 
 	// 아이디찾기 회원조회
 	public Member idFindSelectMember(Member member);
+	
+	// 비밀번호찾기 회원조회
+	public Member pwFindSelectMember(Member member);
+
+	// 임시비밀번호 메일로 보내기
+	public void pwSendEmail(Member member);
 
 
 
