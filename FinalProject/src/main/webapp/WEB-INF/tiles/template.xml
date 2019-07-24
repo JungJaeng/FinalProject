@@ -6,8 +6,12 @@
 
 <tiles-definitions>
 	
-	<definition name="main" template="/WEB-INF/views/main.jsp">
-	</definition>
+<!-- 	<definition name="main" template="/WEB-INF/views/main.jsp"> -->
+<!-- 	</definition> --> 
+
+	<definition name="board/comment" template="/WEB-INF/views/board/comment.jsp">
+   </definition>
+	
 	
 	<definition name="tilesbase" template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />

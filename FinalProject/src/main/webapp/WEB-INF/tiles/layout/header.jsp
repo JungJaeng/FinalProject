@@ -2,31 +2,51 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script type="text/javascript">
+var last_top = 0;
+$(window).scroll(function() {
+  var this_top = $(this).scrollTop();
+  if( this_top) {
+    $(".subbar").addClass("hide");
+  }
+  else {
+    $(".subbar").removeClass("hide");
+  }
+	last_top = this_top;  
+}); 
+ 
+
+</script>
+
 <style type="text/css">
 
-
-.subbar{
-	text-align: right;
+.outside{
+	height: 100px;
+	width: 100%;
 }
+.menucls {
+        position: fixed;
+        top: 0px;
+      }
 a{
 	color: black;
 	text-decoration: none;
 }
 .menu{
 	display: inline;
-	width: 100%;
+	width: 1200px;
 }
 .pagename{
-	font-size: 60px;
+	font-size: 50px;
 	padding-left: 30px;
-	padding-right: 30px;
+	padding-right: 80px;
 	padding-bottom: 30px; 
 }
 .menuname{
-	font-size: 40px;
+	font-size: 30px;
 }
 .menuname>a{
-	padding-right: 30px;
+	padding-right: 60px;
 }
 .subbar.hide {
   transform: translateY(-100%);
@@ -36,41 +56,42 @@ a{
 	margin: 0; padding: 0;
 	list-style: none;
 	position: fixed;
-	width: 100%;
+	width: 1200px;
 	transition: transform .3s;
+	text-align: right;
 }
 .menubar{
-	position: fixed;
+	padding-top: 50px;
 }
 </style>
 
-<div class="head">
+<div class="outside">
 	<div class="subbar">
 	<!--       비로그인상태 -->
 	      <c:if test="${empty login }">
-			<a href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/member/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!--       로그인상태 -->
 	      <c:if test="${login }">
-	         <a href="/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	</div>
 
 	<div class="menubar">
 		<div class="pagename menu">
-			<a>여행어쩌고</a>
+			<a href="/main">여행어쩌고</a>
 		</div>
 		<div class="menuname menu">
-			<a>Home1</a>
-			<a>Home2</a>
-			<a>Home3</a>
-			<a>Home4</a>			
+			<a href="/main">Home</a>
+			<a>펜션예약</a>
+			<a>여행지 추천</a>
+			<a href="/board/list">커뮤니티</a>			
 		</div>
+	
 	</div>
-	<br><br><br><br><br><br><br>
 </div>
 
 

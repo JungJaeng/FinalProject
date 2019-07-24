@@ -13,28 +13,37 @@
  src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
-var last_top = 0;
-$(window).scroll(function() {
-  var this_top = $(this).scrollTop();
-  if( this_top > last_top ) {
-    $(".subbar").addClass("hide");
-  }
-  else {
-    $(".subbar").removeClass("hide");
-  }
-	last_top = this_top;  
-});
+
 </script>
 
 <style type="text/css">
 /* 모든 페이지에 적용되는 스타일 CSS */
+ 
+.container{
+	margin:0;
+	padding: 0;
+}
 
 .wrap {
-	padding: 0 10%;
+	padding-top: 50px;
+	padding-bottom: 50px;
 	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .header{
+	padding-bottom: 30px;
 	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 100px;
+}
+.footer{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 
@@ -49,27 +58,10 @@ $(window).scroll(function() {
 <div class="wrap">
 	<tiles:insertAttribute name="body" />
 </div>
-
 <!-- FOOTER -->
+<div class="footer">
 <tiles:insertAttribute name="footer" />
+</div>
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

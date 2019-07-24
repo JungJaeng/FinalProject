@@ -21,7 +21,8 @@ public interface MemberService {
 
 	// 아이디찾기 회원조회
 	public Member idFindSelectMember(Member member);
-	
+
+
 
 
 }
