@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <style type="text/css">
+
 .fool{
 	text-align: center;
 }

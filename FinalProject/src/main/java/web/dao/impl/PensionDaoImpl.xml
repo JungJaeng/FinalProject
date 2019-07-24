@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="web.dao.face.PensionDao">
+	
+	<select id="selectCntAll" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM pension
+	<where>
+		<if test="name!=null and search!=null">
+			<choose>
+				<when test="name.equals('pension_name')">
+					pension_name LIKE '%'||#{search}||'%'
+				</when>
+			</choose>
+		</if>
+	</where>		
+		</select>
+		
+	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Pension">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+				pension_no,
+				pension_name,
+				pension_location,
+				pension_content,
+				pension_url
+				FROM pension
+				<where>
+					<if test="name!=null and search!=null">
+						<choose>
+						<when test="name.equals('pension_location')">
+							pension_location LIKE '%'||#{search}||'%'
+						</when>
+						</choose>
+					</if>
+				</where>				
+				ORDER BY pension_name ASC 
+				) B
+			ORDER BY rnum
+		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectPensionBypension_no" parameterType="int" resultType="web.dto.Pension">
+		SELECT
+		pension_no,
+		pension_name,
+		pension_location,
+		pension_content,
+		pension_url
+		FROM pension
+		WHERE pension_no=#{pension_no}
+		
+	</select>
+
+
+
+</mapper>
