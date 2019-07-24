@@ -16,5 +16,10 @@ public interface MemberDao {
 
 	public Member idFindSelectMember(Member member);
 
+	public void changePwd(String newPwd, String user_id);
+
+	public Member pwFindSelectMember(Member member);
+
+	public void pwUpdate(Member pwFind);
 
 }
