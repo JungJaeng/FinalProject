@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,8 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Board;
+import web.dto.Board_Image;
 import web.dto.Comment;
 import web.service.face.BoardService;
 import web.util.Paging;
@@ -27,6 +31,7 @@ public class BoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
+	@Autowired ServletContext context;
 	//서비스 객체
 	@Autowired BoardService boardService;
 	
@@ -91,15 +96,33 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-	@RequestMapping(value = "/comment/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/board/comment/insert", method = RequestMethod.POST)
 	public String CommenetInsert(Comment comment ,Model model) {
-//		logger.info(comment.toString());
 		
 		boardService.commentInsert(comment);
 		
 		List<Comment> list = boardService.commentView(comment.getBoard_no());
 		model.addAttribute("commentlist",list);
-		return "/board/comment";
+		return "board/comment";
+	}
+	@RequestMapping(value = "/board/comment/delete", method = RequestMethod.POST)
+	public String DeleteInsert(Comment comment ,Model model) {
+		
+		boardService.commentDelete(comment);
+		
+		List<Comment> list = boardService.commentView(comment.getBoard_no());
+		model.addAttribute("commentlist",list);
+		
+		return "board/comment";
+	}
+	@RequestMapping(value = "/board/imageupload", method = RequestMethod.POST)
+	public @ResponseBody Board_Image Fileupload(
+			Board_Image board_image,
+	        @RequestParam(value="file") MultipartFile fileupload
+		) {
+		
+		board_image = boardService.imgsave(board_image, fileupload, context);
+		return board_image;
 	}
 	
 

@@ -12,6 +12,7 @@
 	${c.content} | 
 	${c.write_date } |
 	<c:if test="${c.dept < 2 }"><a class="recommentanchor">답글달기</a></c:if>
+	<c:if test="${login_nick eq c.writer_nick}"><a class="deleteanchor">|삭제</a></c:if>
 	<hr>
 	<div></div>
 </div>

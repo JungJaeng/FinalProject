@@ -7,7 +7,7 @@ $(document).ready(function() {
 	var commentno;
 	var dept
 	var board_no = ${board.board_no};
-	var writer_nick = "${board.writer_nick}";
+	var writer_nick = "${login_nick}";
 	
 	$("#commentdiv").on("click", ".recommentanchor", function() {
 		$("#recommentdiv").remove();
@@ -21,10 +21,8 @@ $(document).ready(function() {
 // 		console.log("reocomment btn clicked")
 		dept = $(this).parent().parent().attr("data-dept");
 		var recommentcontent =  $("#recommentcontent").val();
-//		console.log($(this).parent().parent().attr("data-commentno"))
-//		console.log($(this).parent().parent().attr("data-dept"))
 		$.ajax({
-			url : "/comment/insert",
+			url : "/board/comment/insert",
 			type : "POST",
 			data : {"board_no":board_no,
 					"content":recommentcontent,
@@ -47,7 +45,7 @@ $(document).ready(function() {
 		commentno = 0
 		var commentcontent =  $("#commentcontent").val();
 		$.ajax({
-			url : "/comment/insert",
+			url : "/board/comment/insert",
 			type : "POST",
 			data : {"board_no":board_no,
 					"content":commentcontent,
@@ -57,6 +55,24 @@ $(document).ready(function() {
 	  			console.log(res);
 	  			$("#commentdiv").html(res);
 				$("#commentcontent").val("");
+			} 
+			, error: function(res){
+
+			}
+			
+		});
+	})
+	$("#commentdiv").on("click", ".deleteanchor", function() {
+		commentno = $(this).parent().attr("data-commentno");
+		$.ajax({
+			url : "/board/comment/delete",
+			type : "POST",
+			data : {"commentno":commentno,
+					"board_no":board_no},
+			dataType:"html",
+	  		success: function(res){
+	  			console.log(res);
+	  			$("#commentdiv").html(res);
 			} 
 			, error: function(res){
 
@@ -102,20 +118,7 @@ $(document).ready(function() {
 
 <hr>
 <div id="commentdiv">
-<c:forEach var="c" items="${commentlist }">
-<div class="comment" data-commentno="${c.commentno }" data-ref_commentno="${c.ref_commentno }" data-dept="${c.dept }">
-	<c:forEach  begin="1" end="${c.dept }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
-	<c:if test="${c.dept ne 0}">ㄴ</c:if>
-	${c.commentno } | 
-	${c.ref_commentno } | 
-	${c.writer_nick} | 
-	${c.content} | 
-	${c.write_date } |
-	<c:if test="${c.dept < 2 }"><a class="recommentanchor">답글달기</a></c:if>
-	<hr>
-	<div></div>
-</div>
-</c:forEach>
+<c:import url="/WEB-INF/views/board/comment.jsp"/>
 </div>
 ${login_nick}
 <textarea id="commentcontent" name="commentcontent"></textarea>
