@@ -35,7 +35,7 @@ margin-left:400px;
          	
 <hr style="border-top:1px solid #777">
 <br>	
-      <label for="pw" class="col-sm-1 control-label"> 비밀번호 </label>   
+      <label for="pw"> 비밀번호 </label>   
       <div class="col-sm-3">
        <input type="password" id="inputpw" name="inputpw" class="form-control"/>
       </div>
@@ -50,15 +50,8 @@ margin-left:400px;
       <h5><label for="text1" style="margin-left:550px;">(0/500자 내외입력)</label></h5>
      <hr style="border-top:1px solid #777">
             
-        <label for="submit" ></label>
-      <div class="col-sm-2">
-         <input type="submit" id="withdraw" value="회원탈퇴" class="form-control"/>
-         </div>         
-   		 
-	     <label for="cancel" ></label>
-      <div class="col-sm-2">
-         <input type="button" id="cancel" value="취소" class="form-control"/>
-         </div>         
+<input type="submit" id="withdraw" value="회원탈퇴" class="form-control"/>
+<input type="button" id="cancel" value="취소" class="form-control"/>
    
 <br><br>
 <hr>
