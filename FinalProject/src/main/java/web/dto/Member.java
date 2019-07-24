@@ -7,12 +7,16 @@ public class Member {
 	private String user_pw;
 	private String user_nick;
 	private String user_email;
+
 	private int user_join_no;
+
 	
 	@Override
 	public String toString() {
 		return "Member [user_no=" + user_no + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_nick="
+
 				+ user_nick + ", user_email=" + user_email + ", user_join_no=" + user_join_no + "]";
+
 	}
 	
 	public int getUser_no() {
@@ -45,6 +49,7 @@ public class Member {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
+
 	public int getUser_join_no() {
 		return user_join_no;
 	}
@@ -52,6 +57,7 @@ public class Member {
 		this.user_join_no = user_join_no;
 	}
 	
+
 	
 	
 	

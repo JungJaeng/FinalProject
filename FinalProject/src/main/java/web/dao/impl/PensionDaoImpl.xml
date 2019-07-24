@@ -9,54 +9,70 @@
 	
 	<select id="selectCntAll" parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM pension
-	<where>
-		<if test="name!=null and search!=null">
-			<choose>
-				<when test="name.equals('pension_name')">
-					pension_name LIKE '%'||#{search}||'%'
-				</when>
-			</choose>
-		</if>
-	</where>		
-		</select>
-		
+		<where>
+			<if test="name!=null and search!=null">
+				<choose>
+					<when test="name.equals('pension_name')">
+						pension_name LIKE '%'||#{search}||'%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
 	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Pension">
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				pension_no,
-				pension_name,
-				pension_location,
-				pension_content,
-				pension_url
-				FROM pension
+				pension_no, pension_name, pension_location, pension_content, pension_photo FROM pension
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
+						<when test="name.equals('pesion_name')">
+							pension_name LIKE '%'||#{search}||'%'
+						</when>
 						<when test="name.equals('pension_location')">
 							pension_location LIKE '%'||#{search}||'%'
 						</when>
+						
 						</choose>
 					</if>
-				</where>				
-				ORDER BY pension_name ASC 
+				</where>
+				ORDER BY pension_no ASC 
 				) B
 			ORDER BY rnum
 		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectPensionBypension_no" parameterType="int" resultType="web.dto.Pension">
-		SELECT
-		pension_no,
-		pension_name,
-		pension_location,
-		pension_content,
-		pension_url
-		FROM pension
-		WHERE pension_no=#{pension_no}
-		
+	<select id="selectComment" parameterType="web.dto.Pension"
+		resultType="web.dto.Comment">
+		SELECT rownum rnum, B.* FROM (
+			SELECT
+				commentno,
+				pensionno,
+				user_id,
+				writer_nick,
+				content,
+				writtendate
+			FROM commentTb
+			WHERE boardno = #{board_no }
+		) B
+		ORDER BY rnum
 	</select>
+	
+	<insert id="insertComment" parameterType="web.dto.Comment">
+		INSERT INTO commentTB ( commentno,boardno,userid,commentWriter,content )
+		VALUES ( commentTb_seq.nextval, #{boardNo }, #{userid }, #{commentWriter }, #{content } )
+	</insert>
 
+	<delete id="deleteComment" parameterType="web.dto.Comment">
+		DELETE commentTb WHERE
+		commentno = #{commentNo }
+	</delete>
+
+	<select id="countComment" parameterType="web.dto.Comment"
+		resultType="int">
+		SELECT COUNT(*) FROM commenttb WHERE commentno=#{commentNo}
+	</select>	
 
 
 </mapper>

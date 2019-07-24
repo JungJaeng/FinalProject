@@ -18,6 +18,7 @@ import web.service.face.MemberService;
 
 @Controller
 public class MemberController {
+
    
    // 로그 라이브러리 객체
    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -185,3 +186,4 @@ public class MemberController {
    }
    
 }
+

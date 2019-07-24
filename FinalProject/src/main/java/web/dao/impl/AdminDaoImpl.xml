@@ -6,7 +6,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
  <mapper namespace="web.dao.face.AdminDao">
- 
+ 	
+ 	<!-- 회원관리 -->
 	<select id="selectCntAll" parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM member
 		<where>
@@ -43,13 +44,46 @@
 		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectUserByuser_no" parameterType="int" resultType="web.dto.Member">
-		SELECT user_no, user_id, user_pw, user_nick, user_email FROM member
-		WHERE user_no=#{user_no}
+	<delete id="deleteMemberList" parameterType="String">
+		DELETE FROM member WHERE user_no IN ( ${_parameter } )
+	</delete>
+
+	<!-- 펜션등록요청 -->
+	<select id="selectCntAll_apply" parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM pensionregisterapply
+		<where>
+			<if test="name!=null and search!=null">
+				<choose>
+					<when test="name.equals('pension_name')">
+						pension_name LIKE '%'||#{search}||'%'
+					</when>
+				</choose>
+			</if>
+		</where>
+	</select>
+	<select id="selectAll_apply" parameterType="web.util.Paging" resultType="web.dto.PensionRegisterApply">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+				apply_no, user_no, user_id, pension_name, room_name, room_men, room_size, write_date FROM pensionregisterapply
+				<where>
+					<if test="name!=null and search!=null">
+						<choose>
+						<when test="name.equals('pension_name')">
+							pension_name LIKE '%'||#{search}||'%'
+						</when>
+						<when test="name.equals('user_id')">
+							user_id LIKE '%'||#{search}||'%'
+						</when>
+						
+						</choose>
+					</if>
+				</where>
+				ORDER BY apply_no DESC 
+				) B
+			ORDER BY rnum
+		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 
-	
-
- 
  </mapper>

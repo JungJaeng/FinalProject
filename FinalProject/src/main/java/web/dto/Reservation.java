@@ -8,20 +8,18 @@ public class Reservation {
 	private int user_no;
 	private String res_room;
 	private String res_user;
-	private Date checkin;
-	private Date checkout;
 	private int usemen;
 	private int res_price;
 	private Date res_date;
 	
 	
+	
 	@Override
 	public String toString() {
 		return "Reservation [res_no=" + res_no + ", room_no=" + room_no + ", user_no=" + user_no + ", res_room="
-				+ res_room + ", res_user=" + res_user + ", checkin=" + checkin + ", checkout=" + checkout + ", usemen="
-				+ usemen + ", res_price=" + res_price + ", res_date=" + res_date + "]";
+				+ res_room + ", res_user=" + res_user + ", usemen=" + usemen + ", res_price=" + res_price
+				+ ", res_date=" + res_date + "]";
 	}
-	
 	public int getRes_no() {
 		return res_no;
 	}
@@ -52,18 +50,6 @@ public class Reservation {
 	public void setRes_user(String res_user) {
 		this.res_user = res_user;
 	}
-	public Date getCheckin() {
-		return checkin;
-	}
-	public void setCheckin(Date checkin) {
-		this.checkin = checkin;
-	}
-	public Date getCheckout() {
-		return checkout;
-	}
-	public void setCheckout(Date checkout) {
-		this.checkout = checkout;
-	}
 	public int getUsemen() {
 		return usemen;
 	}
@@ -84,7 +70,7 @@ public class Reservation {
 	}
 	
 	
-		
+	
 	
 
 }
