@@ -53,7 +53,7 @@ function sendFile(file, editor) {
         success : function(data) { // 처리가 성공할 경우
        		 // 에디터에 이미지 출력   
         	console.log(data);
-        	$("#summernote").summernote('insertImage', "/upload?fileno="+data.fileno);
+        	$("#summernote").summernote('insertImage', "/boardimage?fileno="+data.fileno);
         	$('#board_no').val(data.board_no);
         	
         }
