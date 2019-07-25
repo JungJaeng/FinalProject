@@ -20,8 +20,8 @@
 /* 모든 페이지에 적용되는 스타일 CSS */
  
 .container{
-	margin:0;
-	padding: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .wrap {
@@ -50,18 +50,18 @@
 </head>
 <body>
 <div class="container">
-<!-- HEADER -->
-<div class="header">
-<tiles:insertAttribute name="header" />
-</div>
-<!-- BODY -->
-<div class="wrap">
-	<tiles:insertAttribute name="body" />
-</div>
-<!-- FOOTER -->
-<div class="footer">
-<tiles:insertAttribute name="footer" />
-</div>
+	<!-- HEADER -->
+	<div class="header">
+	<tiles:insertAttribute name="header" />
+	</div>
+	<!-- BODY -->
+	<div class="wrap">
+		<tiles:insertAttribute name="body" />
+	</div>
+	<!-- FOOTER -->
+	<div class="footer">
+	<tiles:insertAttribute name="footer" />
+	</div>
 </div>
 </body>
 </html>

@@ -3,17 +3,13 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
 
 // ajax 공공api json 형식 데이터 값 가져오기
 $(document).ready(function() {
 	$("#btnSearch").click(function() {
-		
+		$('.resultLi').remove();
+		$('.totalCnt').remove();
 		$.ajax({
 				type:"get"
 				,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
@@ -22,14 +18,14 @@ $(document).ready(function() {
 					"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
 					,"_type":"json"
 					, "MobileOS": "ETC"
-					, "MobileApp": "AppTest"
+					, "MobileApp": "TourAPI3.0_Guide"
 					, "cat1": $("[name='cat1']").val()
 					, "cat2": ""
 					, "cat3": ""
 					, "areacode": $("[name='areacode']").val()
 					, "sigungucode": $("[name='sigungucode']").val()
 					, "keyword": $("[name='keyword']").val()
-					, "numOfRows": 10
+					, "numOfRows": 12
 					, "pageNo": 1
 				}
 				,dataType:"json"
@@ -44,19 +40,20 @@ $(document).ready(function() {
 					
 					var numOfRows = body.numOfRows;
 					var items = body.items.item;
+					var totalCount = body.totalCount; 
 					
 					console.log("rows : " + numOfRows);
+					
+					console.log("total : " + totalCount);
+					
+					$(".total").append("<span class='totalCnt'>총 결과 수 : "+totalCount+"</span>")
 					for(var i=0; i<numOfRows; i++) {
 						console.log(items[i]);
-						
-						$("<div>").append(
-								$("<img>")
-									.attr("src", items[i].firstimage)
-									.css({"height":"130px", "width":"200px"})
-						).appendTo( $(document.body) );
+						$("#resultUl").append("<li class='resultLi'>"
+								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
 					
-						
-						
+					
+					
 					}
 				}
 		})
@@ -85,8 +82,23 @@ cnt[17] = new Array("시/군구선택","남제주군","북제주군","서귀포�
 
 
 </script>
-</head>
-<body>
+
+<style type="text/css">
+.resultImg{
+	height: 200px;
+	width: 200px;
+}
+.resultPtag{
+	overflow: hidden;
+}
+.resultLi{
+    overflow: hidden;
+    float: left;
+    width: 210px;
+    height: 300px;
+    margin-left: 39px;
+}
+</style>
 <div class="tour">
 <!-- 	<form name="form" action="/main/search" method="post"> -->
 	<input type="hidden" name="cat2">
@@ -140,7 +152,15 @@ cnt[17] = new Array("시/군구선택","남제주군","북제주군","서귀포�
 		<input type="text" name="keyword" value="강원" /><button id="btnSearch">검색</button>
 	</div>
 <!-- 	</form> -->
+	<div class="total">
+	
+	</div>
+
+<div class="result">
+	<ul id="resultUl">
+	
+	</ul>
 </div>
-<div id="result"></div>
-</body>
-</html>
+</div>
+<div style="clear:both; height: 0; display: hidden;"></div>
+
