@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -24,9 +20,9 @@ $(document).ready(function(){
 	    ['color', ['color']],
 	    ['insert', ['link', 'hr', 'picture']],
 	    ['para', ['ul', 'ol', 'paragraph']],
-	    ['height', ['height']]
+	    ['height', ['height']],
+        ['view', ['fullscreen', 'codeview']]
 	  ],
-	  
 	  height:500,
 	  minHeight:500,
 	  maxHeight:null,
@@ -57,25 +53,19 @@ function sendFile(file, editor) {
         success : function(data) { // 처리가 성공할 경우
        		 // 에디터에 이미지 출력   
         	console.log(data);
-        	$("#summernote").summernote('insertImage', data.stored_name);
-        	$("#summernote").summernote('insertImage', "/upload/"+data.stored_name);
+        	$("#summernote").summernote('insertImage', "/upload?fileno="+data.fileno);
         	$('#board_no').val(data.board_no);
         	
         }
     });
 }
 </script>
-</head>
-<body>
 <form action="/board/write" method="post">
 <input type="text" style="display: none;" id="board_no" name="board_no" value="0"/>
-아이디 : ${board.writer_id }<input type="hidden" name="writer_id" value="${board.writer_id  }"/><br>
-닉네임 : ${board.writer_nick }<input type="hidden" name="writer_nick" value="${board.writer_nick  }"/><br>
-<label>제목 : <input type="text" name = "title"/></label><br>
+아이디 : ${login_id }<input type="hidden" name="writer_id" value="${login_id  }"/><br>
+닉네임 : ${login_nick }<input type="hidden" name="writer_nick" value="${login_nick  }"/><br>
+제목 : <input type="text" name = "title"/><br>
 <textarea name="content" id="summernote"></textarea><br>
 <button>글 작성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="location.href='/board/list'">돌아가기</button>
 </form>
-
-</body>
-</html>

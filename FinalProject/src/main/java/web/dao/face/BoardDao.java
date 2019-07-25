@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Board;
-import web.dto.Board_Image;
+import web.dto.Upload_Image;
 import web.dto.Comment;
 import web.util.Paging;
 
@@ -54,6 +54,14 @@ public interface BoardDao {
 
 	public int getBoard_no();
 
-	public void insertImage(Board_Image upimage);
+	public void insertImage(Upload_Image upimage);
+
+	public Upload_Image selectImgbyfileno(Upload_Image board_image);
+
+	public void deleteCommentByboard_no(int board_no);
+
+	public void deleteBoard_ImageByboard_no(int board_no);
+
+	public List<Upload_Image> selectBoard_ImageByboard_no(int board_no);
 	
 }

@@ -51,7 +51,9 @@
 	
 	<insert id="insert" parameterType="web.dto.Board">
 		INSERT INTO board ( BOARD_NO, TITLE, CONTENT, WRITER_ID, WRITER_NICK, HIT ) 
-		VALUES ( board_seq.nextval, #{title}, #{content}, #{writer_id}, #{writer_nick}, 0 )
+		VALUES ( <if test="board_no != 0">#{board_no}</if>
+				 <if test="board_no == 0">board_seq.nextval</if>
+		, #{title}, #{content}, #{writer_id}, #{writer_nick}, 0 )
 	</insert>
 	
 	<update id="update" parameterType="web.dto.Board">
@@ -60,6 +62,19 @@
 	
 	<delete id="deleteBoardByboard_no" parameterType="int">
 		DELETE board WHERE board_no=#{board_no}
+	</delete>
+	
+	<delete id="deleteCommentByboard_no" parameterType="int">
+		DELETE commentTB WHERE board_no=#{board_no}
+	</delete>
+	
+	<select id="selectBoard_ImageByboard_no" parameterType="int" resultType="web.dto.Board_Image">
+		SELECT * FROM board_image WHERE board_no=#{board_no}	
+	</select>
+	
+	
+	<delete id="deleteBoard_ImageByboard_no" parameterType="int">
+		DELETE board_image WHERE board_no=#{board_no}
 	</delete>
 	
 	<select id="selectCommentByboard_no" parameterType="int" resultType="web.dto.Comment">
@@ -87,7 +102,15 @@
 	</select>
 	
 	<insert id="insertImage" parameterType="web.dto.Board_Image">
+		<selectKey resultType="int" keyProperty="fileno" order="BEFORE" >
+			SELECT board_image_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO board_image(fileno,board_no,origin_name,stored_name,filesize)
-		VALUES (board_image_seq.nextval,#{board_no},#{origin_name},#{stored_name},#{filesize})
+		VALUES (#{fileno},#{board_no},#{origin_name},#{stored_name},#{filesize})
 	</insert>
+	
+	
+	<select id="selectImgbyfileno" parameterType="web.dto.Board_Image" resultType="web.dto.Board_Image">
+		SELECT * FROM board_image WHERE fileno = #{fileno}
+	</select>
 </mapper>

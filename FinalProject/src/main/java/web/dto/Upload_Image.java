@@ -1,6 +1,6 @@
 package web.dto;
 
-public class Board_Image {
+public class Upload_Image {
 	private int fileno;
 	private int board_no;
 	private String origin_name;
