@@ -20,5 +20,8 @@ public interface AdminService {
 	public Paging ApplygetCurPage(Map<String,Object> map);
 	
 	public List<PensionRegisterApply> ApplygetList(Paging paging);
+	
+	// 펜션요청 확인 View
+	public PensionRegisterApply applyView(PensionRegisterApply viewApply);
 
 }

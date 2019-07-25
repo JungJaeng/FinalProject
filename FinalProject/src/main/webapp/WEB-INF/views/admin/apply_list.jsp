@@ -54,9 +54,7 @@ $(document).ready(function() {
 
 <thead>
 	<tr>
-		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">등록 번호</th>
-		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">회원 번호</th>
-		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">회원 아이디</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 번호</th>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">펜션명</th>		
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 날짜</th>
 	</tr>
@@ -67,16 +65,14 @@ $(document).ready(function() {
 <c:forEach items="${applylist}" var="i">
 	<tr>		
 		<td>${i.apply_no }</td>
-		<td>${i.user_no }</td>
-		<td>${i.user_id }</td>
-		<td>${i.pension_name }</td>
-		<td>${i.write_date }</td>
+		<td><a href="/admin/apply_view?apply_no=${i.apply_no }">${i.pension_name }</a></td>
+		<td><fmt:formatDate value="${i.apply_date }" pattern="yy-MM-dd"/></td>
 	</tr>
 	
 </c:forEach>
 </tbody>
 </table>
-<button id="btnDelete" class="btn btn-warning pull-left">체크 삭제</button>
+
 
 
 

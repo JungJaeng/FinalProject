@@ -64,11 +64,19 @@ public class AdminServiceImpl implements AdminService {
 		
 		return paging;
 	}
-
+	
+	// 관리자페이지 - 펜션요청확인 페이지
 	@Override
 	public List<PensionRegisterApply> ApplygetList(Paging paging) {
 		return adminDao.selectAll_apply(paging);
 		
+	}
+	
+	// 펜션요청확인 VIEW
+	@Override
+	public PensionRegisterApply applyView(PensionRegisterApply viewApply) {
+		
+		return adminDao.selectApplyByapply_no(viewApply); 
 	}
 	
 	
