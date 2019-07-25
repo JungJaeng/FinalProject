@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.BoardDao;
 import web.dto.Board;
-import web.dto.Board_Image;
+import web.dto.Upload_Image;
 import web.dto.Comment;
 import web.service.face.BoardService;
 import web.util.Paging;
@@ -28,7 +28,7 @@ import web.util.Paging;
 public class BoardServiceImpl implements BoardService {
 	private static final Logger logger = LoggerFactory.getLogger(BoardServiceImpl.class);
 	@Autowired BoardDao boardDao;
-
+	@Autowired ServletContext context;
 	@Override
 	public Paging getCurPage(Map<String, Object> map) {
 
@@ -72,8 +72,25 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void delete(int board_no) {
 		boardDao.deleteBoardByboard_no(board_no);
+		boardDao.deleteCommentByboard_no(board_no);
 		
-	}
+		List<Upload_Image> list = boardDao.selectBoard_ImageByboard_no(board_no);
+		
+		for(Upload_Image i : list) {
+			String fileName = i.getStored_name();
+			String fileDir = context.getRealPath("WEB-INF/upload");
+			File file = new File(fileDir,fileName);
+			logger.info("-------------------------------------");
+			logger.info(fileDir);
+			logger.info(""+file.exists());
+			if(file.exists()) {file.delete();}
+		};
+		
+		
+		boardDao.deleteBoard_ImageByboard_no(board_no);
+		
+		
+	} 
 
 	@Override
 	public List<Comment> commentView(int board_no) {
@@ -99,7 +116,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board_Image imgsave(Board_Image board_image, MultipartFile file, ServletContext context) {
+	public Upload_Image imgsave(Upload_Image board_image, MultipartFile file, ServletContext context) {
 		String storedPath = context.getRealPath("WEB-INF/upload");
 		String uId = UUID.randomUUID().toString().split("-")[4];
 		
@@ -118,7 +135,7 @@ public class BoardServiceImpl implements BoardService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Board_Image upimage = new Board_Image();
+		Upload_Image upimage = new Upload_Image();
 		if(board_image.getBoard_no() == 0) {
 			upimage.setBoard_no(boardDao.getBoard_no());
 		}else {
@@ -128,8 +145,22 @@ public class BoardServiceImpl implements BoardService {
 		upimage.setStored_name(name);
 		upimage.setFilesize((int)file.getSize());
 		
+		
+		boardDao.insertImage(upimage);
 		logger.info(upimage.toString());
-//		boardDao.insertImage(upimage);
 		return upimage;
+	}
+
+	@Override
+	public Upload_Image FindImage(Upload_Image board_image) {
+		
+		return boardDao.selectImgbyfileno(board_image);
+	}
+
+	@Override
+	public File findFile(Upload_Image board_image,ServletContext context) {
+		File file = new File(
+				context.getRealPath("WEB-INF/upload"),board_image.getStored_name());
+		return file;
 	}
 }

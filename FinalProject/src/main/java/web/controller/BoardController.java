@@ -1,11 +1,20 @@
 package web.controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Board;
-import web.dto.Board_Image;
+import web.dto.Upload_Image;
 import web.dto.Comment;
 import web.service.face.BoardService;
 import web.util.Paging;
@@ -74,6 +84,9 @@ public class BoardController {
 	}
 	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
 	public String Write(Board board, Model model) {
+		
+		logger.info("------------------------------------------------------");
+		logger.info(board.toString());
 		boardService.write(board);
 		return "redirect:/board/list";
 	}
@@ -116,13 +129,60 @@ public class BoardController {
 		return "board/comment";
 	}
 	@RequestMapping(value = "/board/imageupload", method = RequestMethod.POST)
-	public @ResponseBody Board_Image Fileupload(
-			Board_Image board_image,
+	public @ResponseBody Upload_Image Fileupload(
+			Upload_Image board_image,
 	        @RequestParam(value="file") MultipartFile fileupload
 		) {
 		
 		board_image = boardService.imgsave(board_image, fileupload, context);
 		return board_image;
+	}
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	public void Imgload(Upload_Image board_image, HttpServletResponse resp) {
+		
+		board_image = boardService.FindImage(board_image);
+		
+		File file = boardService.findFile(board_image, context);
+		resp.setContentLength((int) file.length());
+		resp.setCharacterEncoding("utf-8");
+		String filename = "";
+	      
+		try {
+			filename = URLEncoder.encode(board_image.getOrigin_name(), "utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+	      
+		//UTF-8 인코딩 오류 수정 (한글만 바꿔야 하는데 특수기호까지 바꿔서 문제가 생기는것)
+		filename = filename.replace("+", "%20"); //띄어쓰기
+	      
+		filename = filename.replace("%5B", "["); 
+		filename = filename.replace("%5D", "]");
+		filename = filename.replace("%21", "!"); 
+		filename = filename.replace("%23", "#"); 
+		filename = filename.replace("%24", "$"); 
+	      
+	      
+		File origin = new File(context.getRealPath("WEB-INF/upload"), board_image.getStored_name());
+		FileInputStream fis = null;
+	      
+		try {
+			fis = new FileInputStream(origin);
+			OutputStream out = resp.getOutputStream();
+	   
+			FileCopyUtils.copy(fis, out);
+	         
+			out.flush();
+			fis.close();
+			out.close();
+	         
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		
 	}
 	
 

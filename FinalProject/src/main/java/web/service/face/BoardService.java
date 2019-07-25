@@ -1,5 +1,6 @@
 package web.service.face;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Board;
-import web.dto.Board_Image;
+import web.dto.Upload_Image;
 import web.dto.Comment;
 import web.util.Paging;
 
@@ -55,7 +56,11 @@ public interface BoardService {
 
 	public void commentDelete(Comment comment);
 
-	public Board_Image imgsave(Board_Image board_image, MultipartFile file, ServletContext context);
+	public Upload_Image imgsave(Upload_Image board_image, MultipartFile file, ServletContext context);
+
+	public Upload_Image FindImage(Upload_Image board_image);
+
+	public File findFile(Upload_Image board_image,ServletContext context);
 
 	
 }
