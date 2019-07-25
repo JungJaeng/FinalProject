@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import web.dao.face.PensionDao;
 import web.dto.Member;
 import web.dto.Pension;
+import web.dto.PensionRegisterApply;
 import web.service.face.PensionService;
 import web.util.Paging;
 
@@ -34,6 +35,12 @@ public class PensionServiceImpl implements PensionService {
 	@Override
 	public List<Pension> getList(Paging paging) {
 		return pensionDao.selectAll(paging);
+	}
+
+	@Override
+	public void write(PensionRegisterApply pensionRegisterApply) {
+		pensionDao.write(pensionRegisterApply);
+		
 	}	
 	
 

@@ -59,7 +59,7 @@ public class AdminController {
 	}
 	
 	// 펜션요청목록
-	@RequestMapping(value = "/admin/pen_check", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/apply_list", method = RequestMethod.GET)
 	public void PensionCheckList(@RequestParam(defaultValue = "1") int curPage, String name, String search, Model model) {
 
 		Map<String, Object> map = new HashMap<String, Object>();

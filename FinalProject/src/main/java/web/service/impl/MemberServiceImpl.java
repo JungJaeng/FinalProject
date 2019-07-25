@@ -31,14 +31,14 @@ public class MemberServiceImpl implements MemberService {
    
    @Override
    public boolean login(Member memberDate) {
-      // 로그인 정보를 Count한 결과가 0보다 크면 로그인 성공
+      // 濡�洹몄�� ��蹂대�� Count�� 寃곌낵媛� 0蹂대�� �щ㈃ 濡�洹몄�� �깃났
       if( memberDao.selectCntLogin(memberDate) > 0 ) {
          return true;
       }
       return false;
    }
-
    
+    
    @Override
    public Member selectMember(Member member) {
       return memberDao.selectMember(member); 
@@ -108,21 +108,21 @@ public class MemberServiceImpl implements MemberService {
       
       
       // FROM
-      final String FROM = "jams90666"; // <<------------------------------수정하세요
-      final String FROMNAME = "여행 어쩌고 저쩌고"; // <<------------------------------수정하세요
+      final String FROM = "jams90666"; // <<------------------------------�������몄��
+      final String FROMNAME = "�ы�� �댁�怨� ��姨�怨�"; // <<------------------------------�������몄��
             
       // TO
       final String TO = pwFind.getUser_email(); 
             
-//      logger.info("유저이메일"+pwFind.getUser_email());
+//      logger.info("�����대���"+pwFind.getUser_email());
       
-      final String SUBJECT = "[여행 어쩌고 저쩌고] 임시비밀번호 발송 안내 입니다.";
+      final String SUBJECT = "[�ы�� �댁�怨� ��姨�怨�] ����鍮�諛�踰��� 諛��� ���� ������.";
             
 //      logger.info(SUBJECT.toString());
             
       final String BODY = String.join(
-            "<h1>여행 어쩌고 저쩌고</h1>",
-            "<p>회원님의 임시비밀번호 안내입니다.</p><br><p>[임시 비밀번호] : " + newKey + " 입니다.</p><br>"
+            "<h1>�ы�� �댁�怨� ��姨�怨�</h1>",
+            "<p>�������� ����鍮�諛�踰��� ���댁������.</p><br><p>[���� 鍮�諛�踰���] : " + newKey + " ������.</p><br>"
                   
             );
             
@@ -153,7 +153,7 @@ public class MemberServiceImpl implements MemberService {
 
 //            logger.info("Sending...");
 
-            //메시지 보내기
+            //硫���吏� 蹂대�닿린
             Transport.send(msg);
                
 //            logger.info("Email sent!");
@@ -180,6 +180,9 @@ public class MemberServiceImpl implements MemberService {
    }
 
 
+
+
+   
 
 
 }

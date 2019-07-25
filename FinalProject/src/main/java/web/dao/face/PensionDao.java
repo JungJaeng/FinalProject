@@ -6,6 +6,7 @@ import java.util.Map;
 import web.dto.Board;
 import web.dto.Comment;
 import web.dto.Pension;
+import web.dto.PensionRegisterApply;
 import web.util.Paging;
 
 public interface PensionDao {
@@ -15,6 +16,12 @@ public interface PensionDao {
 	public List<Pension> selectAll(Paging paging);
 
 	public Pension selectPensionBypension_no(int pension_no);
+	
+	public void write(PensionRegisterApply pensionRegisterApply);
+	
+	
+	
+	
 	
 	/**
 	 * ÄÚ¸àÆ® SELECT

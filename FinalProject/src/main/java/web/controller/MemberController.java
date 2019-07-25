@@ -20,15 +20,15 @@ import web.service.face.MemberService;
 public class MemberController {
 
    
-   // 로그 라이브러리 객체
+   // 濡�洹� �쇱�대��щ━ 媛�泥�
    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
-   // 서비스 객체
+   // ��鍮��� 媛�泥�
    @Autowired MemberService memberService;
 
    
    @RequestMapping(value="/member/login", method=RequestMethod.GET)
-   public void login() { logger.info("로그인 페이지"); }
+   public void login() { logger.info("濡�洹몄�� ���댁�"); }
    
    
    @RequestMapping(value="/member/login", method=RequestMethod.POST)
@@ -36,32 +36,33 @@ public class MemberController {
          Member member,
          HttpSession session
          ) {
-//      logger.info("로그인 처리");
+//      logger.info("濡�洹몄�� 泥�由�");
       
 //      logger.info(member.toString());
       
       String redirectUrl = null;
       if( memberService.login(member) ) {
-         // 로그인 성공
+         // 濡�洹몄�� �깃났
          
          member = memberService.selectMember(member);
          
 //         logger.info(member.toString());
          
-         // 세션 정보 저장
+         // �몄�� ��蹂� ����
          session.setAttribute("login", true);
          session.setAttribute("login_id", member.getUser_id());
          session.setAttribute("login_nick", member.getUser_nick());
          session.setAttribute("login_pw", member.getUser_pw());
          session.setAttribute("login_emil", member.getUser_email());
+         session.setAttribute("user_join_no", member.getUser_join_no());
          
          
-         // 리다이렉트 URL 지정
+         // 由щ�ㅼ�대���� URL 吏���
          redirectUrl = "/main"; 
          
       } else {
-         // 로그인 실패
-         // 리다이렉트 URL 지정
+         // 濡�洹몄�� �ㅽ��
+         // 由щ�ㅼ�대���� URL 吏���
          redirectUrl = "/member/login";
          
       }
@@ -70,7 +71,7 @@ public class MemberController {
    }
    
    @RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
-   public void idcheck() { logger.info("중복아이디 체크 페이지"); }
+   public void idcheck() { logger.info("以�蹂듭���대�� 泥댄�� ���댁�"); }
 
    
    @ResponseBody
@@ -101,12 +102,12 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.GET)
-   public void join() { logger.info("회원가입 페이지"); }
+   public void join() { logger.info("����媛��� ���댁�"); }
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.POST)
    public String joinProc(Member member) {
-//      logger.info("회원가입처리");
+//      logger.info("����媛���泥�由�");
       
       memberService.insert(member);
       
@@ -116,7 +117,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.GET)
-   public void idFind() { logger.info("아이디찾기 페이지"); }
+   public void idFind() { logger.info("���대��李얘린 ���댁�"); }
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.POST)
@@ -124,7 +125,7 @@ public class MemberController {
          Member member, 
          Model model
          ) {
-//      logger.info("아이디 찾기 처리");
+//      logger.info("���대�� 李얘린 泥�由�");
       
       if( memberService.idFind(member) == true ) {
          
@@ -132,7 +133,7 @@ public class MemberController {
          
 //         logger.info("idFind="+idFind.toString());
                   
-         model.addAttribute("idFind", "회원님의 아이디는 "+idFind.getUser_id()+" 입니다");
+         model.addAttribute("idFind", "�������� ���대���� "+idFind.getUser_id()+" ������");
          
 //         logger.info("idFindId="+idFind);
          
@@ -147,7 +148,7 @@ public class MemberController {
    
    @RequestMapping(value="/member/pwFind", method=RequestMethod.GET)
    public void pwFind() { 
-	   // logger.info("비밀번호찾기 페이지"); 
+	   // logger.info("鍮�諛�踰��몄갼湲� ���댁�"); 
    }
    
    
@@ -157,9 +158,9 @@ public class MemberController {
          Member member, 
          Model model
          ) {
-//      logger.info("비밀번호 찾기 처리");
+//      logger.info("鍮�諛�踰��� 李얘린 泥�由�");
       
-//      logger.info("아이디="+member.getUser_id());
+//      logger.info("���대��="+member.getUser_id());
       
       Member pwFind = memberService.pwFindSelectMember(member);
       
@@ -178,7 +179,7 @@ public class MemberController {
    
    @RequestMapping(value="/member/logout", method=RequestMethod.GET)
    public String logout( HttpSession session ) {
-//      logger.info("로그아웃");
+//      logger.info("濡�洹몄����");
       
       session.invalidate();
       
