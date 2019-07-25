@@ -28,9 +28,9 @@ $(window).scroll(function() {
         position: fixed;
         top: 0px;
       }
-a{
-	color: black;
-	text-decoration: none;
+.atag{
+	color: black !important;
+	text-decoration: none !important; 
 }
 .menu{
 	display: inline;
@@ -69,14 +69,14 @@ a{
 	<div class="subbar">
 	<!--       비로그인상태 -->
 	      <c:if test="${empty login }">
-			<a href="/member/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="atag" href="/member/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="atag" href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!--       로그인상태 -->
 	      <c:if test="${login and login_nick ne '관리자'  }">
-			<a href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!-- 		관리자상태 -->
 		  <c:if test="${login_nick eq '관리자' }">
@@ -89,13 +89,13 @@ a{
 
 	<div class="menubar">
 		<div class="pagename menu">
-			<a href="/main">여행어쩌고</a>
+			<a class="atag" href="/main">여행어쩌고</a>
 		</div>
 		<div class="menuname menu">
-			<a href="/main">Home</a>
-			<a href="/pension/reservation">펜션예약</a>
-			<a>여행지 추천</a>
-			<a href="/board/list">커뮤니티</a>			
+			<a class="atag" href="/main">Home</a>
+			<a class="atag" href="/pension/reservation">펜션예약</a>
+			<a class="atag" >여행지 추천</a>
+			<a class="atag" href="/board/list">커뮤니티</a>			
 		</div>
 	
 	</div>
