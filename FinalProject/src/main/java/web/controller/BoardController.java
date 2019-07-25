@@ -137,7 +137,7 @@ public class BoardController {
 		board_image = boardService.imgsave(board_image, fileupload, context);
 		return board_image;
 	}
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	@RequestMapping(value = "/boardimage", method = RequestMethod.GET)
 	public void Imgload(Upload_Image board_image, HttpServletResponse resp) {
 		
 		board_image = boardService.FindImage(board_image);
@@ -155,7 +155,6 @@ public class BoardController {
 	      
 		//UTF-8 인코딩 오류 수정 (한글만 바꿔야 하는데 특수기호까지 바꿔서 문제가 생기는것)
 		filename = filename.replace("+", "%20"); //띄어쓰기
-	      
 		filename = filename.replace("%5B", "["); 
 		filename = filename.replace("%5D", "]");
 		filename = filename.replace("%21", "!"); 
