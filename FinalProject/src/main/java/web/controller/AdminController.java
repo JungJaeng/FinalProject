@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +76,26 @@ public class AdminController {
 
 		List<PensionRegisterApply> list = adminService.ApplygetList(paging);
 		model.addAttribute("applylist", list);
-	}	
+	}
 	
+	// 펜션요청목록 게시글 확인
+	@RequestMapping(value="/admin/apply_view", method=RequestMethod.GET)
+	public String view( PensionRegisterApply viewApply
+			, Model model
+			, HttpSession session
+			, Member member) {
+		
+		// 게시글 번호가 1보다 작으면 목록으로 보내기
+		if(viewApply.getApply_no() < 1) {
+			return "redirect:/admin/apply_list";
+		}
+		
+		session.setAttribute("login_id", member.getUser_id() );
+		
+		// 게시글 상세 정보 전달
+		viewApply = adminService.applyView(viewApply);
+		model.addAttribute("view", viewApply);	
+	
+		return "admin/apply_view";	
+	}
 }

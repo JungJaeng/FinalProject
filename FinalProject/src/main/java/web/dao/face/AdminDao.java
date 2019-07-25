@@ -24,7 +24,8 @@ public interface AdminDao {
 	
 	public List<PensionRegisterApply> selectAll_apply(Paging paging);
 
-	public Member selectApplyByapply_no(int apply_no);
+	// 펜션요청확인 VIEW
+	public PensionRegisterApply selectApplyByapply_no(PensionRegisterApply viewApply);
 	
 	
 }

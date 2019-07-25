@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class PensionRegisterApply {
 	private int apply_no;
-	private String user_id;
 	private String pension_name;
 	private String pension_location;
 	private String pension_content;
@@ -19,10 +18,10 @@ public class PensionRegisterApply {
 	
 	@Override
 	public String toString() {
-		return "PensionRegisterApply [apply_no=" + apply_no + ", user_id=" + user_id + ", pension_name=" + pension_name
-				+ ", pension_location=" + pension_location + ", pension_content=" + pension_content + ", room_name="
-				+ room_name + ", room_men=" + room_men + ", room_size=" + room_size + ", room_price=" + room_price
-				+ ", room_content=" + room_content + ", apply_date=" + apply_date + "]";
+		return "PensionRegisterApply [apply_no=" + apply_no + ", pension_name=" + pension_name + ", pension_location="
+				+ pension_location + ", pension_content=" + pension_content + ", room_name=" + room_name + ", room_men="
+				+ room_men + ", room_size=" + room_size + ", room_price=" + room_price + ", room_content="
+				+ room_content + ", apply_date=" + apply_date + "]";
 	}
 	
 	public int getApply_no() {
@@ -30,12 +29,6 @@ public class PensionRegisterApply {
 	}
 	public void setApply_no(int apply_no) {
 		this.apply_no = apply_no;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
 	}
 	public String getPension_name() {
 		return pension_name;
@@ -93,6 +86,6 @@ public class PensionRegisterApply {
 	}
 	
 	
-
 	
+
 }

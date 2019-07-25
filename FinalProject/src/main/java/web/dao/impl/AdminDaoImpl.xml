@@ -65,7 +65,7 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				apply_no, user_no, user_id, pension_name, room_name, room_men, room_size, write_date FROM pensionregisterapply
+				apply_no, pension_name, room_name, room_men, room_size, apply_date FROM pensionregisterapply
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
@@ -83,6 +83,23 @@
 				) B
 			ORDER BY rnum
 		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectApplyByapply_no"
+	parameterType="web.dto.PensionRegisterApply"
+	resultType="web.dto.PensionRegisterApply">
+		SELECT
+			apply_no,
+			pension_name,
+			pension_location,
+			pension_content,
+			room_name,
+			room_men,
+			room_size,
+			room_price,
+			apply_date
+		FROM PensionRegisterApply
+		WHERE apply_no = #{apply_no}	
 	</select>
 	
 
