@@ -4,29 +4,30 @@ import web.dto.Member;
 
 public interface MemberService {
 	
-	// 로그인 
+	// 濡�洹몄�� 
 	public boolean login(Member member);
 	
-	// 회원조회
+	// ����議고��
 	public Member selectMember(Member member);
 	
-	// 중복ID체크
+	// 以�蹂�ID泥댄��
 	public boolean idcheck(String user_id);
 
-	// 회원가입
+	// ����媛���
 	public void insert(Member member);
 
-	// 회원 아이디찾기
+	// ���� ���대��李얘린
 	public boolean idFind(Member member);
 
-	// 아이디찾기 회원조회
+	// ���대��李얘린 ����議고��
 	public Member idFindSelectMember(Member member);
 	
-	// 비밀번호찾기 회원조회
+	// 鍮�諛�踰��몄갼湲� ����議고��
 	public Member pwFindSelectMember(Member member);
 
-	// 임시비밀번호 메일로 보내기
+	// ����鍮�諛�踰��� 硫��쇰� 蹂대�닿린
 	public void pwSendEmail(Member member);
+
 
 
 

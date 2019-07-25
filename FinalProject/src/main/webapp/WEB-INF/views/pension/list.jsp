@@ -18,7 +18,7 @@
  section#content div.pensionInfo span { display:inline-block; width:100px; font-weight:bold; margin-right:10px; }
 
 
- #left_box {
+ #search_box {
 	display: block;
 	text-align: center;
 }
@@ -30,27 +30,18 @@
 
 
 
-
-/* #right_box { */
-/*       width: 50%; */
-/*       float: right; */
-/*       position: static; */
-/*       box-sizing: inherit; */
-/* } */
-
-
 </style>
 
 <h1>펜션 리스트</h1>
 <hr>
 
+<c:if test="${user_join_no eq '2' }">
 <div id="reg_button">
-<button type="button" onclick="location.href='/pension/register'" >펜션등록요청</button>
-
-
+<button type="button" onclick="location.href='/pension/register_apply'" >펜션등록요청</button>
 </div>
+</c:if>
 
-<div id="left_box">
+<div id="search_box">
 
 <div class="serach">
 <form action="/pension/list" method="get">

@@ -4,27 +4,32 @@ import java.util.Date;
 
 public class PensionRegisterApply {
 	private int apply_no;
-	private int user_no;
 	private String user_id;
 	private String pension_name;
+	private String pension_location;
+	private String pension_content;
 	private String room_name;
 	private String room_men;
 	private String room_size;
 	private String room_price;
-	private Date write_date;
+	private String room_content;
+	private Date apply_date;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "PensionRegisterApply [apply_no=" + apply_no + ", user_id=" + user_id + ", pension_name=" + pension_name
+				+ ", pension_location=" + pension_location + ", pension_content=" + pension_content + ", room_name="
+				+ room_name + ", room_men=" + room_men + ", room_size=" + room_size + ", room_price=" + room_price
+				+ ", room_content=" + room_content + ", apply_date=" + apply_date + "]";
+	}
 	
 	public int getApply_no() {
 		return apply_no;
 	}
 	public void setApply_no(int apply_no) {
 		this.apply_no = apply_no;
-	}
-	public int getUser_no() {
-		return user_no;
-	}
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -37,6 +42,18 @@ public class PensionRegisterApply {
 	}
 	public void setPension_name(String pension_name) {
 		this.pension_name = pension_name;
+	}
+	public String getPension_location() {
+		return pension_location;
+	}
+	public void setPension_location(String pension_location) {
+		this.pension_location = pension_location;
+	}
+	public String getPension_content() {
+		return pension_content;
+	}
+	public void setPension_content(String pension_content) {
+		this.pension_content = pension_content;
 	}
 	public String getRoom_name() {
 		return room_name;
@@ -62,14 +79,20 @@ public class PensionRegisterApply {
 	public void setRoom_price(String room_price) {
 		this.room_price = room_price;
 	}
-	public Date getWrite_date() {
-		return write_date;
+	public String getRoom_content() {
+		return room_content;
 	}
-	public void setWrite_date(Date write_date) {
-		this.write_date = write_date;
+	public void setRoom_content(String room_content) {
+		this.room_content = room_content;
 	}
+	public Date getApply_date() {
+		return apply_date;
+	}
+	public void setApply_date(Date apply_date) {
+		this.apply_date = apply_date;
+	}
+	
 	
 
-	
 	
 }

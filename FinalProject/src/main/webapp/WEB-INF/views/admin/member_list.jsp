@@ -104,11 +104,12 @@ function checkAll() {
 
 <thead>
 	<tr>
-		<th style="width: 5%; text-align: center; background-color: #D8D8D8;" ><input type="checkbox" id="checkAll" onclick="checkAll();">회원 번호</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;"><input type="checkbox" id="checkAll" onclick="checkAll();">회원 번호</th>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">회원 아이디</th>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">회원 비밀번호</th>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">회원 닉네임</th>
 		<th style="width: 15%; text-align: center; background-color: #D8D8D8;">회원 이메일</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;" >회원 등급번호</th>
 	</tr>
 
 </thead>
@@ -121,6 +122,8 @@ function checkAll() {
 		<td>${i.user_pw }</td>
 		<td>${i.user_nick }</td>
 		<td>${i.user_email }</td>
+		<td>${i.user_join_no }</td>
+		
 	</tr>
 	
 </c:forEach>

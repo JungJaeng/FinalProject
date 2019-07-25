@@ -11,7 +11,7 @@ $(document).ready(function() {
 	
 	// 검색하기
 	$("#search").click(function() {
-		location.href="/admin/pen_check?search="+$("#search").val();
+		location.href="/admin/apply_list?search="+$("#search").val();
 	});
 });
 </script>
@@ -35,7 +35,7 @@ $(document).ready(function() {
 <hr>
 
 <div class="serach">
-<form action="/admin/pen_check" method="get">
+<form action="/admin/apply_list" method="get">
 		<select name="name"  style="vertical-align: middle;">
 				<option value="pension_name">펜션명</option>
 				<option value="user_id">아이디</option>
