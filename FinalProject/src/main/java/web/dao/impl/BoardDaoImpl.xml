@@ -68,7 +68,7 @@
 		DELETE commentTB WHERE board_no=#{board_no}
 	</delete>
 	
-	<select id="selectBoard_ImageByboard_no" parameterType="int" resultType="web.dto.Board_Image">
+	<select id="selectBoard_ImageByboard_no" parameterType="int" resultType="web.dto.Upload_Image">
 		SELECT * FROM board_image WHERE board_no=#{board_no}	
 	</select>
 	
@@ -101,7 +101,7 @@
 		SELECT board_seq.nextval FROM dual
 	</select>
 	
-	<insert id="insertImage" parameterType="web.dto.Board_Image">
+	<insert id="insertImage" parameterType="web.dto.Upload_Image">
 		<selectKey resultType="int" keyProperty="fileno" order="BEFORE" >
 			SELECT board_image_seq.nextval FROM dual
 		</selectKey>
@@ -110,7 +110,7 @@
 	</insert>
 	
 	
-	<select id="selectImgbyfileno" parameterType="web.dto.Board_Image" resultType="web.dto.Board_Image">
+	<select id="selectImgbyfileno" parameterType="web.dto.Upload_Image" resultType="web.dto.Upload_Image">
 		SELECT * FROM board_image WHERE fileno = #{fileno}
 	</select>
 </mapper>
