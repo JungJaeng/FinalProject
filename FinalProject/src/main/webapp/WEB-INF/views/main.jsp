@@ -8,8 +8,16 @@
 // ajax 공공api json 형식 데이터 값 가져오기
 $(document).ready(function() {
 	$("#btnSearch").click(function() {
+// 		if($('select[name=sigungucode]').val() == 0){
+// 			$('select[name=sigungucode]').val() =='';
+// 		}
 		$('.resultLi').remove();
 		$('.totalCnt').remove();
+		if($('input[name=keyword]').val() == ""|| $('input[name=keyword]').val().length<2 ){
+			alert("두글자이상 키워드를 입력해주세요!");
+			$('input[name=keyword]').focus();
+			return false;
+		}
 		$.ajax({
 				type:"get"
 				,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
@@ -22,8 +30,8 @@ $(document).ready(function() {
 					, "cat1": $("[name='cat1']").val()
 					, "cat2": ""
 					, "cat3": ""
-					, "areacode": $("[name='areacode']").val()
-					, "sigungucode": $("[name='sigungucode']").val()
+					, "areaCode": $("[name='areacode']").val()
+					, "sigunguCode": $("[name='sigungucode']").val()
 					, "keyword": $("[name='keyword']").val()
 					, "numOfRows": 12
 					, "pageNo": 1
@@ -42,19 +50,38 @@ $(document).ready(function() {
 					var items = body.items.item;
 					var totalCount = body.totalCount; 
 					
-					console.log("rows : " + numOfRows);
+// 					console.log("rows : " + numOfRows);
 					
-					console.log("total : " + totalCount);
+// 					console.log("total : " + totalCount);
 					
 					$(".total").append("<span class='totalCnt'>총 결과 수 : "+totalCount+"</span>")
-					for(var i=0; i<numOfRows; i++) {
-						console.log(items[i]);
-						$("#resultUl").append("<li class='resultLi'>"
-								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
 					
+					
+					console.log(items)
+					for(var i=0; i<numOfRows && i<totalCount; i++) {
+// 						console.log(items[i]);
+// 						$("#resultUl").append("<li class='resultLi'>"
+// 								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
+
+						var item = (totalCount==1) ?items :items[i];
+// 						console.log(item);
+						$("#resultUl").append("<li class='resultLi'>"
+								+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></li>")
+					}
+					
+					//-- paging
+// 					function paging(){
+// 					var totalPage = totalCount/numOfRows;
+// 					var curPage = pageNo;
+// 					if( totalCount % listCount > 0 )	totalPage++;
+					
+// 					if (totalPage < curPage)	curPage = totalPage;
 					
 					
 					}
+					//-----------
+					
+					
 				}
 		})
 	})
@@ -85,10 +112,15 @@ function change(add) {
 	for (i=sel.length-1; i>=0; i--){
 		sel.options[i] = null
 	}
-	for (i=0; i < cnt[add].length;i++){                     
-		sel.options[i] = new Option(cnt[add][i], i);
+	for (i=0; i < cnt[add].length;i++){
+		if(i==0){
+			sel.options[i] = new Option(cnt[add][i], "");
+		}else{
+			sel.options[i] = new Option(cnt[add][i], i);
+		}
 	}         
 }
+
 
 </script>
 
@@ -157,8 +189,9 @@ function change(add) {
 	</div>
 	
 	<div id="search">
-		<label>검색</label>
-		<input type="text" name="keyword" value="강원" /><button id="btnSearch">검색</button>
+		<label class="content">검색</label>
+<!-- 		<p class="bytes">0</p> -->
+		<input type="text" name="keyword" value="공원"/><button id="btnSearch">검색</button>
 	</div>
 <!-- 	</form> -->
 	<div class="total">
@@ -170,6 +203,11 @@ function change(add) {
 	
 	</ul>
 </div>
+
+<div id="paging">
+
+</div>
+
 </div>
 <div style="clear:both; height: 0; display: hidden;"></div>
 
