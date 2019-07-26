@@ -17,6 +17,10 @@
  section#content div.pensionInfo { font-size:20px; line-height:2; }
  section#content div.pensionInfo span { display:inline-block; width:100px; font-weight:bold; margin-right:10px; }
 
+ A:link {text-decoration:none; color: #646464;}
+ A:visit {text-decoration:none; color: #646464;}
+ A:hover {text-decoration:none; color: #646464;}
+
 
  #search_box {
 	display: block;

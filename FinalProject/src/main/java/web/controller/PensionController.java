@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Member;
 import web.dto.Pension;
 import web.dto.PensionRegisterApply;
 import web.dto.Upload_Image;
@@ -90,8 +91,11 @@ public class PensionController {
 	@RequestMapping(value="/pension/register_apply"
 			, method=RequestMethod.POST)
 	public String writeProcess(PensionRegisterApply pensionRegisterApply,
-			HttpSession session) {
+			HttpSession session,
+			Member member) {
 				
+		member = (Member) session.getAttribute("login_id");
+		
 		
 		pensionService.write(pensionRegisterApply);
 		

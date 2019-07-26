@@ -24,7 +24,7 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				pension_no, pension_name, pension_location, pension_content, pension_photo FROM pension
+				pension_no, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content FROM pension
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
@@ -76,13 +76,17 @@
 <!-- 	</select>	 -->
 	
 	<insert id="write" parameterType="web.dto.PensionRegisterApply">
-		INSERT INTO PensionRegisterApply(apply_no, pension_name, pension_location, pension_content, room_name, room_men, room_size, room_price)
+		INSERT INTO PensionRegisterApply(apply_no, writer, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_name, room_content, room_men, room_size, room_price)
 		VALUES(
 			PensionRegisterApply_seq.nextval,
+			#{writer},
 			#{pension_name},
-			#{pension_location},
+			#{pension_postcode}, 
+			#{pension_address},
+			#{pension_detailAddress},
 			#{pension_content},
 			#{room_name},
+			#{room_content},
 			#{room_men},
 			#{room_size},
 			#{room_price}

@@ -3,20 +3,20 @@ package web.dto;
 public class Pension {
 	private int pension_no;
 	private String pension_name;
-	private String pension_location;
+	private String pension_postcode;
+	private String pension_address;
+	private String pension_detailAddress;
 	private String pension_content;
-	private String pension_photo;
-	
-	private String pensionThumb_photo;
 	
 	
 
 	@Override
 	public String toString() {
-		return "Pension [pension_no=" + pension_no + ", pension_name=" + pension_name + ", pension_location="
-				+ pension_location + ", pension_content=" + pension_content + ", pension_photo=" + pension_photo
-				+ ", pensionThumb_photo=" + pensionThumb_photo + "]";
+		return "Pension [pension_no=" + pension_no + ", pension_name=" + pension_name + ", pension_postcode="
+				+ pension_postcode + ", pension_address=" + pension_address + ", pension_detailAddress="
+				+ pension_detailAddress + ", pension_content=" + pension_content + "]";
 	}
+	
 
 	public int getPension_no() {
 		return pension_no;
@@ -34,12 +34,28 @@ public class Pension {
 		this.pension_name = pension_name;
 	}
 
-	public String getPension_location() {
-		return pension_location;
+	public String getPension_postcode() {
+		return pension_postcode;
 	}
 
-	public void setPension_location(String pension_location) {
-		this.pension_location = pension_location;
+	public void setPension_postcode(String pension_postcode) {
+		this.pension_postcode = pension_postcode;
+	}
+
+	public String getPension_address() {
+		return pension_address;
+	}
+
+	public void setPension_address(String pension_address) {
+		this.pension_address = pension_address;
+	}
+
+	public String getPension_detailAddress() {
+		return pension_detailAddress;
+	}
+
+	public void setPension_detailAddress(String pension_detailAddress) {
+		this.pension_detailAddress = pension_detailAddress;
 	}
 
 	public String getPension_content() {
@@ -50,25 +66,9 @@ public class Pension {
 		this.pension_content = pension_content;
 	}
 
-	public String getPension_photo() {
-		return pension_photo;
-	}
 
-	public void setPension_photo(String pension_photo) {
-		this.pension_photo = pension_photo;
-	}
+	
 
-	public String getPensionThumb_photo() {
-		return pensionThumb_photo;
-	}
-
-	public void setPensionThumb_photo(String pensionThumb_photo) {
-		this.pensionThumb_photo = pensionThumb_photo;
-	}
-	
-	
-	
-	
 	
 
 	
