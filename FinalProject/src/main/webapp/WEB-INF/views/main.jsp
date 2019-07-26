@@ -80,6 +80,15 @@ cnt[15] = new Array("시/군구선택","고창군","군산시","김제시","남�
 cnt[16] = new Array("시/군구선택","강진군","고흥군","곡성군","광양시","구례군","나주시","담양군","목포시","무안군","보성군","순천시","신안군","여수시","영광군","영암군","완도군","장성군","장흥군","진도군","함평군","해남군","화순군");
 cnt[17] = new Array("시/군구선택","남제주군","북제주군","서귀포시","제주시");
 
+function change(add) {
+	sel= document.getElementById('sigungucode')
+	for (i=sel.length-1; i>=0; i--){
+		sel.options[i] = null
+	}
+	for (i=0; i < cnt[add].length;i++){                     
+		sel.options[i] = new Option(cnt[add][i], i);
+	}         
+}
 
 </script>
 
@@ -142,7 +151,7 @@ cnt[17] = new Array("시/군구선택","남제주군","북제주군","서귀포�
 	</div>
 	<div>
 		<label> 시/군/구</label>
-		<select name="sigungucode">
+		<select id="sigungucode" name="sigungucode">
 			<option value="">시/군구선택</option>
 		</select>
 	</div>
