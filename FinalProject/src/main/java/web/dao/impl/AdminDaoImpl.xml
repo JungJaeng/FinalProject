@@ -48,7 +48,7 @@
 		DELETE FROM member WHERE user_no IN ( ${_parameter } )
 	</delete>
 
-	<!-- 펜션등록요청 -->
+	<!-- 펜션등록요청 관리 -->
 	<select id="selectCntAll_apply" parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM pensionregisterapply
 		<where>
@@ -65,7 +65,7 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				apply_no, pension_name, room_name, room_men, room_size, apply_date FROM pensionregisterapply
+				apply_no, writer, pension_name, pension_location, pension_content, room_name, room_content, room_men, room_size, room_price, apply_date FROM pensionregisterapply
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
@@ -90,10 +90,12 @@
 	resultType="web.dto.PensionRegisterApply">
 		SELECT
 			apply_no,
+			writer,
 			pension_name,
 			pension_location,
 			pension_content,
 			room_name,
+			room_content
 			room_men,
 			room_size,
 			room_price,
