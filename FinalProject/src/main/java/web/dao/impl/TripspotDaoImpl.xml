@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="web.dao.face.TripspotDao">
+	<select id="selectCntAll" parameterType="map" resultType="int">
+	SELECT COUNT(*) FROM tripspot
+	<if test="name!=null and search!=null">
+		<where>
+			region LIKE '%'||#{name}||'%'
+		AND 
+			region_detail LIKE '%'||#{search}||'%'
+		</where>
+	</if>
+	</select>
+</mapper>
