@@ -120,6 +120,8 @@ $(document).ready(function() {
 <div id="commentdiv">
 <c:import url="/WEB-INF/views/board/comment.jsp"/>
 </div>
+<c:if test="${login_id ne null}">
 ${login_nick}
 <textarea id="commentcontent" name="commentcontent"></textarea>
 <button id=commentinsert>댓글입력</button>
+</c:if>

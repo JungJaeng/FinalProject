@@ -63,5 +63,7 @@ public interface BoardDao {
 	public void deleteBoard_ImageByboard_no(int board_no);
 
 	public List<Upload_Image> selectBoard_ImageByboard_no(int board_no);
+
+	public void updateImages(Map<String, Object> map);
 	
 }

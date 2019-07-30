@@ -50,10 +50,11 @@
 	</update>
 	
 	<insert id="insert" parameterType="web.dto.Board">
+		<selectKey resultType="int" keyProperty="board_no" order="BEFORE" >
+			SELECT board_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO board ( BOARD_NO, TITLE, CONTENT, WRITER_ID, WRITER_NICK, HIT ) 
-		VALUES ( <if test="board_no != 0">#{board_no}</if>
-				 <if test="board_no == 0">board_seq.nextval</if>
-		, #{title}, #{content}, #{writer_id}, #{writer_nick}, 0 )
+		VALUES (#{board_no}, #{title}, #{content}, #{writer_id}, #{writer_nick}, 0 )
 	</insert>
 	
 	<update id="update" parameterType="web.dto.Board">
@@ -97,9 +98,6 @@
 	<delete id="deleteComment" parameterType="web.dto.Comment">
 		DELETE commentTB WHERE commentno=#{commentno}
 	</delete>
-	<select id="getBoard_no" resultType="int">
-		SELECT board_seq.nextval FROM dual
-	</select>
 	
 	<insert id="insertImage" parameterType="web.dto.Upload_Image">
 		<selectKey resultType="int" keyProperty="fileno" order="BEFORE" >
@@ -109,8 +107,16 @@
 		VALUES (#{fileno},#{board_no},#{origin_name},#{stored_name},#{filesize})
 	</insert>
 	
-	
 	<select id="selectImgbyfileno" parameterType="web.dto.Upload_Image" resultType="web.dto.Upload_Image">
 		SELECT * FROM board_image WHERE fileno = #{fileno}
 	</select>
+	
+	<update id="updateImages" parameterType="Map">
+		UPDATE board_image
+		SET board_no = #{board.board_no}
+		WHERE fileno IN 
+		<foreach collection="images" open="(" separator=","  close=")" item="val">
+			${val}
+		</foreach>
+	</update>
 </mapper>

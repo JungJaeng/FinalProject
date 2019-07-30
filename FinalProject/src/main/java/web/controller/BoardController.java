@@ -74,20 +74,25 @@ public class BoardController {
 		model.addAttribute("commentlist",list);
 	}
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
-	public void WritePage(HttpSession session, Model model) {
+	public String WritePage(HttpSession session, Model model) {
+		
+		if((String)session.getAttribute("loginid") == null 
+			&& (String)session.getAttribute("loginnick") == null) {
+			return "redirect:/board/list";
+		}
 		
 		Board board = new Board();
 		board.setWriter_id((String)session.getAttribute("loginid"));
 		board.setWriter_nick((String)session.getAttribute("loginnick"));
 		
 		model.addAttribute("board", board);
+		
+		return "board/write";
 	}
 	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
-	public String Write(Board board, Model model) {
+	public String Write(Board board,String images) {
 		
-		logger.info("------------------------------------------------------");
-		logger.info(board.toString());
-		boardService.write(board);
+		boardService.write(board,images);
 		return "redirect:/board/list";
 	}
 	@RequestMapping(value = "/board/update", method = RequestMethod.GET)

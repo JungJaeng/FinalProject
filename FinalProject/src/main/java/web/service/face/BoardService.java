@@ -44,7 +44,7 @@ public interface BoardService {
 	public void hitview(int board_no);
 
 	
-	public void write(Board board);
+	public void write(Board board, String images);
 
 	public void update(Board board);
 

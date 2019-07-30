@@ -2,6 +2,8 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -60,9 +62,20 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void write(Board board) {
+	public void write(Board board,String images) {
+		logger.info(images); 
+
 		boardDao.insert(board);
-		
+		if(images!= null && !"".equals(images)) {
+			String[] imagelist = images.split(",");
+			Map<String,Object> map = new HashMap<String,Object>();
+
+			logger.info("imagelist" + Arrays.toString(imagelist));
+			
+			map.put("board", board);
+			map.put("images",imagelist);
+			boardDao.updateImages(map);
+		}
 	}
 	@Override
 	public void update(Board board) {
@@ -80,9 +93,6 @@ public class BoardServiceImpl implements BoardService {
 			String fileName = i.getStored_name();
 			String fileDir = context.getRealPath("WEB-INF/upload");
 			File file = new File(fileDir,fileName);
-			logger.info("-------------------------------------");
-			logger.info(fileDir);
-			logger.info(""+file.exists());
 			if(file.exists()) {file.delete();}
 		};
 		
@@ -136,11 +146,6 @@ public class BoardServiceImpl implements BoardService {
 			e.printStackTrace();
 		}
 		Upload_Image upimage = new Upload_Image();
-		if(board_image.getBoard_no() == 0) {
-			upimage.setBoard_no(boardDao.getBoard_no());
-		}else {
-			upimage.setBoard_no(board_image.getBoard_no());
-		}
 		upimage.setOrigin_name(file.getOriginalFilename());
 		upimage.setStored_name(name);
 		upimage.setFilesize((int)file.getSize());
