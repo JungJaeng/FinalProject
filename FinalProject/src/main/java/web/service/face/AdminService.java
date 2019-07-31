@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.Member;
+import web.dto.Pension;
 import web.dto.PensionRegisterApply;
 import web.util.Paging;
 
@@ -24,4 +25,5 @@ public interface AdminService {
 	// 펜션요청 확인 View
 	public PensionRegisterApply applyView(PensionRegisterApply viewApply);
 
+	public void write(Pension pension);
 }

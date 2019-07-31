@@ -43,6 +43,12 @@ public class PensionServiceImpl implements PensionService {
 		
 		return paging;
 	}
+	
+	@Override
+	public Pension pensionView(int pension_no) {
+		
+		return pensionDao.selectPensionBypension_no(pension_no);
+	}
 
 	@Override
 	public List<Pension> getList(Paging paging) {

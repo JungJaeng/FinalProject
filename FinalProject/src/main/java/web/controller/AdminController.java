@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Member;
+import web.dto.Pension;
 import web.dto.PensionRegisterApply;
 import web.service.face.AdminService;
+import web.service.face.PensionService;
 import web.util.Paging;
 
 @Controller
@@ -28,7 +30,9 @@ public class AdminController {
 
 	// 서비스 객체
 	@Autowired
-	AdminService adminService;
+	AdminService adminService;	
+	@Autowired
+	PensionService pensionService;
 
 	// 회원목록
 	@RequestMapping(value = "/admin/member_list", method = RequestMethod.GET)
@@ -98,4 +102,23 @@ public class AdminController {
 	
 		return "admin/apply_view";	
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/admin/apply_post"
+			, method=RequestMethod.GET)
+	public void write() { }
+	
+	@RequestMapping(value="/admin/apply_post"
+			, method=RequestMethod.POST)
+	public String writeProcess(Pension pension,
+			HttpSession session) {
+				
+		adminService.write(pension);
+		
+		return "redirect:/pension/list";
+	}
+	
+	
 }

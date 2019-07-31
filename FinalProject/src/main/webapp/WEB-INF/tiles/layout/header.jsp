@@ -81,7 +81,7 @@ $(window).scroll(function() {
 	<!-- 		관리자상태 -->
 		  <c:if test="${login_nick eq '관리자' }">
 			<a href="/admin/member_list">회원관리</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	         <a href="/admin/pen_reg">펜션등록</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	         <a href="/admin/apply_post">펜션등록</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a href="/admin/apply_list">펜션요청확인</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
@@ -93,7 +93,7 @@ $(window).scroll(function() {
 		</div>
 		<div class="menuname menu">
 			<a class="atag" href="/main">Home</a>
-			<a class="atag" href="/pension/reservation">펜션예약</a>
+			<a class="atag" href="/pension/list">펜션 간편예약</a>
 			<a class="atag" >여행지 추천</a>
 			<a class="atag" href="/board/list">커뮤니티</a>			
 		</div>

@@ -44,42 +44,22 @@
 		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-<!-- 	<select id="selectComment" parameterType="web.dto.Pension" -->
-<!-- 		resultType="web.dto.Comment"> -->
-<!-- 		SELECT rownum rnum, B.* FROM ( -->
-<!-- 			SELECT -->
-<!-- 				commentno, -->
-<!-- 				pensionno, -->
-<!-- 				user_id, -->
-<!-- 				writer_nick, -->
-<!-- 				content, -->
-<!-- 				writtendate -->
-<!-- 			FROM commentTb -->
-<!-- 			WHERE boardno = #{board_no } -->
-<!-- 		) B -->
-<!-- 		ORDER BY rnum -->
-<!-- 	</select> -->
-	
-<!-- 	<insert id="insertComment" parameterType="web.dto.Comment"> -->
-<!-- 		INSERT INTO commentTB ( commentno,boardno,userid,commentWriter,content ) -->
-<!-- 		VALUES ( commentTb_seq.nextval, #{boardNo }, #{userid }, #{commentWriter }, #{content } ) -->
-<!-- 	</insert> -->
+	<select id="selectPensionBypension_no" parameterType="int" resultType="web.dto.Pension">
+		SELECT pension_no, pension_name, pension_postcode, pension_address, pension_detailaddress, pension_content
+		WHERE pension_no=#{pension_no}
+	</select>
 
-<!-- 	<delete id="deleteComment" parameterType="web.dto.Comment"> -->
-<!-- 		DELETE commentTb WHERE -->
-<!-- 		commentno = #{commentNo } -->
-<!-- 	</delete> -->
+	<update id="updateHit" parameterType="int">
+		UPDATE Room SET hit=hit+1 WHERE board_no = #{board_no}
+	</update>	
 
-<!-- 	<select id="countComment" parameterType="web.dto.Comment" -->
-<!-- 		resultType="int"> -->
-<!-- 		SELECT COUNT(*) FROM commenttb WHERE commentno=#{commentNo} -->
-<!-- 	</select>	 -->
 	
 	<insert id="write" parameterType="web.dto.PensionRegisterApply">
-		INSERT INTO PensionRegisterApply(apply_no, writer, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_name, room_content, room_men, room_size, room_price)
+		INSERT INTO PensionRegisterApply(apply_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_name, room_content, room_men, room_size, room_price)
 		VALUES(
 			PensionRegisterApply_seq.nextval,
-			#{writer},
+			#{writer_id},
+			(SELECT user_nick FROM member WHERE id=#{writer_id } ), 
 			#{pension_name},
 			#{pension_postcode}, 
 			#{pension_address},

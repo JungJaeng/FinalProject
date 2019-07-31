@@ -22,9 +22,10 @@
  A:hover {text-decoration:none; color: #646464;}
 
 
- #search_box {
-	display: block;
-	text-align: center;
+ #search_box {	
+	display:block;
+	text-align:center; 
+
 }
 
 #reg_button {
@@ -68,6 +69,7 @@
 
 <div id="right_box">
 
+<div class="paging">
 <section id="content">
  <ul>
   <c:forEach items="${pensionlist}" var="i">
@@ -79,7 +81,9 @@
     <p>
      <span>펜션번호</span>${i.pension_no}<br />
      <a href="/pension/room_view?pension_no=${i.pension_no }"><span>펜션명</span>${i.pension_name}<br /></a>
-     <span>펜션위치</span>${i.pension_location}<br />
+     <span>펜션위치</span>${i.pension_postcode}<br />
+     ${i.pension_address}
+     ${i.pension_detailAddress } <br>
      <span>펜션소개</span>${i.pension_content}<br />
     </p>
     
@@ -88,8 +92,5 @@
   </c:forEach>
  </ul>
 </section>
-
 </div>
-
-
-
+</div>

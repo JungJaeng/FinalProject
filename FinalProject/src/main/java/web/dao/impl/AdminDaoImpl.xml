@@ -65,15 +65,15 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				apply_no, writer, pension_name, pension_location, pension_content, room_name, room_content, room_men, room_size, room_price, apply_date FROM pensionregisterapply
+				apply_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_name, room_content, room_men, room_size, room_price, apply_date FROM pensionregisterapply
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
 						<when test="name.equals('pension_name')">
 							pension_name LIKE '%'||#{search}||'%'
 						</when>
-						<when test="name.equals('user_id')">
-							user_id LIKE '%'||#{search}||'%'
+						<when test="name.equals('writer_nick')">
+							writer_nick LIKE '%'||#{search}||'%'
 						</when>
 						
 						</choose>
@@ -90,9 +90,12 @@
 	resultType="web.dto.PensionRegisterApply">
 		SELECT
 			apply_no,
-			writer,
+			writer_id,
+			writer_nick,
 			pension_name,
-			pension_location,
+			pension_postcode, 
+			pension_address, 
+			pension_detailAddress,
 			pension_content,
 			room_name,
 			room_content
@@ -104,5 +107,21 @@
 		WHERE apply_no = #{apply_no}	
 	</select>
 	
+		<insert id="write" parameterType="web.dto.Pension">
+		INSERT INTO Pension(pension_no, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price)
+		VALUES( pension_seq.nextval,
+				#{pension_name}, 
+				#{pension_postcode}, 
+				#{pension_address}, 
+				#{pension_detailAddress}, 
+				#{pension_content}, 
+				room_seq.nextval,
+				#{room_name},
+				#{room_content},
+				#{room_men},
+				#{room_size},
+				#{room_price}
+			)
+	</insert>
 
  </mapper>

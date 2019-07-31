@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Board;
+import web.dto.Comment;
 import web.dto.Member;
 import web.dto.Pension;
 import web.dto.PensionRegisterApply;
@@ -60,29 +62,21 @@ public class PensionController {
 		model.addAttribute("pensionlist", list);
 	}
 	
-//	@RequestMapping(value="/pension/room_view"
-//			, method=RequestMethod.GET)
-//	public String view( Pension viewPension
-//			, Model model
-//			, HttpSession session) {
-//		
-//		// 게시글 번호가 1보다 작으면 목록으로 보내기
-//		if(viewPension.getPension_no() < 1) {
-//			return "redirect:/pension/list";
-//		}
-//		
-//		// 펜션 상세 정보 전달
-//		viewPension = pensionService.pensionView(viewPension);
-//		model.addAttribute("view", viewPension);
-//		
-//		// 댓글 정보
-//		Comment comment = new Comment();
-//		List<Comment> commentList = pensionService.getCommentList(viewPension);
-//		model.addAttribute("commentList", commentList);
-//		
-//		return "pension/room_view";
-//	}	
 	
+//	// 방 보기
+//	@RequestMapping(value="/pension/room_view")
+//	public void View(
+//		@RequestParam int pension_no,
+//		Model model) {
+//				
+//		pensionService.hitview(pension_no);
+//		Board viewboard = pensionService.view(pension_no);
+//		model.addAttribute("board",viewboard);
+//				
+//		List<Comment> list = pensionService.commentView(pension_no);
+//		model.addAttribute("commentlist",list);
+//	}
+//	
 	// 펜션등록요청 글쓰기
 	@RequestMapping(value="/pension/register_apply"
 			, method=RequestMethod.GET)
@@ -94,7 +88,8 @@ public class PensionController {
 			HttpSession session,
 			Member member) {
 				
-		member = (Member) session.getAttribute("login_id");
+		// 작성자 아이디 추가
+		pensionRegisterApply.setWriter_id((String)session.getAttribute("login_id"));
 		
 		
 		pensionService.write(pensionRegisterApply);
@@ -161,21 +156,4 @@ public class PensionController {
 	
 	
 	
-}	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

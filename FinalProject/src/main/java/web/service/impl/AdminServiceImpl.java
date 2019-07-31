@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import web.dao.face.AdminDao;
 import web.dto.Member;
+import web.dto.Pension;
 import web.dto.PensionRegisterApply;
 import web.service.face.AdminService;
 import web.util.Paging;
@@ -78,6 +79,15 @@ public class AdminServiceImpl implements AdminService {
 		
 		return adminDao.selectApplyByapply_no(viewApply); 
 	}
+
+	@Override
+	public void write(Pension pension) {
+		
+		adminDao.write(pension);
+		
+	}
+
+
 	
 	
 	
