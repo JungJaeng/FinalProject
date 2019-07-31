@@ -4,89 +4,207 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script type="text/javascript">
+var curPage = 1;
+function changed(cat1,areacode,sigungucode,keyword, pageNo) {
+	$('.resultLi').remove();
+	$('.totalCnt').remove();
+	if($('input[name=keyword]').val() == ""|| $('input[name=keyword]').val().length<2 ){
+		alert("두글자이상 키워드를 입력해주세요!");
+		$('input[name=keyword]').focus();
+		return false; 
+	}
+	
+	$.ajax({
+			type:"get"
+			,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
+			,contentType: "application/x-www-form-urlencoded"
+			,data:{
+				"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
+				,"_type":"json"
+				, "MobileOS": "ETC"
+				, "MobileApp": "TourAPI3.0_Guide"
+				, "cat1": cat1
+				, "cat2": ""
+				, "cat3": ""
+				, "areaCode": areacode
+				, "sigunguCode": sigungucode
+				, "keyword": keyword
+				, "numOfRows": 12
+				, "pageNo": pageNo
+			}
+			,dataType:"json"
+			,success:function(res){
+				console.log(res);
+				var response = res.response;
+				
+				var header = response.header;
+				
+				var body = response.body;
+				
+				var numOfRows = body.numOfRows;
+				var pageNo = body.pageNo;
+				var items = body.items.item;
+				var totalCount = body.totalCount; 
+				
+//					console.log("rows : " + numOfRows);
+				
+//					console.log("total : " + totalCount);
+				
+				$(".total").append("<span class='totalCnt'>총 결과 수 : "+totalCount+"</span>")
+				
+				
+				console.log(items)
+				for(var i=0; i<numOfRows && i<totalCount; i++) {
+//						console.log(items[i]);
+//						$("#resultUl").append("<li class='resultLi'>"
+//								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
+					var item = (totalCount==1) ?items :items[i];
+//						console.log(item);
+					$("#resultUl").append("<li class='resultLi'><a>"
+							+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></a></li>")
+		 		 }
+				
+				var totalData = totalCount;    // 총 데이터 수
+			    var dataPerPage = numOfRows;    // 한 페이지에 나타낼 데이터 수
+			    var pageCount = 10;        // 한 화면에 나타낼 페이지 수
+			    var pageGroup = Math.ceil(curPage/pageCount); // 총 페이지 수  
+			    var totalPage = Math.ceil(totalData/dataPerPage); //페이지 그룹
+			    var startPage = ((curPage - 1) / pageCount) * pageCount + 1;
+			    var endPage = startPage+pageCount-1;
+			    var totalGroup = Math.ceil(totalPage/pageGroup);
+			    var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+		        	if(last > totalPage) last = totalPage;
+		        var first = last - (pageCount-1); 
+		        
+			    console.log("totalData : "+totalData)
+			    console.log("dataPerPage : "+dataPerPage)
+			    console.log("pageCount : "+pageCount)
+			    console.log("pageGroup : "+pageGroup)
+			    console.log("totalPage : "+totalPage)
+			    console.log("startPage : "+startPage)
+			    console.log("endPage : "+endPage)
+			    console.log("totalGroup : "+totalGroup)
+			    //=====paging 처리
+			    
+			   	
+				$(".pagination").empty();  //페이징에 필요한 객체내부를 비워준다.
+				
+			    if(curPage != 1){            // 페이지가 1페이지 가아니면
+			    	$(".pagination").append("<li class='goFirstPage'><a><<</a></li>");        //첫페이지로가는버튼 활성화
+			    }else{
+			    	$(".pagination").append("<li class='disabled'><a><<</a></li>");        //첫페이지로가는버튼 비활성화
+			    }
+				
+			    if(pageGroup != 1){            //첫번째 블럭이 아니면
+		        	$(".pagination").append("<li class='goBackPage'><a><</a></li>");        //뒤로가기버튼 활성화
 
-// ajax 공공api json 형식 데이터 값 가져오기
+		        }else{
+		        	$(".pagination").append("<li class='disabled'><a><</a></li>");        //뒤로가기버튼 비활성화
+
+		        }
+				
+			    for(var i = startPage ; i <= endPage ; i++){        //시작페이지부터 종료페이지까지 반복문
+
+		        	if(curPage == i){                            //현재페이지가 반복중인 페이지와 같다면
+		                	$(".pagination").append("<li class='disabled active'><a>"+i+"</a></li>");    //버튼 비활성화
+		        	}else{
+		        		$(".pagination").append("<li class='goPage' data-page='"+i+"'><a>"+i+"</a></li>"); //버튼 활성화
+		        	}
+		        }
+
+			    
+			     if(totalGroup>pageGroup){            //전체페이지블럭수가 현재블럭수보다 작을때
+			        	$(".pagination").append("<li class='goNextPage'><a>></a></li>");         //다음페이지버튼 활성화
+			        }else{
+			        	$(".pagination").append("<li class='disabled'><a>></a></li>");        //다음페이지버튼 비활성화
+			        }
+
+		  
+
+		          if(curPage < totalPage){                //현재페이지가 전체페이지보다 작을때
+
+		        		$(".pagination").append("<li class='goLastPage'><a>>></a></li>");    //마지막페이지로 가기 버튼 활성화
+
+		        	}else{
+
+		        		$(".pagination").append("<li class='disabled'><a>>></a></li>");        //마지막페이지로 가기 버튼 비활성화
+
+		        	}
+		          
+		          
+		          //첫페이지로 가기 버튼 이벤트
+		       $(".goFirstPage").click(function(){
+
+				       	curPage = 1;
+
+				  		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+
+			        });
+
+
+
+		//뒷페이지로 가기 버튼 이벤트
+
+				$(".goBackPage").click(function(){
+
+				      	curPage = Number(startPage) - 10;
+ 
+				      	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+				      	
+			        });
+
+
+
+		//클릭된 페이지로 가기 이벤트
+
+				$(".goPage").click(function(){
+
+					changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), $(this).attr("data-page"));
+					
+				});
+
+
+
+		//다음페이지로 가기 클릭이벤트
+
+				$(".goNextPage").click(function(){
+
+					curPage = Number(endPage) + 1;
+
+					changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+
+			        });
+
+
+
+		//마지막페이지로 가기 클릭이벤트
+
+			        $(".goLastPage").click(function(){
+
+			        	curPage = totalPage;
+
+			        	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+
+			        });
+
+
+
+
+
+
+				
+
+				
+			   	//===============
+				
+			}
+	})
+}
 $(document).ready(function() {
 	$("#btnSearch").click(function() {
-// 		if($('select[name=sigungucode]').val() == 0){
-// 			$('select[name=sigungucode]').val() =='';
-// 		}
-		$('.resultLi').remove();
-		$('.totalCnt').remove();
-		if($('input[name=keyword]').val() == ""|| $('input[name=keyword]').val().length<2 ){
-			alert("두글자이상 키워드를 입력해주세요!");
-			$('input[name=keyword]').focus();
-			return false;
-		}
-		$.ajax({
-				type:"get"
-				,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
-				,contentType: "application/x-www-form-urlencoded"
-				,data:{
-					"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
-					,"_type":"json"
-					, "MobileOS": "ETC"
-					, "MobileApp": "TourAPI3.0_Guide"
-					, "cat1": $("[name='cat1']").val()
-					, "cat2": ""
-					, "cat3": ""
-					, "areaCode": $("[name='areacode']").val()
-					, "sigunguCode": $("[name='sigungucode']").val()
-					, "keyword": $("[name='keyword']").val()
-					, "numOfRows": 12
-					, "pageNo": 1
-				}
-				,dataType:"json"
-				,success:function(res){
-					console.log(res);
-
-					var response = res.response;
-					
-					var header = response.header;
-					
-					var body = response.body;
-					
-					var numOfRows = body.numOfRows;
-					var items = body.items.item;
-					var totalCount = body.totalCount; 
-					
-// 					console.log("rows : " + numOfRows);
-					
-// 					console.log("total : " + totalCount);
-					
-					$(".total").append("<span class='totalCnt'>총 결과 수 : "+totalCount+"</span>")
-					
-					
-					console.log(items)
-					for(var i=0; i<numOfRows && i<totalCount; i++) {
-// 						console.log(items[i]);
-// 						$("#resultUl").append("<li class='resultLi'>"
-// 								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
-
-						var item = (totalCount==1) ?items :items[i];
-// 						console.log(item);
-						$("#resultUl").append("<li class='resultLi'>"
-								+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></li>")
-					}
-					
-					//-- paging
-// 					function paging(){
-// 					var totalPage = totalCount/numOfRows;
-// 					var curPage = pageNo;
-// 					if( totalCount % listCount > 0 )	totalPage++;
-					
-// 					if (totalPage < curPage)	curPage = totalPage;
-					
-					
-					}
-					//-----------
-					
-					
-				}
-		})
+		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), 1);
 	})
 })
-
 var cnt = new Array();
 cnt[0] = new Array("시/군구선택");
 cnt[1] = new Array("시/군구선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구");
@@ -120,8 +238,6 @@ function change(add) {
 		}
 	}         
 }
-
-
 </script>
 
 <style type="text/css">
@@ -139,6 +255,19 @@ function change(add) {
     height: 300px;
     margin-left: 39px;
 }
+/* } */
+/* .paging{  */
+/* 	clear:both;  */
+/*  	margin: 40px 0;  */
+/*  	text-align: center;  */
+/*  	height: 30px;  */
+/*  }  */
+/* #pagingd{ */
+/* 	list-style:none; */
+/* 	text-decoration: none; */
+/* 	text-align: center; */
+
+/* } */
 </style>
 <div class="tour">
 <!-- 	<form name="form" action="/main/search" method="post"> -->
@@ -204,10 +333,8 @@ function change(add) {
 	</ul>
 </div>
 
-<div id="paging">
-
+<div class="pagination">
 </div>
 
 </div>
 <div style="clear:both; height: 0; display: hidden;"></div>
-
