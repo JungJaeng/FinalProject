@@ -7,26 +7,26 @@
 
 // ajax 공공api json 형식 데이터 값 가져오기
 $(document).ready(function() {
-	$("#btnSearch").click(function() {
-		$('.resultLi').remove();
-		$('.totalCnt').remove();
 		$.ajax({
 				type:"get"
-				,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
+				,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"
 				,contentType: "application/x-www-form-urlencoded"
 				,data:{
 					"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
 					,"_type":"json"
 					, "MobileOS": "ETC"
 					, "MobileApp": "TourAPI3.0_Guide"
-					, "cat1": $("[name='cat1']").val()
-					, "cat2": ""
-					, "cat3": ""
-					, "areacode": $("[name='areacode']").val()
-					, "sigungucode": $("[name='sigungucode']").val()
-					, "keyword": $("[name='keyword']").val()
-					, "numOfRows": 12
-					, "pageNo": 1
+					, "contenttypeid": contenttypeid
+					, "contentid" : contentid 
+					, "defaultYN" : "Y"
+					, "firstImageYN" : "Y"
+					, "areacodeYN" : "Y"
+					, "catcodeYN" : "Y"
+					, "addrinfoYN" : "Y"
+					, "mapinfoYN" : "Y"
+					, "overviewYN" : "Y"
+					, "transGuideYN": "Y"
+									
 				}
 				,dataType:"json"
 				,success:function(res){
@@ -56,7 +56,6 @@ $(document).ready(function() {
 					
 					}
 				}
-		})
 	})
 })
 
