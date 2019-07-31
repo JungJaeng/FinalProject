@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="web.dao.face.MypageDao">
+ 
+
+<select parameterType="web.dto.Member" id="selectLoginById" resultType="web.dto.Member">
+SELECT * FROM member WHERE user_id = #{user_id } 
+</select>
+
+<delete parameterType="String" id="infoWithdrawDao">
+DELETE FROM member WHERE user_id= #{user_id} 
+</delete>
+
+<update parameterType="web.dto.Member" id="updateDao">
+UPDATE member SET user_pw= #{user_pw},user_email=#{user_email},user_nick=#{user_nick} WHERE user_id=#{user_id} 
+</update>
+
+<insert parameterType="web.dto.Filetest" id="insertFile">
+INSERT INTO fileupload (fileno,userid,origin_name,stored_name) VALUES (fileupload_seq.nextval,#{userid},#{origin_name},#{stored_name})
+ </insert>
+
+<select parameterType="String" id="selectImgDao" resultType="web.dto.Filetest">
+SELECT * FROM fileupload WHERE userid=#{loginid} </select>
+
+<select parameterType="String" id="selectImgCnt" resultType="int">
+SELECT COUNT(*) FROM fileupload WHERE userid = #{userid } </select>
+
+<delete parameterType="String" id="Imgdelete">
+DELETE FROM fileupload WHERE userid=#{userid} </delete>
+
+<select resultType="String" id="SelectAllDao2">
+SELECT * FROM (SELECT rownum rnum, B.* FROM (SELECT board_no, title, content, writer_id, writer_nick, hit, write_date FROM boardwhere writer_id=#{writer_id}
+ORDER BY board_no DESC) BORDER BY rnum)WHERE rnum BETWEEN #{startNo} AND #{endNo} 
+</select>
+
+</mapper>
+    
