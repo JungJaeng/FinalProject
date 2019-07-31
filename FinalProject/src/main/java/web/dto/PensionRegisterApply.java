@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class PensionRegisterApply {
 	private int apply_no;
-	private String writer;
+	private String writer_id;
+	private String writer_nick;
 	private String pension_name;
 	private String pension_postcode;
 	private String pension_address;
@@ -18,26 +19,33 @@ public class PensionRegisterApply {
 	private Date apply_date;
 	
 	
+	
 	@Override
 	public String toString() {
-		return "PensionRegisterApply [apply_no=" + apply_no + ", writer=" + writer + ", pension_name=" + pension_name
-				+ ", pension_postcode=" + pension_postcode + ", pension_address=" + pension_address
-				+ ", pension_detailAddress=" + pension_detailAddress + ", pension_content=" + pension_content
-				+ ", room_name=" + room_name + ", room_content=" + room_content + ", room_men=" + room_men
-				+ ", room_size=" + room_size + ", room_price=" + room_price + ", apply_date=" + apply_date + "]";
+		return "PensionRegisterApply [apply_no=" + apply_no + ", writer_id=" + writer_id + ", writer_nick="
+				+ writer_nick + ", pension_name=" + pension_name + ", pension_postcode=" + pension_postcode
+				+ ", pension_address=" + pension_address + ", pension_detailAddress=" + pension_detailAddress
+				+ ", pension_content=" + pension_content + ", room_name=" + room_name + ", room_content=" + room_content
+				+ ", room_men=" + room_men + ", room_size=" + room_size + ", room_price=" + room_price + ", apply_date="
+				+ apply_date + "]";
 	}
-	
 	public int getApply_no() {
 		return apply_no;
 	}
 	public void setApply_no(int apply_no) {
 		this.apply_no = apply_no;
 	}
-	public String getWriter() {
-		return writer;
+	public String getWriter_id() {
+		return writer_id;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setWriter_id(String writer_id) {
+		this.writer_id = writer_id;
+	}
+	public String getWriter_nick() {
+		return writer_nick;
+	}
+	public void setWriter_nick(String writer_nick) {
+		this.writer_nick = writer_nick;
 	}
 	public String getPension_name() {
 		return pension_name;
@@ -106,7 +114,6 @@ public class PensionRegisterApply {
 		this.apply_date = apply_date;
 	}
 	
-	
-	
+
 
 }

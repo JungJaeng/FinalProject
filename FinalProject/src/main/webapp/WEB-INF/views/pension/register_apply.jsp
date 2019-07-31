@@ -149,7 +149,7 @@ function execPostCode() {
       
       <div class="form-group">
       	<label>작성자</label>
-      	<input class="form-control" name="writer" id="writer" value=${member.login_id }>
+      	<input class="form-control" type="text" name="writer" id="writer" value=${user_nick } readonly="readonly">
       
       </div>
 		

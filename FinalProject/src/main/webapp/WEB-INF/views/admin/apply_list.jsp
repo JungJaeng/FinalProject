@@ -38,7 +38,7 @@ $(document).ready(function() {
 <form action="/admin/apply_list" method="get">
 		<select name="name"  style="vertical-align: middle;">
 				<option value="pension_name">펜션명</option>
-				<option value="user_id">아이디</option>
+				<option value="user_nick">닉네임</option>
 		</select>
 		<input type="text"  name="search" >
 	 	<button  style="vertical-align: middle;">검색</button>
@@ -55,7 +55,9 @@ $(document).ready(function() {
 <thead>
 	<tr>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 번호</th>
-		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">펜션명</th>		
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 닉네임</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">펜션명</th>
+		<th style="width: 20%; text-align: center; background-color: #D8D8D8;">펜션위치</th>				
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 날짜</th>
 	</tr>
 
@@ -65,7 +67,9 @@ $(document).ready(function() {
 <c:forEach items="${applylist}" var="i">
 	<tr>		
 		<td>${i.apply_no }</td>
+		<td>${i.writer_nick }</td>
 		<td><a href="/admin/apply_view?apply_no=${i.apply_no }">${i.pension_name }</a></td>
+		<td>${i.pension_postcode } ${i.pension_address } ${i.pension_detailAddress }
 		<td><fmt:formatDate value="${i.apply_date }" pattern="yy-MM-dd"/></td>
 	</tr>
 	
@@ -76,8 +80,7 @@ $(document).ready(function() {
 
 
 
-<div class="paging">
 
-</div>
+
 
 

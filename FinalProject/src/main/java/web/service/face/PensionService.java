@@ -21,6 +21,8 @@ public interface PensionService {
 	
 	public List<Pension> getList(Paging paging);
 	
+	public Pension pensionView(int pension_no);
+	
 	public void write(PensionRegisterApply pensionRegisterApply);
 
 	public Upload_Image imgsave(Upload_Image board_image, MultipartFile file, ServletContext context);
