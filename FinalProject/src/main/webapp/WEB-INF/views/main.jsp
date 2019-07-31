@@ -60,22 +60,38 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 //								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
 					var item = (totalCount==1) ?items :items[i];
 //						console.log(item);
-					$("#resultUl").append("<li class='resultLi'><a>"
+					if(item.firstimage == null){
+						item.firstimage = "/resources/img/noimage.jpg";
+					}
+					$("#resultUl").append("<li class='resultLi'><a class='contentAtag' data="+item.contentid+" id="+item.contenttypeid+">"
 							+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></a></li>")
 		 		 }
 				
 				var totalData = totalCount;    // 총 데이터 수
 			    var dataPerPage = numOfRows;    // 한 페이지에 나타낼 데이터 수
 			    var pageCount = 10;        // 한 화면에 나타낼 페이지 수
-			    var pageGroup = Math.ceil(curPage/pageCount); // 총 페이지 수  
+			    var pageGroup = Math.ceil(pageNo/pageCount); // 총 페이지 수  
 			    var totalPage = Math.ceil(totalData/dataPerPage); //페이지 그룹
-			    var startPage = ((curPage - 1) / pageCount) * pageCount + 1;
+			    var startPage = ((pageNo-1)/pageCount)*pageCount+1;
 			    var endPage = startPage+pageCount-1;
-			    var totalGroup = Math.ceil(totalPage/pageGroup);
+			    var totalGroup = Math.ceil(totalPage/pageCount);
 			    var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
 		        	if(last > totalPage) last = totalPage;
 		        var first = last - (pageCount-1); 
+		        var next = last+1;
+		        var prev = first-1;
+		     // 게시글 시작번호
+				var startNo = (pageNo-1)*dataPerPage+1;
+			// 게시글 끝번호
+				var endNo = pageNo*dataPerPage;
+		     // 현재 페이지가 총 페이지보다 크게 입력되면
+				// 강제로 마지막페이지 고정
+		        if (totalPage < pageNo)	pageNo = totalPage;
 		        
+		     // 계산된 마지막 페이지가 totalPage보다 커질 경우
+				// 강제로 최종 페이지까지만 보이도록 설정
+				if(endPage > totalPage)	endPage = totalPage;
+		     
 			    console.log("totalData : "+totalData)
 			    console.log("dataPerPage : "+dataPerPage)
 			    console.log("pageCount : "+pageCount)
@@ -84,18 +100,19 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			    console.log("startPage : "+startPage)
 			    console.log("endPage : "+endPage)
 			    console.log("totalGroup : "+totalGroup)
+			    console.log("pageNo :"+pageNo)
 			    //=====paging 처리
 			    
 			   	
 				$(".pagination").empty();  //페이징에 필요한 객체내부를 비워준다.
 				
-			    if(curPage != 1){            // 페이지가 1페이지 가아니면
-			    	$(".pagination").append("<li class='goFirstPage'><a><<</a></li>");        //첫페이지로가는버튼 활성화
-			    }else{
-			    	$(".pagination").append("<li class='disabled'><a><<</a></li>");        //첫페이지로가는버튼 비활성화
-			    }
+// 			    if(pageNo != 1){            // 페이지가 1페이지 가아니면
+// 			    	$(".pagination").append("<li class='goFirstPage'><a><<</a></li>");        //첫페이지로가는버튼 활성화
+// 			    }else{
+// 			    	$(".pagination").append("<li class='disabled'><a><<</a></li>");        //첫페이지로가는버튼 비활성화
+// 			    }
 				
-			    if(pageGroup != 1){            //첫번째 블럭이 아니면
+			    if(prev > 0){            
 		        	$(".pagination").append("<li class='goBackPage'><a><</a></li>");        //뒤로가기버튼 활성화
 
 		        }else{
@@ -103,17 +120,17 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 		        }
 				
-			    for(var i = startPage ; i <= endPage ; i++){        //시작페이지부터 종료페이지까지 반복문
+			    for(var i = first ; i <= last ; i++){        //시작페이지부터 종료페이지까지 반복문
 
-		        	if(curPage == i){                            //현재페이지가 반복중인 페이지와 같다면
-		                	$(".pagination").append("<li class='disabled active'><a>"+i+"</a></li>");    //버튼 비활성화
+		        	if(pageNo == i){                            //현재페이지가 반복중인 페이지와 같다면
+		                	$(".pagination").append("<li class='active'><a>"+i+"</a></li>");    //버튼 비활성화
 		        	}else{
 		        		$(".pagination").append("<li class='goPage' data-page='"+i+"'><a>"+i+"</a></li>"); //버튼 활성화
 		        	}
 		        }
 
 			    
-			     if(totalGroup>pageGroup){            //전체페이지블럭수가 현재블럭수보다 작을때
+			     if(last<totalPage ){            
 			        	$(".pagination").append("<li class='goNextPage'><a>></a></li>");         //다음페이지버튼 활성화
 			        }else{
 			        	$(".pagination").append("<li class='disabled'><a>></a></li>");        //다음페이지버튼 비활성화
@@ -121,25 +138,25 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 		  
 
-		          if(curPage < totalPage){                //현재페이지가 전체페이지보다 작을때
+// 		          if(pageNo < totalPage){                //현재페이지가 전체페이지보다 작을때
 
-		        		$(".pagination").append("<li class='goLastPage'><a>>></a></li>");    //마지막페이지로 가기 버튼 활성화
+// 		        		$(".pagination").append("<li class='goLastPage'><a>>></a></li>");    //마지막페이지로 가기 버튼 활성화
 
-		        	}else{
+// 		        	}else{
 
-		        		$(".pagination").append("<li class='disabled'><a>>></a></li>");        //마지막페이지로 가기 버튼 비활성화
+// 		        		$(".pagination").append("<li class='disabled'><a>>></a></li>");        //마지막페이지로 가기 버튼 비활성화
 
-		        	}
+// 		        	}
 		          
 		          
-		          //첫페이지로 가기 버튼 이벤트
-		       $(".goFirstPage").click(function(){
+// 		          //첫페이지로 가기 버튼 이벤트
+// 		       $(".goFirstPage").click(function(){
 
-				       	curPage = 1;
+// 				       	curPage = 1;
 
-				  		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+// 				  		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
-			        });
+// 			        });
 
 
 
@@ -147,7 +164,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 				$(".goBackPage").click(function(){
 
-				      	curPage = Number(startPage) - 10;
+				      	curPage = Number(first) - 1;
  
 				      	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 				      	
@@ -169,26 +186,35 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 				$(".goNextPage").click(function(){
 
-					curPage = Number(endPage) + 1;
+					curPage = Number(last) + 1;
 
 					changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
+					if(curPage = totalPage){
+						return;
+					}
+					
 			        });
 
 
 
-		//마지막페이지로 가기 클릭이벤트
+// 		//마지막페이지로 가기 클릭이벤트
 
-			        $(".goLastPage").click(function(){
+// 			        $(".goLastPage").click(function(){
 
-			        	curPage = totalPage;
+// 			        	curPage = totalPage;
 
-			        	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+// 			        	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
-			        });
+// 			        });
 
-
-
+			$(".contentAtag").click(function(){
+				
+				Detail($(this).attr("data"),$(this).attr("id") );
+				
+				
+				
+			});
 
 
 
@@ -238,6 +264,24 @@ function change(add) {
 		}
 	}         
 }
+
+function Detail(contentId, contentTypeId){
+    $f = ($("<form>")
+          .attr("action", "/main")
+          .attr("method", "post")
+       ).append(
+       $("<input>")
+          .attr("name", "id")
+          .val(contentId)
+    ).append(
+    	       $("<input>")
+    	          .attr("name", "typeid")
+    	          .val(contentTypeId)
+   	).appendTo( $(document.body) );
+    $f.submit();
+}
+
+
 </script>
 
 <style type="text/css">
