@@ -11,7 +11,7 @@ public class TripSpot {
 	private String writer_id;
 	private String writer_nick;
 	private int hit;
-	private Date writtendate;
+	private Date writendate;
 	public int getBoard_no() {
 		return board_no;
 	}
@@ -60,16 +60,16 @@ public class TripSpot {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public Date getWrittendate() {
-		return writtendate;
+	public Date getWritendate() {
+		return writendate;
 	}
-	public void setWrittendate(Date writtendate) {
-		this.writtendate = writtendate;
+	public void setWritendate(Date writendate) {
+		this.writendate = writendate;
 	}
 	@Override
 	public String toString() {
 		return "TripSpot [board_no=" + board_no + ", region=" + region + ", region_detail=" + region_detail + ", title="
 				+ title + ", content=" + content + ", writer_id=" + writer_id + ", writer_nick=" + writer_nick
-				+ ", hit=" + hit + ", writtendate=" + writtendate + "]";
+				+ ", hit=" + hit + ", writendate=" + writendate + "]";
 	}
 }

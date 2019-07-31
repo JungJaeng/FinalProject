@@ -76,8 +76,8 @@ public class BoardController {
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
 	public String WritePage(HttpSession session, Model model) {
 		
-		if((String)session.getAttribute("loginid") == null 
-			&& (String)session.getAttribute("loginnick") == null) {
+		if((String)session.getAttribute("login_id") == null 
+			&& (String)session.getAttribute("login_nick") == null) {
 			return "redirect:/board/list";
 		}
 		

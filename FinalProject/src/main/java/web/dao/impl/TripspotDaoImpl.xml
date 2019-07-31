@@ -17,4 +17,38 @@
 		</where>
 	</if>
 	</select>
+	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.TripSpot">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+				board_no, region,region_detail,title, content, writer_id, writer_nick, hit, writendate FROM tripspot
+				<if test="name!=null and search!=null">
+				<where>
+					region LIKE '%'||#{name}||'%'
+					AND 
+					region_detail LIKE '%'||#{search}||'%'
+				</where>
+				</if>
+				ORDER BY board_no DESC 
+				) B
+			ORDER BY rnum
+		)WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	<update id="updateHit" parameterType="int">
+		UPDATE tripspot
+		SET hit = hit+1
+		WHERE board_no = #{board_no}
+	</update>
+	
+	<select id="selectTripspotByboard_no" parameterType="int" resultType="web.dto.TripSpot">
+		SELECT * FROM tripspot WHERE board_no = #{board_no}
+	</select>
+	<insert id="insert" parameterType="web.dto.TripSpot">
+	<selectKey resultType="int" keyProperty="board_no" order="BEFORE" >
+		SELECT tripspot_seq.nextval FROM dual
+	</selectKey>
+		INSERT INTO tripspot(board_no, region,region_detail,title, content, writer_id, writer_nick, hit)
+		VALUES #{board_no},#{region},#{region_detail},#{title}, #{content}, #{writer_id}, #{writer_nick}, hit
+	</insert>
+	
 </mapper>
