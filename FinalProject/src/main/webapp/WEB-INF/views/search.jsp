@@ -5,8 +5,62 @@
 
 <script type="text/javascript">
 
-// ajax 공공api json 형식 데이터 값 가져오기
 $(document).ready(function() {
+	info();
+})
+
+function image() {
+	$('.addTitle').empty();
+	$('.resultImage').empty();
+	$('.contentUl').empty();
+	$('.resultSummary').empty();
+	$.ajax({
+		type:"get"
+		,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailImage"
+		,contentType: "application/x-www-form-urlencoded"
+		,data:{
+			"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
+			,"_type":"json"
+			, "MobileOS": "ETC"
+			, "MobileApp": "TourAPI3.0_Guide"
+			, "contentTypeId": ${contentTypeId}
+			, "contentId" : ${contentId}
+			, "imageYN" : "Y"
+		}
+		,dataType:"json"
+		,success:function(res){
+			console.log(res);
+			var response = res.response; 
+			
+			var header = response.header;
+			
+			var body = response.body;
+			
+			var item = body.items.item;
+			
+			$('.addTitle').append("<h2>추가이미지</h2>");
+			
+			if(body.items == null || body.items == ""){
+				$(".resultSummary").append("<p><img src='/resources/img/noimage.jpg'></p>");
+			}else{			
+			
+			for(var i=0; i<item.length; i++){
+				
+				$(".resultSummary").append("<p><img src="+item[i].originimgurl+"></p>");
+				}
+			}
+			
+		} 
+	})
+}
+// ajax 공공api json 형식 데이터 값 가져오기
+function info() {
+	$('.addTitle').empty();
+	$('.resultTitle').empty();
+	$('.resultImage').empty();
+	$('.contentUl').empty();
+	$('.resultSummary').empty();
+	$('.resultBack').empty();
 	$.ajax({
 		type:"get"
 		,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"
@@ -39,22 +93,22 @@ $(document).ready(function() {
 			
 			var item = body.items.item;
 			
-			if(item.tel == null){
+			if(item.tel == null || item.tel == ""){
 				item.tel = "정보없음";
 			}
-			if(item.telname == null){
+			if(item.telname == null || item.telname == ""){
 				item.telname = "정보없음";
 			}
-			if(item.addr1 == null){
+			if(item.addr1 == null || item.addr1 == ""){
 				item.addr1 = "정보없음";
 			}
-			if(item.zipcode == null){
+			if(item.zipcode == null || item.zipcode == ""){
 				item.zipcode = "정보없음";
 			}
-			if(item.homepage == null){
+			if(item.homepage == null || item.homepage == ""){
 				item.homepage = "정보없음";
 			}
-			if(item.firstimage == null){
+			if(item.firstimage == null || item.firstimage == ""){
 				item.firstimage = "/resources/img/noimage.jpg";
 			}
 			
@@ -62,6 +116,7 @@ $(document).ready(function() {
 			$(".resultTitle").append("<h1>"+item.title+"</h1>");
 			$(".resultTitle").append("<hr>");
 			//이미지
+			
 			$(".resultImage").append("<p><img src="+item.firstimage+"></p>");
 			//우편번호
 			$(".contentUl").append("<li><Strong class='context'>우편번호 : "+item.zipcode+"</Strong></li>");
@@ -82,14 +137,86 @@ $(document).ready(function() {
 			
 			$(".resultBack").append("<input type='button' onclick='location.href=\"/main\"' id='btnBack' value='돌아가기'/>")
 			
+			}
+		})
+}
+
+function intro(){
+	$('.addTitle').empty();
+	$('.resultImage').empty();
+	$('.contentUl').empty();
+	$('.resultSummary').empty();
+				$.ajax({
+					type:"get"
+					,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro"
+					,contentType: "application/x-www-form-urlencoded"
+					,data:{
+						"serviceKey": "oVpLLrYOZ3HgAbsrCL7WWVWeyhyK8sMPeScf3RiLkxYxnUSCCgj9rb8kRVW2MXInXYI3sSaZovOLHgmfur2rRg=="
+						,"_type":"json"
+						, "MobileOS": "ETC"
+						, "MobileApp": "TourAPI3.0_Guide"
+						, "contentTypeId": ${contentTypeId}
+						, "contentId" : ${contentId}
+						, "introYN": "Y"
+					}
+					,dataType:"json"
+					,success:function(res){
+						console.log(res);
+						
+						var response = res.response;
+						
+						var header = response.header;
+						
+						var body = response.body;
+						
+						var item = body.items.item;	
+						
+						if(item.infocenter == null || item.infocenter == ""){
+							item.infocenter = "정보없음";
+						}
+						if(item.parking == null || item.parking == ""){
+							item.parking = "정보없음";
+						}
+						if(item.chkcreditcard == null || item.chkcreditcard == ""){
+							item.chkcreditcard = "정보없음";
+						}
+						if(item.chkbabycarriage == null || item.chkbabycarriage == ""){
+							item.chkbabycarriage = "정보없음";
+						}
+						if(item.usetime == null || item.usetimer == ""){
+							item.usetime = "정보없음";
+						}
+						if(item.chkpet == null || item.chkpet == ""){
+							item.chkpet = "정보없음";
+						}
+						if(item.restdate == null || item.restdate == ""){
+							item.restdate = "정보없음";
+						}
+						
+						$('.addTitle').append("<h2>추가 정보</h2>");
+						
+						$(".contentUl").append("<li><Strong class='context'>문의 및 안내 : "+item.infocenter+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>주차시설 : "+item.parking+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>신용카드 가능 여부 : "+item.chkcreditcard+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>유모차 대여 여부 : "+item.chkbabycarriage+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>이용시간 : "+item.usetime+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>애완동물 동반 가능 여부 : "+item.chkpet+"</Strong></li>");
+						
+						$(".contentUl").append("<li><Strong class='context'>쉬는날 : "+item.restdate+"</Strong></li>");
+					}
+				})
 		}
-	})
-
-})
-
-
 </script>
 <style type="text/css">
+.resultSummary>p>img{
+	height: 500px;
+	width: 800px;
+}
 .result{
 	margin-left: 30px;
 	width: 1080px;
@@ -115,8 +242,26 @@ $(document).ready(function() {
 	margin-left: 30px;
 }
 </style>
+<div class="Menu">
+	<ul>
+		<li><a onclick="info();">정보</a></li>
+		<li><a onclick="intro();">소개정보</a></li>
+		<li><a onclick="image();">추가이미지</a></li>
+	</ul>
+</div>
 <div class="result">
+	
+	<div class="resultMenu">
+		<ul class="resultMenuUl">
+		
+		</ul>
+	</div>
+
 	<div class="resultTitle">
+	
+	</div>
+
+	<div class="addTitle">
 	
 	</div>
 
