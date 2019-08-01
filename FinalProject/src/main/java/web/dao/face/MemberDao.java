@@ -23,5 +23,7 @@ public interface MemberDao {
 
 	public void pwUpdate(Member pwFind);
 
+	public int nickcheck(String user_nick);
+
 	
 }

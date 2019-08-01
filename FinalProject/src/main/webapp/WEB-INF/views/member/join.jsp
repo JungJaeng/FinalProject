@@ -86,6 +86,7 @@ var ch_pw=false;
 var ch_pw2=false;
 var ch_nick=false;
 var ch_email=false;
+
 	//id체크
 	function idcheck() {
 		var memId = $('#user_id').val();
@@ -110,6 +111,31 @@ var ch_email=false;
 
 		})
 	}
+	
+	//nick체크
+	function nickcheck() {
+		var memNick = $('#user_nick').val();
+		$.ajax({
+			type : 'POST',
+			url : '/member/nickcheck',
+			data : {
+				"user_nick" : $('#user_nick').val()
+			},
+			dataType : 'json',
+			success : function(res) {
+				if( res ) {
+					$('#nickMsg').html("사용가능한 닉네임입니다").css("color", "blue");
+					ch_id=true;
+				} else {
+					console.log( res )
+					$('#nickMsg').html("중복되거나 이미 있는 닉네임입니다").css("color", "red");	
+					ch_id=false;
+				}
+		
+			}
+
+		})
+	}
 
 	$(function() {
 		$('.error').hide();
@@ -117,7 +143,7 @@ var ch_email=false;
  		$('#user_id').focus(function() {
  			$('#idMsg').html("")
  		});
- 		
+ 		 		
  		$('#user_id').blur(
 				function() {
 					var idok = /[a-z0-9]{5,20}$/;
@@ -157,17 +183,22 @@ var ch_email=false;
 			$('#pwMsg2').show();
 		})
 
-		$('#user_nick').blur(
+		
+		$('#user_nick').focus(function() {
+ 			$('#nickMsg').html("")
+ 		});	
+		
+		$('#user_nick').blur( 
 				function() {
-					if ($('#user_nick').val() === ''
-							|| $('#user_nick').val() === null) {
-						$('#nickMsg').show();
+					if ($('#user_nick').val() === '' || $('#user_nick').val() === null) {
+						$('#nickMsg').show;
 						ch_nick=false;
+					
 					} else {
-						$('#nickMsg').hide();
-						ch_nick=true;
+						nickcheck();
 					}
-				})
+				}) 
+	
 				
 		$('#user_email').blur(
 				function() {
@@ -266,14 +297,15 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="row_group">
-				
 				<h3 class="join_title">
 					<label for="nick">닉네임</label>
 				</h3>
 				<span class="intext"> <input type="text" id="user_nick"
 					name="user_nick" class="inputtext" maxlength="40" />
 				</span> <span class="error" id="nickMsg"> 필수 정보입니다 </span>
-				
+			</div>
+			
+			<div class="row_group">	
 				<h3 class="join_title">
 					<label for="email">이메일</label>
 				</h3>
@@ -284,7 +316,7 @@ $(document).ready(function() {
 				<br><br>
 				
 				<input type="radio" id="user_join_no" name="user_join_no" value="1"  checked="checked"/> 일반회원
-				<input type="radio" id="user_join_no" name="user_join_no" value="2" /> 펜션주인
+				<input type="radio" id="user_join_no" name="user_join_no" value="2" /> 사업자
 
 				<div class="btnarea">
 					<button type="button" id="btn_join" class="btn_type">

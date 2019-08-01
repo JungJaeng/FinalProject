@@ -28,6 +28,8 @@ public interface MemberService {
 	// ����鍮�諛�踰��� 硫��쇰� 蹂대�닿린
 	public void pwSendEmail(Member member);
 
+	public boolean nickcheck(String user_nick);
+
 
 
 
