@@ -78,13 +78,22 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 	@Override
-	public void update(Board board) {
+	public void update(Board board,String images) {
 		boardDao.update(board);
+		if(images!= null && !"".equals(images)) {
+			String[] imagelist = images.split(",");
+			Map<String,Object> map = new HashMap<String,Object>();
+
+			logger.info("imagelist" + Arrays.toString(imagelist));
+			
+			map.put("board", board);
+			map.put("images",imagelist);
+			boardDao.updateImages(map);
+		}
 	}
 
 	@Override
 	public void delete(int board_no) {
-		boardDao.deleteBoardByboard_no(board_no);
 		boardDao.deleteCommentByboard_no(board_no);
 		
 		List<Upload_Image> list = boardDao.selectBoard_ImageByboard_no(board_no);
@@ -96,9 +105,10 @@ public class BoardServiceImpl implements BoardService {
 			if(file.exists()) {file.delete();}
 		};
 		
-		
 		boardDao.deleteBoard_ImageByboard_no(board_no);
 		
+
+		boardDao.deleteBoardByboard_no(board_no);
 		
 	} 
 

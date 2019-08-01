@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -42,7 +41,6 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Autowired ServletContext context;
-	//서비스 객체
 	@Autowired BoardService boardService;
 	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
@@ -82,8 +80,8 @@ public class BoardController {
 		}
 		
 		Board board = new Board();
-		board.setWriter_id((String)session.getAttribute("loginid"));
-		board.setWriter_nick((String)session.getAttribute("loginnick"));
+		board.setWriter_id((String)session.getAttribute("login_id"));
+		board.setWriter_nick((String)session.getAttribute("login_nick"));
 		
 		model.addAttribute("board", board);
 		
@@ -102,9 +100,9 @@ public class BoardController {
 		model.addAttribute("board",board);
 	}
 	@RequestMapping(value = "/board/update", method = RequestMethod.POST)
-	public String Update(Board board, Model model) {
+	public String Update(Board board, Model model,String images) {
 		logger.info(board.toString());
-		boardService.update(board);
+		boardService.update(board,images);
 		return "redirect:/board/view?board_no="+board.getBoard_no();
 	}
 	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
@@ -115,7 +113,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	@RequestMapping(value = "/board/comment/insert", method = RequestMethod.POST)
-	public String CommenetInsert(Comment comment ,Model model) {
+	public String CommentInsert(Comment comment ,Model model) {
 		
 		boardService.commentInsert(comment);
 		
@@ -124,7 +122,7 @@ public class BoardController {
 		return "board/comment";
 	}
 	@RequestMapping(value = "/board/comment/delete", method = RequestMethod.POST)
-	public String DeleteInsert(Comment comment ,Model model) {
+	public String CommentDelete(Comment comment ,Model model) {
 		
 		boardService.commentDelete(comment);
 		
