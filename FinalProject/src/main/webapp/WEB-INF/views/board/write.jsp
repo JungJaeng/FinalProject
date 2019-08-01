@@ -58,25 +58,22 @@ function sendFile(file, editor) {
         	if(isfirst){
         		images = images + data.fileno;
         		isfirst = false;
-        		document.getElementById("images").value = images;
+        		$("#images").val(images);
         	}else{
         		images = images + "," + data.fileno;
-        		document.getElementById("images").value = images;
+        		$("#images").val(images);
         	}
         }
     });
 }
-function test(){
-	console.log(document.getElementById("images").value);
-}
+
 </script>
 <form action="/board/write" method="post">
 <input type="text" style="display: none;" id="images" name="images" value=""/>
-아이디 : ${login_id }<input type="hidden" name="writer_id" value="${login_id  }"/><br>
-닉네임 : ${login_nick }<input type="hidden" name="writer_nick" value="${login_nick  }"/><br>
+아이디 : ${board.writer_id  }<input type="hidden" name="writer_id" value="${board.writer_id  }"/><br>
+닉네임 : ${board.writer_nick  }<input type="hidden" name="writer_nick" value="${board.writer_nick  }"/><br>
 제목 : <input type="text" name = "title"/><br>
 <textarea name="content" id="summernote"></textarea><br>
 <button>글 작성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="location.href='/board/list'">돌아가기</button>
 </form>
-<button onclick="test();">test</button>

@@ -35,7 +35,7 @@
 </div>
 <div class="paging">
 <c:if test="${login_id ne null}">
-<div class="button-right"><button id="btnWrite" onclick="location.href='/board/write'">글 쓰기</button></div>
+<div class="button-right"><button id="btnWrite" onclick="location.href='/tripspot/write'">글 쓰기</button></div>
 </c:if>
 </div>
 <div class="search">

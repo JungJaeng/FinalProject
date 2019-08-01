@@ -94,7 +94,7 @@ $(window).scroll(function() {
 		<div class="menuname menu">
 			<a class="atag" href="/main">Home</a>
 			<a class="atag" href="/pension/list">펜션 간편예약</a>
-			<a class="atag" >여행지 추천</a>
+			<a class="atag" href="/tripspot/list">여행지 추천</a>
 			<a class="atag" href="/board/list">커뮤니티</a>			
 		</div>
 	

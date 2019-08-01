@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import web.dto.TripSpot;
+import web.dto.Upload_Image;
 import web.util.Paging;
 
 public interface TripspotDao {
@@ -17,5 +18,9 @@ public interface TripspotDao {
 	public TripSpot selectTripspotByboard_no(int board_no);
 
 	public void insert(TripSpot tripspot);
+
+	public void insertImage(Upload_Image upimage);
+
+	public Upload_Image selectImgbyfileno(Upload_Image tripspot_image);
 
 }

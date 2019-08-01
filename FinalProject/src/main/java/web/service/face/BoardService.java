@@ -46,7 +46,7 @@ public interface BoardService {
 	
 	public void write(Board board, String images);
 
-	public void update(Board board);
+	public void update(Board board,String images);
 
 	public void delete(int board_no);
 

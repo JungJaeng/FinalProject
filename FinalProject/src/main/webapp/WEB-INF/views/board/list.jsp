@@ -88,7 +88,7 @@ table .content:hover{
 			<td><a href="/board/view?board_no=${i.board_no }">${i.title }</a></td>
 			<td>${i.writer_nick }</td>
 			<td>${i.hit }</td>
-		 	<td>${i.write_date }</td>
+		 	<td><fmt:formatDate value="${i.write_date }" pattern="MM월dd일 HH:mm:ss" /></td>
 		</tr>
 </c:forEach>
 </tbody>
