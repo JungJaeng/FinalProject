@@ -180,6 +180,17 @@ public class MemberServiceImpl implements MemberService {
    }
 
 
+@Override
+public boolean nickcheck(String user_nick) {
+	
+    if( memberDao.nickcheck(user_nick) > 0 ) {
+        return false;
+     } 
+     
+     return true; 
+}
+
+
 
 
    

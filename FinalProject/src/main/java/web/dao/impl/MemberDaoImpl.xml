@@ -49,6 +49,11 @@
       WHERE user_id = #{user_id }
    
    </update>
+   
+   <select id="nickcheck" parameterType="web.dto.Member" resultType="int">
+      SELECT COUNT(*) FROM member
+      WHERE user_nick = #{user_nick }   
+   </select>
 
 
       

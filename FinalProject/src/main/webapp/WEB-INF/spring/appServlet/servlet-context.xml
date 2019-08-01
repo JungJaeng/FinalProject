@@ -59,6 +59,8 @@
 		<beans:property name="maxUploadSize" value="10485760" />
 	</beans:bean>
 	
+	<beans:bean id="naverLoginBO" class="web.util.NaverLoginBO" /> 
+	
 	<context:component-scan base-package="com.mycompany.myapp,web" />
 	
 	
