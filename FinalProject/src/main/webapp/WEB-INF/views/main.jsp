@@ -54,14 +54,18 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 				
 				
 				console.log(items)
-				for(var i=0; i<numOfRows && i<totalCount; i++) {
+				console.log(items.length)
+				var cnt = items.length!=null ?items.length :1;
+				console.log("cnt : " + cnt) 
+				
+				for(var i=0; i<numOfRows && i<totalCount && i<cnt; i++) {
 //						console.log(items[i]);
 //						$("#resultUl").append("<li class='resultLi'>"
 //								+"<img class='resultImg' src="+items[i].firstimage+"><p class='resultPtag'>"+items[i].title+"</p></li>")
-					var item = (totalCount==1) ?items :items[i];
+					var item = (items.length==null) ?items :items[i];
 //						console.log(item);
 					if(item.firstimage == null){
-						item.firstimage = "/resources/img/noimage.jpg";
+						item.firstimage = "/resources/img/noimage.jpg";	
 					}
 					$("#resultUl").append("<li class='resultLi'><a class='contentAtag' data="+item.contentid+" id="+item.contenttypeid+">"
 							+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></a></li>")
@@ -74,12 +78,14 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			    var totalPage = Math.ceil(totalData/dataPerPage); //페이지 그룹
 			    var startPage = ((pageNo-1)/pageCount)*pageCount+1;
 			    var endPage = startPage+pageCount-1;
+			    if(endPage > totalPage)	endPage = totalPage;
 			    var totalGroup = Math.ceil(totalPage/pageCount);
 			    var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
 		        	if(last > totalPage) last = totalPage;
 		        var first = last - (pageCount-1); 
 		        var next = last+1;
 		        var prev = first-1;
+
 		     // 게시글 시작번호
 				var startNo = (pageNo-1)*dataPerPage+1;
 			// 게시글 끝번호
@@ -87,9 +93,9 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 		     // 현재 페이지가 총 페이지보다 크게 입력되면
 				// 강제로 마지막페이지 고정
 		        if (totalPage < pageNo)	pageNo = totalPage;
-		        
-		     // 계산된 마지막 페이지가 totalPage보다 커질 경우
+		     // 계산된 마지막 페이지가 totalPage보다 커질 경우 
 				// 강제로 최종 페이지까지만 보이도록 설정
+// 				if(last > totalPage)	last = totalPage;
 				if(endPage > totalPage)	endPage = totalPage;
 		     
 			    console.log("totalData : "+totalData)
@@ -101,18 +107,21 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			    console.log("endPage : "+endPage)
 			    console.log("totalGroup : "+totalGroup)
 			    console.log("pageNo :"+pageNo)
+			    console.log("last : "+last)
+			    console.log("first : "+first)
 			    //=====paging 처리
 			    
 			   	
 				$(".pagination").empty();  //페이징에 필요한 객체내부를 비워준다.
 				
-// 			    if(pageNo != 1){            // 페이지가 1페이지 가아니면
-// 			    	$(".pagination").append("<li class='goFirstPage'><a><<</a></li>");        //첫페이지로가는버튼 활성화
-// 			    }else{
-// 			    	$(".pagination").append("<li class='disabled'><a><<</a></li>");        //첫페이지로가는버튼 비활성화
-// 			    }
+			    if(pageNo != 1){            // 페이지가 1페이지 가아니면
+			    	$(".pagination").append("<li class='goFirstPage'><a><<</a></li>");        //첫페이지로가는버튼 활성화
+			    }else{
+			    	$(".pagination").append("<li class='disabled'><a><<</a></li>");        //첫페이지로가는버튼 비활성화
+
+				    }
 				
-			    if(prev > 0){            
+			    if(pageGroup != 1){            
 		        	$(".pagination").append("<li class='goBackPage'><a><</a></li>");        //뒤로가기버튼 활성화
 
 		        }else{
@@ -120,7 +129,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 		        }
 				
-			    for(var i = first ; i <= last ; i++){        //시작페이지부터 종료페이지까지 반복문
+			    for(var i = startPage ; i <= endPage ; i++){        //시작페이지부터 종료페이지까지 반복문
 
 		        	if(pageNo == i){                            //현재페이지가 반복중인 페이지와 같다면
 		                	$(".pagination").append("<li class='active'><a>"+i+"</a></li>");    //버튼 비활성화
@@ -130,13 +139,22 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 		        }
 
 			    
-			     if(last<totalPage ){            
+			     if(pageGroup<totalGroup ){            
 			        	$(".pagination").append("<li class='goNextPage'><a>></a></li>");         //다음페이지버튼 활성화
 			        }else{
 			        	$(".pagination").append("<li class='disabled'><a>></a></li>");        //다음페이지버튼 비활성화
 			        }
 
-		  
+			     if(pageNo<totalPage ){            
+			        	$(".pagination").append("<li class='goLastPage'><a>>></a></li>");         //다음페이지버튼 활성화
+			        }else{
+			        	$(".pagination").append("<li class='disabled'><a>>></a></li>");        //다음페이지버튼 비활성화
+			        }
+			     
+			     
+		  		if(totalCount == 0 ){
+		  			$(".pagination").empty(); 
+		  		}
 
 // 		          if(pageNo < totalPage){                //현재페이지가 전체페이지보다 작을때
 
@@ -150,13 +168,13 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 		          
 		          
 // 		          //첫페이지로 가기 버튼 이벤트
-// 		       $(".goFirstPage").click(function(){
+		       $(".goFirstPage").click(function(){
 
-// 				       	curPage = 1;
+				       	curPage = 1;
 
-// 				  		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+				  		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
-// 			        });
+			        });
 
 
 
@@ -164,7 +182,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 				$(".goBackPage").click(function(){
 
-				      	curPage = Number(first) - 1;
+				      	curPage = Number(pageNo) - 1;
  
 				      	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 				      	
@@ -186,7 +204,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 				$(".goNextPage").click(function(){
 
-					curPage = Number(last) + 1;
+					curPage = Number(endPage) + 1;
 
 					changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
@@ -198,15 +216,15 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 
 
-// 		//마지막페이지로 가기 클릭이벤트
+		//마지막페이지로 가기 클릭이벤트
 
-// 			        $(".goLastPage").click(function(){
+			        $(".goLastPage").click(function(){
 
-// 			        	curPage = totalPage;
+			        	curPage = totalPage;
 
-// 			        	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
+			        	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 
-// 			        });
+			        });
 
 			$(".contentAtag").click(function(){
 				
@@ -364,7 +382,7 @@ function Detail(contentId, contentTypeId){
 	<div id="search">
 		<label class="content">검색</label>
 <!-- 		<p class="bytes">0</p> -->
-		<input type="text" name="keyword" value="공원"/><button id="btnSearch">검색</button>
+		<input type="text" name="keyword" value="강원"/><button id="btnSearch">검색</button>
 	</div>
 <!-- 	</form> -->
 	<div class="total">
