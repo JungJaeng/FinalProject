@@ -6,18 +6,15 @@ public class PensionComment {
 	private int rnum;
 	private int commentNo;
 	private int pensionNo;
-	private String user_id;
 	private String writer_nick;
 	private String content;
 	private Date writtenDate;
 	
 	
-	
 	@Override
 	public String toString() {
-		return "PensionComment [rnum=" + rnum + ", commentNo=" + commentNo + ", pensionNo=" + pensionNo + ", user_id="
-				+ user_id + ", writer_nick=" + writer_nick + ", content=" + content + ", writtenDate=" + writtenDate
-				+ "]";
+		return "PensionComment [rnum=" + rnum + ", commentNo=" + commentNo + ", pensionNo=" + pensionNo
+				+ ", writer_nick=" + writer_nick + ", content=" + content + ", writtenDate=" + writtenDate + "]";
 	}
 	public int getRnum() {
 		return rnum;
@@ -36,12 +33,6 @@ public class PensionComment {
 	}
 	public void setPensionNo(int pensionNo) {
 		this.pensionNo = pensionNo;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
 	}
 	public String getWriter_nick() {
 		return writer_nick;
@@ -62,7 +53,9 @@ public class PensionComment {
 		this.writtenDate = writtenDate;
 	}
 	
+	
 
+	
 }
 
 

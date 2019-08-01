@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.controller.AdminController;
 import web.dao.face.PensionDao;
 import web.dto.Pension;
+import web.dto.PensionComment;
 import web.dto.PensionRegisterApply;
 import web.dto.Upload_Image;
 import web.service.face.PensionService;
@@ -27,7 +28,7 @@ public class PensionServiceImpl implements PensionService {
 
 	@Autowired PensionDao pensionDao;
 	
-	// ·Î±× ¶óÀÌºê·¯¸® °´Ã¼
+	// ï¿½Î±ï¿½ ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½Ã¼
 	private static final Logger logger = LoggerFactory.getLogger(PensionServiceImpl.class);
 
 	@Override
@@ -66,16 +67,16 @@ public class PensionServiceImpl implements PensionService {
 		String storedPath = context.getRealPath("WEB-INF/upload");
 	      String uId = UUID.randomUUID().toString().split("-")[4];
 	      
-	      //ÀúÀåµÉ ÆÄÀÏÀÇ ÀÌ¸§(¿øº»ÀÌ¸§+UUID)
+	      //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½+UUID)
 	      String name=file.getOriginalFilename()+"_"+uId;
 	      
 	      
-	      //ÀúÀåµÉ ÆÄÀÏ °´Ã¼
+	      //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 	      File dest = new File(storedPath,name);
 	      
-	      //ÆÄÀÏ ÀúÀå
+	      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	      try {
-	         file.transferTo(dest); //½ÇÁ¦ ÀúÀå
+	         file.transferTo(dest); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	      } catch (IllegalStateException e) {
 	         e.printStackTrace();
 	      } catch (IOException e) {
@@ -108,7 +109,44 @@ public class PensionServiceImpl implements PensionService {
 		File file = new File(
 	    context.getRealPath("WEB-INF/upload"), pension_image.getStored_name());
 	      return file;
-	}	
+	}
+
+	@Override
+	public void insertComment(PensionComment pensionComment) {
+		pensionDao.insertComment(pensionComment);
+		
+	}
+
+	@Override
+	public List getCommentList(Pension pension) {
+		return pensionDao.selectComment(pension);
+		
+	}
+
+	@Override
+	public boolean deleteComment(PensionComment pensionComment) {
+		pensionDao.deleteComment(pensionComment); 
+		
+		if( pensionDao.countComment(pensionComment) > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public void delete(Pension pension) {
+		pensionDao.delete(pension);
+		
+	}
+
+	@Override
+	public Pension reserveView(int pension_no) {
+		
+		return pensionDao.reserve(pension_no);
+	}
+
+
 	
 	
 

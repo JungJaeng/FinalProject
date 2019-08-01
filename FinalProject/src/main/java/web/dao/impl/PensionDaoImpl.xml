@@ -24,7 +24,7 @@
 		SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
-				pension_no, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content FROM pension
+				pension_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price FROM pension
 				<where>
 					<if test="name!=null and search!=null">
 						<choose>
@@ -45,17 +45,17 @@
 	</select>
 	
 	<select id="selectPensionBypension_no" parameterType="int" resultType="web.dto.Pension">
-		SELECT pension_no, pension_name, pension_postcode, pension_address, pension_detailaddress, pension_content
+		SELECT pension_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price FROM pension
 		WHERE pension_no=#{pension_no}
 	</select>
-
-	<update id="updateHit" parameterType="int">
-		UPDATE Room SET hit=hit+1 WHERE board_no = #{board_no}
-	</update>	
-
+	
+	<update id="delete" parameterType="web.dto.Pension">
+		DELETE pension
+		WHERE pension_no = #{pension_no }
+	</update>
 	
 	<insert id="write" parameterType="web.dto.PensionRegisterApply">
-		INSERT INTO PensionRegisterApply(apply_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_name, room_content, room_men, room_size, room_price)
+		INSERT INTO PensionRegisterApply(apply_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price)
 		VALUES(
 			PensionRegisterApply_seq.nextval,
 			#{writer_id},
@@ -65,6 +65,7 @@
 			#{pension_address},
 			#{pension_detailAddress},
 			#{pension_content},
+			room_seq.nextval,
 			#{room_name},
 			#{room_content},
 			#{room_men},
@@ -88,5 +89,48 @@
 	<select id="selectImgByfileno" parameterType="web.dto.Upload_Image" resultType="web.dto.Upload_Image">
 		SELECT * FROM pension_image WHERE fileno = #{fileno }
 	</select>
+	
+	<select id="selectComment" parameterType="web.dto.Pension"
+		resultType="web.dto.PensionComment">
+		SELECT rownum rnum, B.* FROM (
+			SELECT
+				commentno,
+				pensionno,
+				writer_nick,
+				content,
+				writtendate
+			FROM PensionComment
+			WHERE pensionno = #{pension_no }
+		) B
+		ORDER BY rnum
+	</select>
+	
+	<insert id="insertComment" parameterType="web.dto.PensionComment">
+		INSERT INTO PensionComment ( commentno,pensionno,writer_nick,content )
+		VALUES ( PensionComment_seq.nextval, #{pensionNo }, #{writer_nick }, #{content } )
+	</insert>
 
+	<delete id="deleteComment" parameterType="web.dto.PensionComment">
+		DELETE PensionComment WHERE
+		commentno = #{commentNo }
+	</delete>
+
+	<select id="countComment" parameterType="web.dto.PensionComment"
+		resultType="int">
+		SELECT COUNT(*) FROM PensionComment WHERE commentno=#{commentNo}
+	</select>
+	
+	
+	<select id="reserve" parameterType="int" resultType="web.dto.Pension">
+		SELECT pension_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price FROM pension
+		WHERE pension_no=#{pension_no}
+	</select>
+	
 </mapper>
+
+	
+
+
+
+
+
