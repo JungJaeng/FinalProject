@@ -3,9 +3,8 @@ package web.dao.face;
 import java.util.List;
 import java.util.Map;
 
-import web.dto.Board;
-import web.dto.Comment;
 import web.dto.Pension;
+import web.dto.PensionComment;
 import web.dto.PensionRegisterApply;
 import web.dto.Upload_Image;
 import web.util.Paging;
@@ -20,24 +19,28 @@ public interface PensionDao {
 	
 	public void updateHit(int pension_no);
 	
+	public void delete(Pension pension);
+	
 	public void write(PensionRegisterApply pensionRegisterApply);
-	
-	public List<Comment> selectCommentBypension_no(Pension pension);
-	
-	public void insertComment(Comment comment);
-	
-	public void deleteComment(Comment comment);
-	
+		
 	public int getApply_no();
 
 	public void insertImage(Upload_Image upimage);
 
 	public Upload_Image selectImgByfileno(Upload_Image pension_image);
 
-	public void deleteCommentBypension_no(int pension_no);
-
+	public List selectComment(Pension pension);
 	
+	public void insertComment(PensionComment pensionComment);
 
-
-
+	public void deleteComment(PensionComment pensionComment);
+	
+	public int countComment(PensionComment pensionComment);
+	
+	/**
+	 * 	예약
+	 * @param pension_no
+	 * @return 
+	 */
+	public Pension reserve(int pension_no);
 }

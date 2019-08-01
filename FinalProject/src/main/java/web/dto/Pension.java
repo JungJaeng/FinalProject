@@ -2,11 +2,14 @@ package web.dto;
 
 public class Pension {
 	private int pension_no;
+	private String writer_id;
+	private String writer_nick;
 	private String pension_name;
 	private String pension_postcode;
 	private String pension_address;
 	private String pension_detailAddress;
 	private String pension_content;
+	private int room_no;
 	private String room_name;
 	private String room_content;
 	private String room_men;
@@ -14,19 +17,34 @@ public class Pension {
 	private String room_price;
 	
 	
+	
 	@Override
 	public String toString() {
-		return "Pension [pension_no=" + pension_no + ", pension_name=" + pension_name + ", pension_postcode="
-				+ pension_postcode + ", pension_address=" + pension_address + ", pension_detailAddress="
-				+ pension_detailAddress + ", pension_content=" + pension_content + ", room_name=" + room_name
-				+ ", room_content=" + room_content + ", room_men=" + room_men + ", room_size=" + room_size
-				+ ", room_price=" + room_price + "]";
+		return "Pension [pension_no=" + pension_no + ", writer_id=" + writer_id + ", writer_nick=" + writer_nick
+				+ ", pension_name=" + pension_name + ", pension_postcode=" + pension_postcode + ", pension_address="
+				+ pension_address + ", pension_detailAddress=" + pension_detailAddress + ", pension_content="
+				+ pension_content + ", room_no=" + room_no + ", room_name=" + room_name + ", room_content="
+				+ room_content + ", room_men=" + room_men + ", room_size=" + room_size + ", room_price=" + room_price
+				+ "]";
 	}
+	
 	public int getPension_no() {
 		return pension_no;
 	}
 	public void setPension_no(int pension_no) {
 		this.pension_no = pension_no;
+	}
+	public String getWriter_id() {
+		return writer_id;
+	}
+	public void setWriter_id(String writer_id) {
+		this.writer_id = writer_id;
+	}
+	public String getWriter_nick() {
+		return writer_nick;
+	}
+	public void setWriter_nick(String writer_nick) {
+		this.writer_nick = writer_nick;
 	}
 	public String getPension_name() {
 		return pension_name;
@@ -57,6 +75,12 @@ public class Pension {
 	}
 	public void setPension_content(String pension_content) {
 		this.pension_content = pension_content;
+	}
+	public int getRoom_no() {
+		return room_no;
+	}
+	public void setRoom_no(int room_no) {
+		this.room_no = room_no;
 	}
 	public String getRoom_name() {
 		return room_name;
@@ -91,7 +115,6 @@ public class Pension {
 	
 	
 	
-
 	
 
 	

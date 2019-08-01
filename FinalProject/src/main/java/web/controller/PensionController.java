@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.dto.Board;
 import web.dto.Comment;
 import web.dto.Member;
 import web.dto.Pension;
+import web.dto.PensionComment;
 import web.dto.PensionRegisterApply;
 import web.dto.Upload_Image;
 import web.service.face.PensionService;
@@ -41,10 +42,10 @@ public class PensionController {
 	
 	@Autowired PensionService pensionService;
 	@Autowired ServletContext context;
-	// ·Î±× ¶óÀÌºê·¯¸® °´Ã¼
+	// ï¿½Î±ï¿½ ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½Ã¼
 	private static final Logger logger = LoggerFactory.getLogger(PensionController.class);
 	
-	// Ææ¼Ç ¸ñ·Ï
+	// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/pension/list", method = RequestMethod.GET)
 	public void MemberList(@RequestParam(defaultValue = "1") int curPage, String name, String search, Model model) {
 
@@ -63,21 +64,61 @@ public class PensionController {
 	}
 	
 	
-//	// ¹æ º¸±â
-//	@RequestMapping(value="/pension/room_view")
-//	public void View(
-//		@RequestParam int pension_no,
-//		Model model) {
-//				
-//		pensionService.hitview(pension_no);
-//		Board viewboard = pensionService.view(pension_no);
-//		model.addAttribute("board",viewboard);
-//				
-//		List<Comment> list = pensionService.commentView(pension_no);
-//		model.addAttribute("commentlist",list);
-//	}
-//	
-	// Ææ¼Çµî·Ï¿äÃ» ±Û¾²±â
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping(value="/pension/room_view", method=RequestMethod.GET)
+	public String View(
+		@RequestParam int pension_no,
+		Model model,
+		HttpSession session) {
+				
+		Pension viewPension = pensionService.pensionView(pension_no);
+		model.addAttribute("pension",viewPension);
+		
+		Pension check = new Pension();
+		check.setWriter_id((String)session.getAttribute("login_id"));
+		check.setWriter_nick((String)session.getAttribute("login_nick"));
+		
+		// ëŒ“ê¸€ ì •ë³´
+		PensionComment comment = new PensionComment();
+		List<PensionComment> commentList = pensionService.getCommentList(viewPension);
+		model.addAttribute("commentList", commentList);
+				
+		return "pension/room_view";
+				
+		
+	}
+	
+	@RequestMapping(value = "/pension/insertComment", method = RequestMethod.POST)
+	public String CommenetInsert(PensionComment pensionComment,
+			Model model) {
+		
+		pensionService.insertComment(pensionComment);
+		
+		return "redirect:/pension/room_view?pension_no="
+		+pensionComment.getPensionNo();
+	}
+	
+	@RequestMapping(value = "/pension/deleteComment", method = RequestMethod.POST)
+	public void DeleteComment(PensionComment pensionComment,
+			Writer out) {
+		
+		boolean success = pensionService.deleteComment(pensionComment);;
+		
+		try {
+			out.append("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/pension/delete", method=RequestMethod.GET)
+	public String Delete(Pension pension, Model model) {
+		pensionService.delete(pension);
+			
+		return "redirect:/pension/list";
+	}
+	
+	// ï¿½ï¿½Çµï¿½Ï¿ï¿½Ã» ï¿½Û¾ï¿½ï¿½ï¿½
 	@RequestMapping(value="/pension/register_apply"
 			, method=RequestMethod.GET)
 	public void write() { }
@@ -88,7 +129,7 @@ public class PensionController {
 			HttpSession session,
 			Member member) {
 				
-		// ÀÛ¼ºÀÚ ¾ÆÀÌµð Ãß°¡
+		// ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ß°ï¿½
 		pensionRegisterApply.setWriter_id((String)session.getAttribute("login_id"));
 		
 		
@@ -123,8 +164,8 @@ public class PensionController {
 	         e1.printStackTrace();
 	      }
 	         
-	      //UTF-8 ÀÎÄÚµù ¿À·ù ¼öÁ¤ (ÇÑ±Û¸¸ ¹Ù²ã¾ß ÇÏ´Âµ¥ Æ¯¼ö±âÈ£±îÁö ¹Ù²ã¼­ ¹®Á¦°¡ »ý±â´Â°Í)
-	      filename = filename.replace("+", "%20"); //¶ç¾î¾²±â
+	      //UTF-8 ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ñ±Û¸ï¿½ ï¿½Ù²ï¿½ï¿½ ï¿½Ï´Âµï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ã¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â°ï¿½)
+	      filename = filename.replace("+", "%20"); //ï¿½ï¿½î¾²ï¿½ï¿½
 	      filename = filename.replace("%5B", "["); 
 	      filename = filename.replace("%5D", "]");
 	      filename = filename.replace("%21", "!"); 
@@ -150,10 +191,22 @@ public class PensionController {
 	         } catch (IOException e) {
 	            e.printStackTrace();
 	         }
-
-	      
 	   }
 	
 	
-	
+	@RequestMapping(value="/pension/reserve", method=RequestMethod.GET)
+	public void Reservation(
+		@RequestParam int pension_no,
+		Model model,
+		HttpSession session) {
+				
+		Pension viewReserve = pensionService.reserveView(pension_no);
+		model.addAttribute("reserve",viewReserve);
+		
+		Pension check = new Pension();
+		check.setWriter_id((String)session.getAttribute("login_id"));
+		check.setWriter_nick((String)session.getAttribute("login_nick"));
+				
+	}
+
 }
