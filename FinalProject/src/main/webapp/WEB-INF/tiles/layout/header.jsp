@@ -68,16 +68,24 @@ $(window).scroll(function() {
 <div class="outside">
 	<div class="subbar">
 	<!--       비로그인상태 -->
-	      <c:if test="${empty login }">
+	      <c:if test="${empty login and empty naverLogin}">
 			<a class="atag" href="/member/login">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a class="atag" href="/member/join">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	      </c:if>
 	<!--       로그인상태 -->
-	      <c:if test="${login and login_nick ne '관리자'  }">
+	      <c:if test="${login and login_nick ne '관리자' }">
 			<a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	         <a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	      </c:if>
+	      </c:if> 
+	      
+	<!--       네이버 로그인상태 -->
+		<c:if test="${naverLogin }">
+			<a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		</c:if>
+	      
 	<!-- 		관리자상태 -->
 		  <c:if test="${login_nick eq '관리자' }">
 			<a href="/admin/member_list">회원관리</a>&nbsp;&nbsp;&nbsp;&nbsp;

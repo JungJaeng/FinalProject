@@ -10,7 +10,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
 
 .login_content {
@@ -158,6 +158,46 @@ $(document).ready(function() {
 	naver_id_login.setState(state); 
 // 	naver_id_login.setPopup(); 
 	naver_id_login.init_naver_id_login; 
+</script>
+
+<div id="kakao_id_login" style="text-align:center">
+	<a id="kakao-login-btn"></a>
+	<a href="http://developers.kakao.com/logout"></a>
+</div>
+
+<!-- Kakao Login -->
+<script type="text/javascript">
+	// 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('9ec756b514f42f122b54464078ced9f2');
+	// 카카오 로그인 버튼을 생성합니다.
+	Kakao.Auth.createLoginButton({
+		container: '#kakao-login-btn',
+		success: function(authObj) {
+			alert(JSON.stringify(authObj));
+		// 로그인 성공시, API를 호출합니다.
+		Kakao.API.request({
+			url: '/v1/user/me',
+			success: function(res) {
+				console.log(res);
+				console.log(JSON.stringify(res.kaccount_email));
+				console.log(JSON.stringify(res.id));
+				console.log(JSON.stringify(res.properties.profile_image));
+				console.log(JSON.stringify(res.properties.nickname));
+              
+				alert(res.properties.nickname+'님 환영합니다.');
+				location.href="/member/kakaoLogin";
+			
+            },
+            fail: function(error) {
+				alert(JSON.stringify(error));
+            }
+          });
+        },
+        fail: function(err) {
+          alert(JSON.stringify(err));
+        }
+      });
+
 </script>
 
 </body>
