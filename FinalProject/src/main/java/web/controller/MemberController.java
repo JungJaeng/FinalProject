@@ -3,6 +3,7 @@ package web.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import web.dto.Member;
 import web.service.face.MemberService;
+import web.util.KakaoApi;
 import web.util.NaverLoginBO;
 
 @Controller
@@ -30,6 +33,8 @@ public class MemberController {
    
    private NaverLoginBO naverLoginBO;
    private String apiResult = null;
+   
+   private KakaoApi kakaoApi = new KakaoApi();
 
    // 서비스 객체
    @Autowired MemberService memberService;
@@ -42,11 +47,14 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/login", method=RequestMethod.GET)
-   public void login(Model model, HttpSession session) { 
+   public void login(
+		   Model model, 
+		   HttpSession session
+		   ) { 
 	   
 	   String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 	   
-//	   logger.info("네이버:" + naverAuthUrl.toString());
+	   logger.info("네이버:" + naverAuthUrl.toString());
 	   
 	   model.addAttribute("url", naverAuthUrl);
 	   
@@ -57,9 +65,13 @@ public class MemberController {
    public String loginProc(
          Member member,
          HttpSession session,
-         Model model
+         Model model,
+		 @RequestParam("kakaoCode") String kakaoCode
          )throws Exception {
-
+	   
+	   JsonNode token = kakaoApi.getAccessToken(kakaoCode);
+	   
+	   logger.info(token.toString());
 	   
       String redirectUrl = null;
       if( memberService.login(member) ) {
@@ -104,16 +116,56 @@ public class MemberController {
 	   
        OAuth2AccessToken oauthToken;
        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+       
        //로그인 사용자 정보를 읽어온다.
        apiResult = naverLoginBO.getUserProfile(oauthToken); // String형식의 json데이터 
        
-       logger.info(apiResult);
+//       logger.info("apiResult="+apiResult);
+       
+       memberService.insertNaverLogin(apiResult);
+       
+       session.setAttribute("naverLogin", true);
        
        model.addAttribute("result", apiResult);
        
        
-       return "member/callback";
+       
+       return "/main";
    }
+   
+   @RequestMapping(value="/member/kakaoLogin", produces="application/json", method = { RequestMethod.GET, RequestMethod.POST })
+   public String kakaoLogin(
+		   @RequestParam(value="pbnum", required=false) String code,
+//		   @RequestParam("code") String code,
+		   HttpSession session,
+		   Model model,
+		   HttpServletRequest request, 
+		   HttpServletResponse response
+		   ) { 
+	   
+	   // 로그인 후 code get
+	   logger.info("code: " + code);
+	   
+	   JsonNode token = kakaoApi.getAccessToken(code);
+
+	   JsonNode profile = kakaoApi.getKakaoUserInfo(token.path("access_token").toString());
+	   
+	   Member member = kakaoApi.changeData(profile);
+	   
+	   member.setUser_id("k"+member.getUser_id());
+	   
+	   logger.info(session.toString());
+	   
+	   session.setAttribute("kakaoLogin", member);
+	   
+	   logger.info(member.toString());
+	   
+	   model.addAttribute("member", member);
+	   
+	   return "/main";
+	   
+   }
+
    
    
    
@@ -190,7 +242,7 @@ public class MemberController {
       
       memberService.insert(member);
       
-      return "redirect:/main"; 
+      return "redirect:/member/callback"; 
       
    }
    

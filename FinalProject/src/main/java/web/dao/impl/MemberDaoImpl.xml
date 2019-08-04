@@ -55,7 +55,11 @@
       WHERE user_nick = #{user_nick }   
    </select>
 
-
+	
+	<insert id="insertNaverLogin">
+		INSERT INTO member( user_no, user_id, user_join_no )
+		VALUES (member_seq.nextval, #{id }, 1) 
+	</insert>
       
    
 

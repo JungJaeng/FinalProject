@@ -8,8 +8,9 @@
 <html>
 <head>
 <script type="text/javascript" 
-		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
-		charset="utf-8"></script>
+		src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+		charset="utf-8">
+</script>
   
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   
@@ -26,17 +27,20 @@
   <br>
   <h2 style="text-align: center" id="name"></h2>
   <h4 style="text-align: center" id="email"></h4>
-  <script>
-    $(function () {
-      $("body").hide();
-      $("body").fadeIn(1000);  // 1초 뒤에 사라 지자 
-     
-      setTimeout(function(){$("body").fadeOut(1000);},1000);
-      setTimeout(function(){location.href= "${pageContext.request.contextPath}/main"});
-// 2초 뒤에 메인 화면 으로 가자  
-    
-    })
-  </script>
+  
+<script type="text/javascript">
+  var naver_id_login = new naver_id_login("dUxGrlsV_QuicpElosr7", "http://localhost:8088/member/callback");
+  // 접근 토큰 값 출력
+  alert(naver_id_login.oauthParams.access_token);
+  // 네이버 사용자 프로필 조회
+  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  function naverSignInCallback() {
+    alert(naver_id_login.getProfileData('email'));
+    alert(naver_id_login.getProfileData('nickname'));
+    alert(naver_id_login.getProfileData('age'));
+  }
+</script>
   
   
 

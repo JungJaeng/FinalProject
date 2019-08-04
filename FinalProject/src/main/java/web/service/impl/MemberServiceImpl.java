@@ -191,6 +191,13 @@ public boolean nickcheck(String user_nick) {
 }
 
 
+@Override
+public void insertNaverLogin(String apiResult) {
+	memberDao.insertNaverLogin(apiResult);
+	
+}
+
+
 
 
    

@@ -25,5 +25,7 @@ public interface MemberDao {
 
 	public int nickcheck(String user_nick);
 
+	public void insertNaverLogin(String apiResult);
+
 	
 }
