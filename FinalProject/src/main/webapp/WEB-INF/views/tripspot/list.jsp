@@ -24,7 +24,7 @@
 			<td><a href="/tripspot/view?board_no=${i.board_no }">${i.title }</a></td>
 			<td>${i.writer_nick }</td>
 			<td>${i.hit }</td>
-		 	<td>${i.writendate }</td>
+		 	<td><fmt:formatDate value="${i.writendate }" pattern="yyyy-MM-dd" /></td>
 		</tr>
 </c:forEach>
 </tbody>

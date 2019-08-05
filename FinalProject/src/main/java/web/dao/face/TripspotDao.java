@@ -23,4 +23,10 @@ public interface TripspotDao {
 
 	public Upload_Image selectImgbyfileno(Upload_Image tripspot_image);
 
+	public void updateImages(Map<String, Object> map);
+
+	public void update(TripSpot tripspot);
+
+	public void deletetripspotByBoard_no(int board_no);
+
 }

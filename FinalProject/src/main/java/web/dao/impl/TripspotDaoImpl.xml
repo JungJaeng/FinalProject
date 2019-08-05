@@ -49,7 +49,7 @@
 		SELECT tripspot_seq.nextval FROM dual
 	</selectKey>
 		INSERT INTO tripspot(board_no, region,region_detail,title, content, writer_id, writer_nick, hit)
-		VALUES #{board_no},#{region},#{region_detail},#{title}, #{content}, #{writer_id}, #{writer_nick}, hit
+		VALUES (#{board_no},#{region},#{region_detail},#{title}, #{content}, #{writer_id}, #{writer_nick}, 0)
 	</insert>
 	
 	<insert id="insertImage" parameterType="web.dto.Upload_Image">
@@ -64,5 +64,25 @@
 		SELECT * FROM tripspot_image WHERE fileno = #{fileno}
 	</select>
 	
+	<update id="updateImages" parameterType="Map">
+		UPDATE tripspot_image
+		SET board_no = #{tripspot.board_no}
+		WHERE fileno IN 
+		<foreach collection="images" open="(" separator=","  close=")" item="val">
+			${val}
+		</foreach>
+	</update>
 	
+	<update id="update" parameterType="web.dto.TripSpot">
+		UPDATE tripspot
+		SET
+			region = #{region},
+			region_detail = #{region_detail},
+			title = #{title},
+			content = #{content}
+		WHERE board_no = #{board_no}
+	</update>
+	<delete id="deletetripspotByBoard_no" parameterType="int">
+		DELETE FROM tripspot WHERE board_no = #{board_no}
+	</delete>
 </mapper>

@@ -62,11 +62,11 @@
 	</update>
 	
 	<delete id="deleteBoardByboard_no" parameterType="int">
-		DELETE board WHERE board_no=#{board_no}
+		DELETE FROM board WHERE board_no=#{board_no}
 	</delete>
 	
 	<delete id="deleteCommentByboard_no" parameterType="int">
-		DELETE commentTB WHERE board_no=#{board_no}
+		DELETE FROM commentTB WHERE board_no=#{board_no}
 	</delete>
 	
 	<select id="selectBoard_ImageByboard_no" parameterType="int" resultType="web.dto.Upload_Image">
@@ -75,7 +75,7 @@
 	
 	
 	<delete id="deleteBoard_ImageByboard_no" parameterType="int">
-		DELETE board_image WHERE board_no=#{board_no}
+		DELETE FROM board_image WHERE board_no=#{board_no}
 	</delete>
 	
 	<select id="selectCommentByboard_no" parameterType="int" resultType="web.dto.Comment">
@@ -96,7 +96,7 @@
 	</insert>
 	
 	<delete id="deleteComment" parameterType="web.dto.Comment">
-		DELETE commentTB WHERE commentno=#{commentno}
+		DELETE FROM commentTB WHERE commentno=#{commentno}
 	</delete>
 	
 	<insert id="insertImage" parameterType="web.dto.Upload_Image">

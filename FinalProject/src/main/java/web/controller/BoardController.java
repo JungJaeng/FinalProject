@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +126,7 @@ public class BoardController {
 		
 		List<Comment> list = boardService.commentView(comment.getBoard_no());
 		model.addAttribute("commentlist",list);
-		
+
 		return "board/comment";
 	}
 	@RequestMapping(value = "/board/imageupload", method = RequestMethod.POST)
@@ -148,28 +146,9 @@ public class BoardController {
 		File file = boardService.findFile(board_image, context);
 		resp.setContentLength((int) file.length());
 		resp.setCharacterEncoding("utf-8");
-		String filename = "";
-	      
-		try {
-			filename = URLEncoder.encode(board_image.getOrigin_name(), "utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-	      
-		//UTF-8 인코딩 오류 수정 (한글만 바꿔야 하는데 특수기호까지 바꿔서 문제가 생기는것)
-		filename = filename.replace("+", "%20"); //띄어쓰기
-		filename = filename.replace("%5B", "["); 
-		filename = filename.replace("%5D", "]");
-		filename = filename.replace("%21", "!"); 
-		filename = filename.replace("%23", "#"); 
-		filename = filename.replace("%24", "$"); 
-	      
-	      
-		File origin = new File(context.getRealPath("WEB-INF/upload"), board_image.getStored_name());
 		FileInputStream fis = null;
-	      
 		try {
-			fis = new FileInputStream(origin);
+			fis = new FileInputStream(file);
 			OutputStream out = resp.getOutputStream();
 	   
 			FileCopyUtils.copy(fis, out);

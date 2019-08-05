@@ -73,7 +73,9 @@ function sendFile(file, editor) {
 아이디 : ${board.writer_id  }<input type="hidden" name="writer_id" value="${board.writer_id  }"/><br>
 닉네임 : ${board.writer_nick  }<input type="hidden" name="writer_nick" value="${board.writer_nick  }"/><br>
 제목 : <input type="text" name = "title"/><br>
-<textarea name="content" id="summernote"></textarea><br>
+<textarea name="content" id="summernote">
+
+</textarea><br>
 <button>글 작성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="location.href='/board/list'">돌아가기</button>
 </form>

@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
@@ -62,7 +59,6 @@ public class TripspotController {
 		tripspotService.hitview(board_no);
 		TripSpot viewtripspot = tripspotService.view(board_no);
 		model.addAttribute("tripspot",viewtripspot);
-		
 //		List<Comment> list = boardService.commentView(board_no);
 //		model.addAttribute("commentlist",list);
 	}
@@ -73,8 +69,8 @@ public class TripspotController {
 			return "redirect:/tripspot/list";
 		}
 		TripSpot tripspot = new TripSpot();
-		tripspot.setWriter_id((String)session.getAttribute("loginid"));
-		tripspot.setWriter_nick((String)session.getAttribute("loginnick"));
+		tripspot.setWriter_id((String)session.getAttribute("login_id"));
+		tripspot.setWriter_nick((String)session.getAttribute("login_nick"));
 		model.addAttribute("tripspot", tripspot);
 		return "tripspot/write";
 	}
@@ -101,43 +97,42 @@ public class TripspotController {
 		File file = tripspotService.findFile(tripspot_image, context);
 		resp.setContentLength((int) file.length());
 		resp.setCharacterEncoding("utf-8");
-		String filename = "";
-	      
-		try {
-			filename = URLEncoder.encode(tripspot_image.getOrigin_name(), "utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-	      
-		//UTF-8 인코딩 오류 수정 (한글만 바꿔야 하는데 특수기호까지 바꿔서 문제가 생기는것)
-		filename = filename.replace("+", "%20"); //띄어쓰기
-		filename = filename.replace("%5B", "["); 
-		filename = filename.replace("%5D", "]");
-		filename = filename.replace("%21", "!"); 
-		filename = filename.replace("%23", "#"); 
-		filename = filename.replace("%24", "$"); 
-	      
-	      
-		File origin = new File(context.getRealPath("WEB-INF/upload"), tripspot_image.getStored_name());
 		FileInputStream fis = null;
-	      
+
 		try {
-			fis = new FileInputStream(origin);
+			fis = new FileInputStream(file);
 			OutputStream out = resp.getOutputStream();
 	   
 			FileCopyUtils.copy(fis, out);
-	         
 			out.flush();
 			fis.close();
 			out.close();
 	         
+			
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
+	}
+	@RequestMapping(value = "/tripspot/update", method = RequestMethod.GET)
+	public void Updateview(@RequestParam int board_no, Model model) {
+		TripSpot tripspot = tripspotService.view(board_no);
 		
+		model.addAttribute("tripspot",tripspot);
+	}
+	@RequestMapping(value = "/tripspot/update", method = RequestMethod.POST)
+	public String Update(TripSpot tripspot, Model model,String images) {
+		
+		tripspotService.update(tripspot,images);
+		return "redirect:/tripspot/view?board_no="+tripspot.getBoard_no();
+	}
+	@RequestMapping(value = "/tripspot/delete", method = RequestMethod.GET)
+	public String Delete(
+			@RequestParam int board_no) {
+		tripspotService.delete(board_no);
+		
+		return "redirect:/tripspot/list";
 	}
 	
 }
