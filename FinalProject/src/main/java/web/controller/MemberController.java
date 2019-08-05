@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -41,23 +42,25 @@ public class MemberController {
 
    @Autowired
    private void sernaverLoginBO(NaverLoginBO naverLoginBO) {
-	   this.naverLoginBO = naverLoginBO;
+      this.naverLoginBO = naverLoginBO;
    }
    
    
    
    @RequestMapping(value="/member/login", method=RequestMethod.GET)
    public void login(
-		   Model model, 
-		   HttpSession session
-		   ) { 
-	   
-	   String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-	   
-	   logger.info("네이버:" + naverAuthUrl.toString());
-	   
-	   model.addAttribute("url", naverAuthUrl);
-	   
+         Model model, 
+         HttpSession session
+         ) { 
+      
+      String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+      
+      logger.info("네이버:" + naverAuthUrl.toString());
+      
+      model.addAttribute("url", naverAuthUrl);
+      
+//      String kakaoToken = Kakao.
+      
    }
    
    
@@ -65,14 +68,9 @@ public class MemberController {
    public String loginProc(
          Member member,
          HttpSession session,
-         Model model,
-		 @RequestParam("kakaoCode") String kakaoCode
+         Model model
          )throws Exception {
-	   
-	   JsonNode token = kakaoApi.getAccessToken(kakaoCode);
-	   
-	   logger.info(token.toString());
-	   
+      
       String redirectUrl = null;
       if( memberService.login(member) ) {
          // 로그인 성공
@@ -106,14 +104,14 @@ public class MemberController {
    
    @RequestMapping(value = "/member/callback", method = { RequestMethod.GET, RequestMethod.POST })
    public String callback(
-		   Model model, 
-		   @RequestParam String code, 
-		   @RequestParam String state, 
-		   HttpSession session
-		   ) throws IOException {
-	   
-	   logger.info("여기는 callback");
-	   
+         Model model, 
+         @RequestParam String code, 
+         @RequestParam String state, 
+         HttpSession session
+         ) throws IOException {
+      
+      logger.info("여기는 callback");
+      
        OAuth2AccessToken oauthToken;
        oauthToken = naverLoginBO.getAccessToken(session, code, state);
        
@@ -122,7 +120,7 @@ public class MemberController {
        
 //       logger.info("apiResult="+apiResult);
        
-       memberService.insertNaverLogin(apiResult);
+//       memberService.insertNaverLogin(apiResult);
        
        session.setAttribute("naverLogin", true);
        
@@ -132,41 +130,6 @@ public class MemberController {
        
        return "/main";
    }
-   
-   @RequestMapping(value="/member/kakaoLogin", produces="application/json", method = { RequestMethod.GET, RequestMethod.POST })
-   public String kakaoLogin(
-		   @RequestParam(value="pbnum", required=false) String code,
-//		   @RequestParam("code") String code,
-		   HttpSession session,
-		   Model model,
-		   HttpServletRequest request, 
-		   HttpServletResponse response
-		   ) { 
-	   
-	   // 로그인 후 code get
-	   logger.info("code: " + code);
-	   
-	   JsonNode token = kakaoApi.getAccessToken(code);
-
-	   JsonNode profile = kakaoApi.getKakaoUserInfo(token.path("access_token").toString());
-	   
-	   Member member = kakaoApi.changeData(profile);
-	   
-	   member.setUser_id("k"+member.getUser_id());
-	   
-	   logger.info(session.toString());
-	   
-	   session.setAttribute("kakaoLogin", member);
-	   
-	   logger.info(member.toString());
-	   
-	   model.addAttribute("member", member);
-	   
-	   return "/main";
-	   
-   }
-
-   
    
    
    
@@ -242,7 +205,7 @@ public class MemberController {
       
       memberService.insert(member);
       
-      return "redirect:/member/callback"; 
+      return "redirect:/main"; 
       
    }
    
@@ -279,7 +242,7 @@ public class MemberController {
    
    @RequestMapping(value="/member/pwFind", method=RequestMethod.GET)
    public void pwFind() { 
-	   // logger.info("비밀번호찾기 페이지"); 
+      // logger.info("비밀번호찾기 페이지"); 
    }
    
    

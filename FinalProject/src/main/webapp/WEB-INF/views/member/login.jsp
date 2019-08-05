@@ -160,44 +160,47 @@ $(document).ready(function() {
 	naver_id_login.init_naver_id_login; 
 </script>
 
+
 <div id="kakao_id_login" style="text-align:center">
 	<a id="kakao-login-btn"></a>
 	<a href="http://developers.kakao.com/logout"></a>
 </div>
 
 <!-- Kakao Login -->
-<script type="text/javascript">
+<script type='text/javascript'>
+	//<![CDATA[
 	// 사용할 앱의 JavaScript 키를 설정해 주세요.
 	Kakao.init('9ec756b514f42f122b54464078ced9f2');
-	// 카카오 로그인 버튼을 생성합니다.
+	// 카카오 로그인 버튼을 생성합니다. 
 	Kakao.Auth.createLoginButton({
 		container: '#kakao-login-btn',
 		success: function(authObj) {
 			alert(JSON.stringify(authObj));
-		// 로그인 성공시, API를 호출합니다.
-		Kakao.API.request({
-			url: '/v1/user/me',
-			success: function(res) {
-				console.log(res);
-				console.log(JSON.stringify(res.kaccount_email));
-				console.log(JSON.stringify(res.id));
-				console.log(JSON.stringify(res.properties.profile_image));
-				console.log(JSON.stringify(res.properties.nickname));
-              
-				alert(res.properties.nickname+'님 환영합니다.');
-				location.href="/member/kakaoLogin";
-			
-            },
-            fail: function(error) {
-				alert(JSON.stringify(error));
-            }
-          });
-        },
-        fail: function(err) {
-          alert(JSON.stringify(err));
-        }
-      });
-
+			Kakao.API.request({
+				url: '/v1/user/me',
+				success: function(res) {
+					console.log(JSON.stringify(res.kaccount_email));
+					console.log(JSON.stringify(res.id));
+					console.log(JSON.stringify(res.properties.nickname));
+				},
+				fail: function(error) {
+					alert(JSON.stringify(error));
+				}
+			});
+		}, 
+		fail: function(err) {
+			alert(JSON.stringify(err));
+		}
+	});
+      //]]>
+	
+// 	  function code() {
+// 	      $.ajax({
+// 	         type : 'GET',
+// 	         url : 'https://kauth.kakao.com/oauth/authorize?client_id=2c8bb256bd1dfd39210162d0e5b2b96e&redirect_uri=http://localhost:8088/member/kakao&response_type=code',
+// 	         Host: kauth.kakao.com
+// 	      })
+// 	   }
 </script>
 
 </body>
