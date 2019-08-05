@@ -34,7 +34,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			}
 			,dataType:"json"
 			,success:function(res){
-				console.log(res);
+// 				console.log(res);
 				var response = res.response;
 				
 				var header = response.header;
@@ -53,10 +53,10 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 				$(".total").append("<span class='totalCnt'>총 결과 수 : "+totalCount+"</span>")
 				
 				
-				console.log(items)
-				console.log(items.length)
+// 				console.log(items)
+// 				console.log(items.length)
 				var cnt = items.length!=null ?items.length :1;
-				console.log("cnt : " + cnt) 
+// 				console.log("cnt : " + cnt) 
 				
 				for(var i=0; i<numOfRows && i<totalCount && i<cnt; i++) {
 //						console.log(items[i]);
@@ -67,7 +67,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 					if(item.firstimage == null){
 						item.firstimage = "/resources/img/noimage.jpg";	
 					}
-					$("#resultUl").append("<li class='resultLi'><a class='contentAtag' data="+item.contentid+" id="+item.contenttypeid+">"
+					$(".resultUl").append("<li class='resultLi'><a class='contentAtag' data="+item.contentid+" id="+item.contenttypeid+">"
 							+"<img class='resultImg' src="+item.firstimage+"><p class='resultPtag'>"+item.title+"</p></a></li>")
 		 		 }
 				
@@ -76,15 +76,15 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			    var pageCount = 10;        // 한 화면에 나타낼 페이지 수
 			    var pageGroup = Math.ceil(pageNo/pageCount); // 총 페이지 수  
 			    var totalPage = Math.ceil(totalData/dataPerPage); //페이지 그룹
-			    var startPage = ((pageNo-1)/pageCount)*pageCount+1;
+			    var startPage = (Math.floor((pageNo-1)/pageCount))*pageCount+1;
 			    var endPage = startPage+pageCount-1;
 			    if(endPage > totalPage)	endPage = totalPage;
 			    var totalGroup = Math.ceil(totalPage/pageCount);
-			    var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
-		        	if(last > totalPage) last = totalPage;
-		        var first = last - (pageCount-1); 
-		        var next = last+1;
-		        var prev = first-1;
+// 			    var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+// 		        	if(last > totalPage) last = totalPage;
+// 		        var first = last - (pageCount-1); 
+// 		        var next = last+1;
+// 		        var prev = first-1;
 
 		     // 게시글 시작번호
 				var startNo = (pageNo-1)*dataPerPage+1;
@@ -98,17 +98,15 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 // 				if(last > totalPage)	last = totalPage;
 				if(endPage > totalPage)	endPage = totalPage;
 		     
-			    console.log("totalData : "+totalData)
-			    console.log("dataPerPage : "+dataPerPage)
-			    console.log("pageCount : "+pageCount)
-			    console.log("pageGroup : "+pageGroup)
-			    console.log("totalPage : "+totalPage)
-			    console.log("startPage : "+startPage)
-			    console.log("endPage : "+endPage)
-			    console.log("totalGroup : "+totalGroup)
-			    console.log("pageNo :"+pageNo)
-			    console.log("last : "+last)
-			    console.log("first : "+first)
+// 			    console.log("totalData : "+totalData)
+// 			    console.log("dataPerPage : "+dataPerPage)
+// 			    console.log("pageCount : "+pageCount)
+// 			    console.log("pageGroup : "+pageGroup)
+// 			    console.log("totalPage : "+totalPage)
+// 			    console.log("startPage : "+startPage)
+// 			    console.log("endPage : "+endPage)
+// 			    console.log("totalGroup : "+totalGroup)
+// 			    console.log("pageNo :"+pageNo)
 			    //=====paging 처리
 			    
 			   	
@@ -156,15 +154,6 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 		  			$(".pagination").empty(); 
 		  		}
 
-// 		          if(pageNo < totalPage){                //현재페이지가 전체페이지보다 작을때
-
-// 		        		$(".pagination").append("<li class='goLastPage'><a>>></a></li>");    //마지막페이지로 가기 버튼 활성화
-
-// 		        	}else{
-
-// 		        		$(".pagination").append("<li class='disabled'><a>>></a></li>");        //마지막페이지로 가기 버튼 비활성화
-
-// 		        	}
 		          
 		          
 // 		          //첫페이지로 가기 버튼 이벤트
@@ -182,7 +171,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 
 				$(".goBackPage").click(function(){
 
-				      	curPage = Number(pageNo) - 1;
+				      	curPage = Number(startPage) - 1; 
  
 				      	changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), curPage);
 				      	
@@ -306,7 +295,7 @@ function Detail(contentId, contentTypeId){
 .resultImg{
 	height: 200px;
 	width: 200px;
-}
+} 
 .resultPtag{
 	overflow: hidden;
 }
@@ -317,26 +306,50 @@ function Detail(contentId, contentTypeId){
     height: 300px;
     margin-left: 39px;
 }
-/* } */
-/* .paging{  */
-/* 	clear:both;  */
-/*  	margin: 40px 0;  */
-/*  	text-align: center;  */
-/*  	height: 30px;  */
-/*  }  */
-/* #pagingd{ */
-/* 	list-style:none; */
-/* 	text-decoration: none; */
-/* 	text-align: center; */
-
-/* } */
+.result{
+	height: 900px;
+	left: -50%;
+}
+.paginations{
+	height: 100px;
+	 left: 50%;
+}
+.pagination{
+	list-style: none;
+	height: 80px;
+	margin-left: 30%;
+}
+.pagination>li{
+	float: left;
+	margin-right: 20px;
+}
+.active{
+	color: red;
+	font-weight: bold;
+}
+.selectTitle{
+	color: #ffffff;
+	text-align: center;
+	font-size: -webkit-xxx-large;
+}
+.selectMenu{
+	background-color: black;
+}
+.subSelect{
+	color: #ffffff;
+}
+.subdiv{ 
+}
 </style>
 <div class="tour">
-<!-- 	<form name="form" action="/main/search" method="post"> -->
+<div class="selectMenu">
+	<div>
+		<p class="selectTitle">어디갈래?</p>
+	</div>
 	<input type="hidden" name="cat2">
 	<input type="hidden" name="cat3">
-	<div>
-		<label>분류</label>
+	<div class="subdiv">
+		<label class="subSelect">분류</label>
 		<select id="cat1" title="대분류" name="cat1">
 			<option value="">대분류</option>
 			<option value="A01">자연</option>
@@ -348,9 +361,9 @@ function Detail(contentId, contentTypeId){
 			<option value="C01">추천코스</option>
 		</select>
 	</div>
-	<div>
+	<div class="subdiv">
 	<span id="test"></span>
-		<label>시/도</label>
+		<label class="subSelect">시/도</label>
 		 <select name="areacode" onchange="change(this.selectedIndex);" >
                        <option value="">시/도 선택</option>
                        <option value="1">서울</option>
@@ -372,30 +385,32 @@ function Detail(contentId, contentTypeId){
                        <option value="39">제주</option>
                     </select>         
 	</div>
-	<div>
-		<label> 시/군/구</label>
+	<div class="subdiv">
+		<label class="subSelect"> 시/군/구</label>
 		<select id="sigungucode" name="sigungucode">
 			<option value="">시/군구선택</option>
 		</select>
 	</div>
 	
-	<div id="search">
-		<label class="content">검색</label>
-<!-- 		<p class="bytes">0</p> -->
-		<input type="text" name="keyword" value="강원"/><button id="btnSearch">검색</button>
+	<div id="search" class="subdiv">
+		<label class="subSelect">검색</label> 
+		<input type="text" name="keyword" value="공원"/><button id="btnSearch">검색</button> 
 	</div>
-<!-- 	</form> -->
+</div>
 	<div class="total">
 	
 	</div>
 
 <div class="result">
-	<ul id="resultUl">
+	<ul class="resultUl">
 	
 	</ul>
 </div>
 
-<div class="pagination">
+<div class="paginations">
+	<ul class="pagination">
+	
+	</ul>
 </div>
 
 </div>
