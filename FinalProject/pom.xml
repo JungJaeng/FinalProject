@@ -22,7 +22,14 @@
 	</repositories>
 	
 	<dependencies>
-	
+
+<!-- 웹소켓 -->
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-websocket</artifactId>
+	<version>${org.springframework-version}</version>
+</dependency>
+
 <!-- httpcore(카카오) -->
 <dependency>
 	<groupId>org.apache.httpcomponents</groupId>

@@ -37,5 +37,10 @@ public class MainController {
 
 		return "/search";
 	}
+	@RequestMapping(value = "/chatting", method = RequestMethod.GET)
+	public void chat() {
+		
+	}
+	
 	
 }
