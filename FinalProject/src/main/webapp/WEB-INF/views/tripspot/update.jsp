@@ -12,6 +12,12 @@
 var images = "";
 var isfirst = true;
 $(document).ready(function(){
+	
+	$("#region option[value='${tripspot.region}']").attr("selected", true);
+	change($("#region option[value='${tripspot.region}']:selected").attr('data-idx'));
+	$("#region_detail option[value='${tripspot.region_detail}']").attr("selected", true);
+	
+	
 	$('#summernote').summernote({
 		toolbar: [
 	    // [groupName, [list of button]]
@@ -102,41 +108,45 @@ function change(idx){
 	}
 	
 }
+
+
+
 </script>
-<form action="/tripspot/write" method="post">
+<form action="/tripspot/update" method="post">
 <input type="text" style="display: none;" id="images" name="images" value=""/>
+<input type="text" style="display: none;" name="board_no" value="${tripspot.board_no }"/>
 아이디 : ${tripspot.writer_id  }<input type="hidden" name="writer_id" value="${tripspot.writer_id  }"/><br>
 닉네임 : ${tripspot.writer_nick  }<input type="hidden" name="writer_nick" value="${tripspot.writer_nick  }"/><br>
-제목 : <input type="text" name = "title"/><br><br>
+제목 : <input type="text" name="title" value="${tripspot.title  }"/><br><br>
 
 	
 <label>시/도</label>
-<select name="region" onchange="change(this.selectedIndex);" >
+<select id="region" name="region" onchange="change(this.selectedIndex);" >
  	<option value="">시/도 선택</option>
-	<option value="서울">서울</option>
-	<option value="인천">인천</option>
-	<option value="대전">대전</option>
-	<option value="대구">대구</option>
-	<option value="광주">광주</option> 
-	<option value="부산">부산</option>
-	<option value="울산">울산</option>
-	<option value="세종">세종</option>
-	<option value="경기">경기</option>
-	<option value="강원">강원</option>
-	<option value="충북">충북</option>
-	<option value="충남">충남</option>
-	<option value="경북">경북</option>
-	<option value="경남">경남</option>
-	<option value="전북">전북</option>
- 	<option value="전남">전남</option>
-	<option value="제주">제주</option>
+	<option value="서울" data-idx="1">서울</option>
+	<option value="인천" data-idx="2">인천</option>
+	<option value="대전" data-idx="3">대전</option>
+	<option value="대구" data-idx="4">대구</option>
+	<option value="광주" data-idx="5">광주</option> 
+	<option value="부산" data-idx="6">부산</option>
+	<option value="울산" data-idx="7">울산</option>
+	<option value="세종" data-idx="8">세종</option>
+	<option value="경기" data-idx="9">경기</option>
+	<option value="강원" data-idx="10">강원</option>
+	<option value="충북" data-idx="11">충북</option>
+	<option value="충남" data-idx="12">충남</option>
+	<option value="경북" data-idx="13">경북</option>
+	<option value="경남" data-idx="14">경남</option>
+	<option value="전북" data-idx="15">전북</option>
+ 	<option value="전남" data-idx="16">전남</option>
+	<option value="제주" data-idx="17">제주</option>
 </select>         
 <label> 시/군/구</label>
 <select id="region_detail" name="region_detail">
 	<option value="">시/군구선택</option>
 </select>
-<textarea name="content" id="summernote"></textarea><br>
-<button>글 작성</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<textarea name="content" id="summernote">${tripspot.content }</textarea><br>
+<button>수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <button type="button" onclick="location.href='/board/list'">돌아가기</button>
 </form>
 <button onclick="test();">test</button>

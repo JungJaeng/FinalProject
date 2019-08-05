@@ -30,4 +30,10 @@ public interface TripspotService {
 
 	public File findFile(Upload_Image tripspot_image, ServletContext context);
 
+	public void update(TripSpot tripspot, String images);
+
+	public void delete(int board_no);
+	
+	
+
 }

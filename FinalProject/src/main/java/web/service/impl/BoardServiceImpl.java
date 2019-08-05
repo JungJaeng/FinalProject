@@ -103,6 +103,8 @@ public class BoardServiceImpl implements BoardService {
 			String fileDir = context.getRealPath("WEB-INF/upload");
 			File file = new File(fileDir,fileName);
 			if(file.exists()) {file.delete();}
+			
+
 		};
 		
 		boardDao.deleteBoard_ImageByboard_no(board_no);

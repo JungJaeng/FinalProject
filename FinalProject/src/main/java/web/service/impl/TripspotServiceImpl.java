@@ -2,6 +2,8 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.TripspotDao;
-import web.dto.Board;
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
 import web.service.face.TripspotService;
@@ -52,21 +53,30 @@ public class TripspotServiceImpl implements TripspotService{
 	@Override
 	public void write(TripSpot tripspot, String images) {
 		tripspotDao.insert(tripspot);
+		
+		if(images!= null && !"".equals(images)) {
+			String[] imagelist = images.split(",");
+			Map<String,Object> map = new HashMap<String,Object>();
+
+			logger.info("imagelist" + Arrays.toString(imagelist));
+			
+			map.put("tripspot", tripspot);
+			map.put("images",imagelist);
+			tripspotDao.updateImages(map);
+		}
 	}
 	@Override
 	public Upload_Image imgsave(Upload_Image tripspot_image, MultipartFile fileupload, ServletContext context) {
 		String storedPath = context.getRealPath("WEB-INF/upload");
 		String uId = UUID.randomUUID().toString().split("-")[4];
 		
-		//저장될 파일의 이름(원본이름+UUID)
 		String name=fileupload.getOriginalFilename()+"_"+uId;
 		
-		//저장될 파일 객체
+
 		File dest = new File(storedPath,name);
 		
-		//파일 저장
 		try {
-			fileupload.transferTo(dest); //실제 저장
+			fileupload.transferTo(dest);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -90,6 +100,25 @@ public class TripspotServiceImpl implements TripspotService{
 		File file = new File(
 				context.getRealPath("WEB-INF/upload"),tripspot_image.getStored_name());
 		return file;
+	}
+	@Override
+	public void update(TripSpot tripspot, String images) {
+		tripspotDao.update(tripspot);
+		if(images!= null && !"".equals(images)) {
+			String[] imagelist = images.split(",");
+			Map<String,Object> map = new HashMap<String,Object>();
+
+			logger.info("imagelist" + Arrays.toString(imagelist));
+			map.put("tripspot", tripspot);
+			map.put("images",imagelist);
+			tripspotDao.updateImages(map);
+		}
+		
+	}
+	@Override
+	public void delete(int board_no) {
+		tripspotDao.deletetripspotByBoard_no(board_no);
+		
 	}
 
 }
