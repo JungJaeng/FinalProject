@@ -30,7 +30,7 @@ public class KakaoApi {
 		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		postParams.add(new BasicNameValuePair("client_id", "2c8bb256bd1dfd39210162d0e5b2b96e"));
 		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8088/member/kakao"));
-		postParams.add(new BasicNameValuePair("kakaoCode", autorize_code));
+		postParams.add(new BasicNameValuePair("code", autorize_code));
 		
 		System.out.println("autorize_code"+autorize_code);
 		
