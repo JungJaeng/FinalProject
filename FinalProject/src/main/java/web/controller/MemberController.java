@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -35,8 +34,6 @@ public class MemberController {
    private NaverLoginBO naverLoginBO;
    private String apiResult = null;
    
-   private KakaoApi kakaoApi = new KakaoApi();
-
    // 서비스 객체
    @Autowired MemberService memberService;
 
@@ -58,8 +55,6 @@ public class MemberController {
       logger.info("네이버:" + naverAuthUrl.toString());
       
       model.addAttribute("url", naverAuthUrl);
-      
-//      String kakaoToken = Kakao.
       
    }
    
@@ -110,7 +105,7 @@ public class MemberController {
          HttpSession session
          ) throws IOException {
       
-      logger.info("여기는 callback");
+//      logger.info("여기는 callback");
       
        OAuth2AccessToken oauthToken;
        oauthToken = naverLoginBO.getAccessToken(session, code, state);
@@ -130,6 +125,42 @@ public class MemberController {
        
        return "/main";
    }
+   
+   @RequestMapping(
+         value="/member/kakaoLogin", 
+         produces="application/json", 
+         method = { RequestMethod.GET, RequestMethod.POST })
+   public String kakaoLogin(
+         @RequestParam("code") String code,
+         HttpSession session,
+         Model model
+         ) { 
+      
+      // 로그인 후 code get
+      logger.info("code: " + code);
+      
+      // 카카오 rest api 객체 선언
+      KakaoApi ka = new KakaoApi();
+      
+      // 결과값을 node에 담아줌 
+      JsonNode node = ka.getAccessToken(code);
+
+      // 결과값 출력
+      logger.info(node.toString());
+      
+      // 노드 안에 있는 access_token값을 꺼내 문자열로 변환
+      String token = node.get("access_token").toString();
+      
+      // 세션에 담아준다.
+      session.setAttribute("KakaoLogin", true);
+      
+      model.addAttribute("token", token);
+      
+      return "/main";
+      
+   }
+
+   
    
    
    

@@ -20,105 +20,52 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import web.dto.Member;
 
 public class KakaoApi {
-	
-	public JsonNode getAccessToken(String autorize_code) {
-		
-		final String RequestUrl = "https://kauth.kakao.com/oauth/token";
-		
-		final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-		
-		postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
-		postParams.add(new BasicNameValuePair("client_id", "2c8bb256bd1dfd39210162d0e5b2b96e"));
-		postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8088/member/kakao"));
-		postParams.add(new BasicNameValuePair("code", autorize_code));
-		
-		System.out.println("autorize_code"+autorize_code);
-		
-		final HttpClient client = HttpClientBuilder.create().build();
-		
-		final HttpPost post = new HttpPost(RequestUrl);
-		
-		JsonNode returnNode = null;
-		
-		try {
-			
-			post.setEntity(new UrlEncodedFormEntity(postParams));
-			
-			final HttpResponse response = client.execute(post);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			
-			returnNode = mapper.readTree(response.getEntity().getContent());
-			
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			
-		}
-		
-		return returnNode;
-		
-	}
-	
-	
-	public static JsonNode getKakaoUserInfo(String autorize_code) {
-
-		final String RequestUrl = "https://kapi.kakao.com/v1/user/me";
-
-		final HttpClient client = HttpClientBuilder.create().build();
-		final HttpPost post = new HttpPost(RequestUrl);
-
-		// add header
-		post.addHeader("Authorization", "Bearer " + autorize_code);
-
-		JsonNode returnNode = null;
-
-		try {
-			final HttpResponse response = client.execute(post);
-			final int responseCode = response.getStatusLine().getStatusCode();
-
-			System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
-			System.out.println("Response Code : " + responseCode);
-
-			// JSON 형태 반환값 처리
-			ObjectMapper mapper = new ObjectMapper();
-			returnNode = mapper.readTree(response.getEntity().getContent());
-
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			// clear resources
-		}
-		return returnNode;
-
-	}
-	
-	
-	public static Member changeData(JsonNode userInfo) {
-		Member member = new Member();
-
-		member.setUser_id(userInfo.path("id").asText()); // id -> vo 넣기
-
-		if (userInfo.path("kaccount_email_verified").asText().equals("true")) { // 이메일 받기 허용 한 경우
-			member.setUser_email(userInfo.path("kaccount_email").asText()); // email -> vo 넣기
-
-		} else { // 이메일 거부 할 경우 코드 추후 개발
-
-		}
-
-		JsonNode properties = userInfo.path("properties"); // 추가정보 받아오기
-		if (properties.has("nickname"))
-			member.setUser_nick(properties.path("nickname").asText());
-		return member;
-	}
-
+   
+   public JsonNode getAccessToken(String autorize_code) {
+      
+      final String RequestUrl = "https://kauth.kakao.com/oauth/token";
+      
+      final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
+      
+      //포스트 파라미터의 grant_type이라는 명칭에 authorization_code를 추가한다 아래도 동일
+      postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
+      
+      postParams.add(new BasicNameValuePair("client_id", "2c8bb256bd1dfd39210162d0e5b2b96e"));
+      
+      postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8088/member/kakaoLogin"));
+      
+      postParams.add(new BasicNameValuePair("code", autorize_code));
+      
+      System.out.println("autorize_code"+autorize_code);
+      
+      final HttpClient client = HttpClientBuilder.create().build();
+      
+      final HttpPost post = new HttpPost(RequestUrl);
+      
+      JsonNode returnNode = null;
+      
+      try {
+         
+         post.setEntity(new UrlEncodedFormEntity(postParams));
+         
+         final HttpResponse response = client.execute(post);
+         
+         ObjectMapper mapper = new ObjectMapper();
+         
+         returnNode = mapper.readTree(response.getEntity().getContent());
+         
+      } catch (UnsupportedEncodingException e) {
+         e.printStackTrace();
+      
+      } catch (ClientProtocolException e) {
+         e.printStackTrace();
+         
+      } catch (IOException e) {
+         e.printStackTrace();
+         
+      }
+      
+      return returnNode;
+      
+   }
 }
