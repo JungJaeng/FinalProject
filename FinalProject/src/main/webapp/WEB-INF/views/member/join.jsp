@@ -128,7 +128,7 @@ var ch_email=false;
                ch_id=true;
             } else {
                console.log( res )
-               $('#nickMsg').html("이미 사용중인 닉네임입니다").css("color", "red");   
+               $('#nickMsg').html("이미 있는 닉네임입니다").css("color", "red");   
                ch_id=false;
             }
       
