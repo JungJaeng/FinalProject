@@ -14,7 +14,8 @@ public class Pension {
 	private String room_content;
 	private String room_men;
 	private String room_size;
-	private String room_price;
+	private int room_price;
+	
 	
 	
 	
@@ -27,7 +28,6 @@ public class Pension {
 				+ room_content + ", room_men=" + room_men + ", room_size=" + room_size + ", room_price=" + room_price
 				+ "]";
 	}
-	
 	public int getPension_no() {
 		return pension_no;
 	}
@@ -106,14 +106,16 @@ public class Pension {
 	public void setRoom_size(String room_size) {
 		this.room_size = room_size;
 	}
-	public String getRoom_price() {
+	public int getRoom_price() {
 		return room_price;
 	}
-	public void setRoom_price(String room_price) {
+	public void setRoom_price(int room_price) {
 		this.room_price = room_price;
 	}
 	
 	
+	
+
 	
 	
 

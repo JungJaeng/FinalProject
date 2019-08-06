@@ -38,9 +38,11 @@ public interface PensionDao {
 	public int countComment(PensionComment pensionComment);
 	
 	/**
-	 * 	예약
+	 * 	����
 	 * @param pension_no
 	 * @return 
 	 */
-	public Pension reserve(int pension_no);
+	public Pension selectPensionByreserveNo(Pension viewReserve);
+	
+
 }

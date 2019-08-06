@@ -92,13 +92,9 @@
 		</div>
 		</div>
 		</div>
-		
+</form>
 
 <div class="text-center">
 	<a href="/admin/apply_list"><button class="btn btn-default">목록</button></a>
 </div>	
-
-	<input type="submit" class="btn btn-default" id="applyBtn">글 게시 승인
-</form>
-
 

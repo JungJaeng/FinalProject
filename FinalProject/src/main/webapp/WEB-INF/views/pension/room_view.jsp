@@ -105,7 +105,7 @@ function deleteComment(commentNo) {
 <!-- 버튼 영역 -->
 <div id="button">
 	<a href="/pension/list"><button class="btn btn-default">목록</button></a>
-	<a href="/pension/reserve"><button class="btn btn-default">바로 예약하기</button></a>
+	<a href="/pension/reserve?pension_no=${pension.pension_no }"><button class="btn btn-default">바로 예약하기</button></a>
 	<c:if test="${login_nick eq '관리자' }">
 		<a href="/pension/delete?pension_no=${pension.pension_no }"><button class="btn btn-danger">삭제</button></a>
 	</c:if>

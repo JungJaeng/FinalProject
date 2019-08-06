@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.controller.AdminController;
 import web.dao.face.PensionDao;
 import web.dto.Pension;
 import web.dto.PensionComment;
@@ -28,7 +27,7 @@ public class PensionServiceImpl implements PensionService {
 
 	@Autowired PensionDao pensionDao;
 	
-	// �α� ���̺귯�� ��ü
+	// 占싸깍옙 占쏙옙占싱브러占쏙옙 占쏙옙체
 	private static final Logger logger = LoggerFactory.getLogger(PensionServiceImpl.class);
 
 	@Override
@@ -67,16 +66,16 @@ public class PensionServiceImpl implements PensionService {
 		String storedPath = context.getRealPath("WEB-INF/upload");
 	      String uId = UUID.randomUUID().toString().split("-")[4];
 	      
-	      //����� ������ �̸�(�����̸�+UUID)
+	      //占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占싱몌옙(占쏙옙占쏙옙占싱몌옙+UUID)
 	      String name=file.getOriginalFilename()+"_"+uId;
 	      
 	      
-	      //����� ���� ��ü
+	      //占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙체
 	      File dest = new File(storedPath,name);
 	      
-	      //���� ����
+	      //占쏙옙占쏙옙 占쏙옙占쏙옙
 	      try {
-	         file.transferTo(dest); //���� ����
+	         file.transferTo(dest); //占쏙옙占쏙옙 占쏙옙占쏙옙
 	      } catch (IllegalStateException e) {
 	         e.printStackTrace();
 	      } catch (IOException e) {
@@ -141,10 +140,12 @@ public class PensionServiceImpl implements PensionService {
 	}
 
 	@Override
-	public Pension reserveView(int pension_no) {
+	public Pension reserveView(Pension viewReserve) {
 		
-		return pensionDao.reserve(pension_no);
+		return pensionDao.selectPensionByreserveNo(viewReserve);
 	}
+
+
 
 
 	

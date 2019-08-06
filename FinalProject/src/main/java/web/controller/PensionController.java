@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.dto.Comment;
 import web.dto.Member;
 import web.dto.Pension;
 import web.dto.PensionComment;
@@ -42,10 +41,10 @@ public class PensionController {
 	
 	@Autowired PensionService pensionService;
 	@Autowired ServletContext context;
-	// �α� ���̺귯�� ��ü
+	// 占싸깍옙 占쏙옙占싱브러占쏙옙 占쏙옙체
 	private static final Logger logger = LoggerFactory.getLogger(PensionController.class);
 	
-	// ��� ���
+	// 占쏙옙占� 占쏙옙占�
 	@RequestMapping(value = "/pension/list", method = RequestMethod.GET)
 	public void MemberList(@RequestParam(defaultValue = "1") int curPage, String name, String search, Model model) {
 
@@ -64,7 +63,7 @@ public class PensionController {
 	}
 	
 	
-	// �� ����
+	// 占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value="/pension/room_view", method=RequestMethod.GET)
 	public String View(
 		@RequestParam int pension_no,
@@ -78,7 +77,7 @@ public class PensionController {
 		check.setWriter_id((String)session.getAttribute("login_id"));
 		check.setWriter_nick((String)session.getAttribute("login_nick"));
 		
-		// 댓글 정보
+		// ��湲� ��蹂�
 		PensionComment comment = new PensionComment();
 		List<PensionComment> commentList = pensionService.getCommentList(viewPension);
 		model.addAttribute("commentList", commentList);
@@ -118,7 +117,7 @@ public class PensionController {
 		return "redirect:/pension/list";
 	}
 	
-	// ��ǵ�Ͽ�û �۾���
+	// 占쏙옙풩占싹울옙청 占쌜억옙占쏙옙
 	@RequestMapping(value="/pension/register_apply"
 			, method=RequestMethod.GET)
 	public void write() { }
@@ -129,7 +128,7 @@ public class PensionController {
 			HttpSession session,
 			Member member) {
 				
-		// �ۼ��� ���̵� �߰�
+		// 占쌜쇽옙占쏙옙 占쏙옙占싱듸옙 占쌩곤옙
 		pensionRegisterApply.setWriter_id((String)session.getAttribute("login_id"));
 		
 		
@@ -164,8 +163,8 @@ public class PensionController {
 	         e1.printStackTrace();
 	      }
 	         
-	      //UTF-8 ���ڵ� ���� ���� (�ѱ۸� �ٲ�� �ϴµ� Ư����ȣ���� �ٲ㼭 ������ ����°�)
-	      filename = filename.replace("+", "%20"); //����
+	      //UTF-8 占쏙옙占쌘듸옙 占쏙옙占쏙옙 占쏙옙占쏙옙 (占싼글몌옙 占쌕뀐옙占� 占싹는듸옙 특占쏙옙占쏙옙호占쏙옙占쏙옙 占쌕꿔서 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙째占�)
+	      filename = filename.replace("+", "%20"); //占쏙옙杵뀐옙占�
 	      filename = filename.replace("%5B", "["); 
 	      filename = filename.replace("%5D", "]");
 	      filename = filename.replace("%21", "!"); 
@@ -195,18 +194,36 @@ public class PensionController {
 	
 	
 	@RequestMapping(value="/pension/reserve", method=RequestMethod.GET)
-	public void Reservation(
-		@RequestParam int pension_no,
+	public String Reservation(
+		Pension viewReserve,
 		Model model,
 		HttpSession session) {
 				
-		Pension viewReserve = pensionService.reserveView(pension_no);
-		model.addAttribute("reserve",viewReserve);
+		viewReserve = pensionService.reserveView(viewReserve);
+		model.addAttribute("view",viewReserve);
 		
 		Pension check = new Pension();
 		check.setWriter_id((String)session.getAttribute("login_id"));
 		check.setWriter_nick((String)session.getAttribute("login_nick"));
 				
+		return "pension/reserve";
+	}
+	
+	@RequestMapping(value="/pension/reserve", method=RequestMethod.POST)
+	public String Reservation_proc(
+		Pension viewPension,
+		HttpSession session) {		
+		return "redirect:/pension/reserveCheck";
+	}
+	
+	@RequestMapping(value="/pay", method=RequestMethod.POST)
+	public String Reservation(
+		Model model,
+		HttpSession session) {
+				
+		
+					
+		return "pension/reserve";
 	}
 
 }

@@ -15,7 +15,7 @@ public class PensionRegisterApply {
 	private String room_content;
 	private String room_men;
 	private String room_size;
-	private String room_price;
+	private int room_price;
 	private Date apply_date;
 	
 	
@@ -101,10 +101,10 @@ public class PensionRegisterApply {
 	public void setRoom_size(String room_size) {
 		this.room_size = room_size;
 	}
-	public String getRoom_price() {
+	public int getRoom_price() {
 		return room_price;
 	}
-	public void setRoom_price(String room_price) {
+	public void setRoom_price(int room_price) {
 		this.room_price = room_price;
 	}
 	public Date getApply_date() {
@@ -114,6 +114,8 @@ public class PensionRegisterApply {
 		this.apply_date = apply_date;
 	}
 	
-
+	
+	
+	
 
 }
