@@ -54,7 +54,7 @@
 		WHERE pension_no = #{pension_no }
 	</update>
 	
-	<insert id="write" parameterType="web.dto.PensionRegisterApply">
+	<insert id="res_write" parameterType="web.dto.PensionRegisterApply">
 		INSERT INTO PensionRegisterApply(apply_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price)
 		VALUES(
 			PensionRegisterApply_seq.nextval,
@@ -121,10 +121,28 @@
 	</select>
 	
 	
-	<select id="reserve" parameterType="int" resultType="web.dto.Pension">
-		SELECT pension_no, writer_id, writer_nick, pension_name, pension_postcode, pension_address, pension_detailAddress, pension_content, room_no, room_name, room_content, room_men, room_size, room_price FROM pension
-		WHERE pension_no=#{pension_no}
+	<select id="selectPensionByreserveNo" 
+	parameterType="web.dto.Pension" 
+	resultType="web.dto.Pension">
+		SELECT pension_no, 
+		writer_id, 
+		writer_nick, 
+		pension_name, 
+		pension_postcode, 
+		pension_address, 
+		pension_detailAddress, 
+		pension_content, 
+		room_no, 
+		room_name, 
+		room_content, 
+		room_men, 
+		room_size, 
+		room_price
+		FROM pension
+		WHERE pension_no = #{pension_no}
 	</select>
+	
+
 	
 </mapper>
 

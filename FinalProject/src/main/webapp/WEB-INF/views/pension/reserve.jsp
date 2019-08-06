@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+
+
+
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -26,10 +32,10 @@ function requestPayment() {
 	    pay_method : 'card', //결제방식 - 'samsung':삼성페이, 'card':신용카드, 'trans':실시간계좌이체, 'vbank':가상계좌, 'phone':휴대폰소액결제
 	    merchant_uid : 'merchant_' + new Date().getTime(), //고유주문번호 - random, unique
 	    name : '여행어쩌고 객실 예약', //주문명 - 선택항목, 결제정보 확인을 위한 입력, 16자 이내로 작성
-	    amount : 100000, //결제금액 - 필수항목
-	    buyer_email : 'hanwooram12@naver.com', //주문자Email - 선택항목
-	    buyer_name : '구매자이름', //주문자명 - 선택항목
-	    buyer_tel : '010-1234-5678', //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
+	    amount : '${view.room_price}' , //결제금액 - 필수항목
+	    buyer_email : 'hanwooram12@naver.com' , //주문자Email - 선택항목
+	    buyer_id : '${sessionScope.login_id }' , //주문자명 - 선택항목
+	    buyer_tel : '010-1234-5678' , //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
 	    
 	}, function(rsp) { // callback - 결제 이후 호출됨, 이곳에서 DB에 저장하는 로직을 작성한다
 	    if ( rsp.success ) { // 결제 성공 로직
@@ -80,15 +86,56 @@ function requestPayment() {
 
 </script>
 
+<style type="text/css">
+#res_information {
+ 	border: 1px dotted black;
+}
+
+#cus_information {
+ 	border: 1px dotted black;
+}
+
+
+
+
+</style>
+
 <h1 class="pull-left">펜션 예약</h1>
 <div class="clearfix"></div>
 <hr>
 
-<label>예약자 아이디</label><input type="text" size="7" class="form-control"
-		id="reserve_id"
-		value="${sessionScope.login_id }" readonly="readonly"/>
+<h2>예약정보</h2>
 
+<form action="/pension/reserve" method="post">
+<div id="res_information">
+	<div class="form-group">
+		예약자 아이디 : ${sessionScope.login_id }
+	</div>
+	
+	<div class="form-group">
+			객실명 : ${view.room_name }		
+	</div>
+	
+	<div class="form-group">
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />	
+			예약날짜 : <c:out value="${today}"/>	
+	</div>
+	
+	<div class="form-group">
+			방 크기 : ${view.room_size }	
+	</div>
+	
+	<div class="form-group">
+			방 인원 : ${view.room_men }	
+	</div>
 
+	<div class="form-group">
+			결제금액 : ${view.room_price }	
+	</div>
+	
+</div>
+</form>
 
 <button id="pay">결제</button>
 
