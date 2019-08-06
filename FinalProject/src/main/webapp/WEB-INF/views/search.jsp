@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -48,6 +47,8 @@ function image() {
 				
 				$(".resultSummary").append("<p><img src="+item[i].originimgurl+"></p>");
 				}
+			
+			
 			}
 			
 		} 
@@ -92,7 +93,7 @@ function info() {
 			var body = response.body;
 			
 			var item = body.items.item;
-			
+						
 			if(item.tel == null || item.tel == ""){
 				item.tel = "정보없음";
 			}
@@ -111,7 +112,6 @@ function info() {
 			if(item.firstimage == null || item.firstimage == ""){
 				item.firstimage = "/resources/img/noimage.jpg";
 			}
-			
 			//제목
 			$(".resultTitle").append("<h1>"+item.title+"</h1>");
 			$(".resultTitle").append("<hr>");
@@ -129,6 +129,9 @@ function info() {
 			//홈페이지
 			$(".contentUl").append("<li><Strong class='context'>홈페이지 : "+item.homepage+"</Strong></li>");
 			
+			//지도
+			$(".contentUl").append("<li><a class='mapAtag' id="+item.mapx+" data="+item.mapy+">지도</a></li>");
+			
 			$(".resultSummary").append("<hr>");
 			
 			$(".resultSummary").append("<Strong>개요</Strong>");
@@ -136,6 +139,12 @@ function info() {
 			$(".resultSummary").append("<p>"+item.overview+"</p>");
 			
 			$(".resultBack").append("<input type='button' onclick='location.href=\"/main\"' id='btnBack' value='돌아가기'/>")
+			
+			$(".mapAtag").click(function(){
+				
+			map($(this).attr("id"),$(this).attr("data") );
+				
+			});
 			
 			}
 		})
@@ -211,11 +220,30 @@ function intro(){
 					}
 				})
 		}
+function map(mapx, mapy){
+    $f = ($("<form>")
+          .attr("action", "/map")
+          .attr("method", "post")
+       ).append(
+       $("<input>")
+          .attr("name", "mapx")
+          .val(mapx)
+    ).append(
+    	       $("<input>")
+    	          .attr("name", "mapy")
+    	          .val(mapy)
+   	).appendTo( $(document.body) );
+    $f.submit();
+}
 </script>
 <style type="text/css">
+#map{
+	height: 300px;
+	width: 300px;
+}
 .resultSummary>p>img{
 	height: 500px;
-	width: 800px;
+	width: 800px; 
 }
 .result{
 	margin-left: 30px;
@@ -241,12 +269,27 @@ function intro(){
 .resultContent{
 	margin-left: 30px;
 }
+.subMenu{
+	list-style: none;
+    width: 30%;
+    margin-left: 20px;
+    display: -webkit-inline-box;
+    background-color: #ccc;
+/*     margin-top: 0px !important; */
+}
+.subMenu>span{
+	display: block;
+	text-align: center;
+}
+.Menu{
+	text-align: center; 
+}
 </style>
 <div class="Menu">
-	<ul>
-		<li><a onclick="info();">정보</a></li>
-		<li><a onclick="intro();">소개정보</a></li>
-		<li><a onclick="image();">추가이미지</a></li>
+	<ul class="subMenus">
+		<li class="subMenu"><a onclick="info();"><span>정보</span></a></li>
+		<li class="subMenu"><a onclick="intro();"><span>소개정보</span></a></li>
+		<li class="subMenu"><a onclick="image();"><span>추가이미지</span></a></li>
 	</ul>
 </div>
 <div class="result">

@@ -292,12 +292,16 @@ function Detail(contentId, contentTypeId){
 </script>
 
 <style type="text/css">
+.totalCnt{
+	color: #ffffff;
+}
 .resultImg{
 	height: 200px;
 	width: 200px;
 } 
 .resultPtag{
 	overflow: hidden;
+	color: #ffffff; 
 }
 .resultLi{
     overflow: hidden;
@@ -312,12 +316,12 @@ function Detail(contentId, contentTypeId){
 }
 .paginations{
 	height: 100px;
-	 left: 50%;
+	 left: 40%;
 }
 .pagination{
 	list-style: none;
 	height: 80px;
-	margin-left: 30%;
+	margin-left: 28%;
 }
 .pagination>li{
 	float: left;
@@ -332,20 +336,21 @@ function Detail(contentId, contentTypeId){
 	text-align: center;
 	font-size: -webkit-xxx-large;
 }
-.selectMenu{
-	background-color: black;
-}
 .subSelect{
 	color: #ffffff;
 }
-.subdiv{ 
+.tour{
+background-image: url("/resources/img/mainimage.jpg");
+}
+.utubediv{
+	text-align: center;
 }
 </style>
 <div class="tour">
-<div class="selectMenu">
 	<div>
 		<p class="selectTitle">어디갈래?</p>
 	</div>
+<div class="selectMenu">
 	<input type="hidden" name="cat2">
 	<input type="hidden" name="cat3">
 	<div class="subdiv">
@@ -403,7 +408,6 @@ function Detail(contentId, contentTypeId){
 
 <div class="result">
 	<ul class="resultUl">
-	
 	</ul>
 </div>
 
@@ -411,6 +415,10 @@ function Detail(contentId, contentTypeId){
 	<ul class="pagination">
 	
 	</ul>
+</div>
+
+<div class="utubediv">
+<iframe width="871" height="490" src="https://www.youtube.com/embed/Lnuh9ux-xm4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 </div>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="web.dao.face.ChattingDao">
+
+	<select id="chatlist" parameterType="web.dto.Chatting" resultType="web.dto.Chatting">
+		SELECT rownum rnum, B.* FROM (
+			SELECT chat_no, chat_content, chat_memberid FROM chat_list
+			)B
+			ORDER BY chat_no
+	</select>
+	
+	<insert id="insertChat" parameterType="web.dto.Chatting">
+		INSERT INTO chat_list (chat_no, chat_content, chat_memberid)
+		VALUES(chat_list_seq.nextval, #{chat_content}, #{chat_memberid})
+	</insert>
+	
+	<delete id="deleteChat">
+		DELETE FROM chat_list WHERE delete
+	</delete>
+
+	<insert id="insertMember" parameterType="web.dto.Chatting">
+		INSERT INTO chat_member(chat_memberno,chat_memberid)
+		VALUES(chat_seq.nextval, #{chat_memberid})
+	</insert>
+
+	<delete id="deleteMember" parameterType="web.dto.Chatting">
+		DELETE FROM chat_member WHERE chat_memberid = #{chat_memberid}
+	</delete>
+
+	<select id="memberlist" resultType="web.dto.Chatting">
+		SELECT chat_memberid FROM chat_member
+	</select>
+
+</mapper>

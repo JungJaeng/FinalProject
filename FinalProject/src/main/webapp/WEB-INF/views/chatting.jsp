@@ -14,6 +14,17 @@
 <!-- WebSocket : sock.js CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.3.0/sockjs.js"></script>
 
+<style type="text/css">
+.member{
+	float: right;
+}
+
+.chat{
+	float: left;
+}
+
+
+</style>
 </head>
 <body>
 
@@ -23,10 +34,25 @@
   <input type="text" id="message" class="form-control" placeholder="Message">
   <div class="input-group-append" style="padding: 0px;">
     <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button>
+    <div class="member">
+		<p>현재 접속자</p> 
+		<c:forEach items="${memberlist}" var="i">
+			<tr class="content">
+				<th>${i.chat_memberid}</th><br>
+			</tr>
+		</c:forEach>
+	</div>
   </div>
 </div>
 <div>
-	<ul class="list-group list-group-flush" id="data"></ul>
+	<ul class="list-group list-group-flush" id="data">
+	<c:forEach items="${chatlist}" var="l">
+		<tr class="content">
+			<th>${l.chat_memberid}</th>
+			<th> : ${l.chat_content}</th><br>
+		</tr>
+	</c:forEach>
+	</ul>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -58,6 +84,9 @@ function onOpen(){
 
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
+		console.log(msg);
+// 		var json = JSON.parse(msg);
+// 		console.log(json);
        var data = msg.data;
        $("#data").append(data + "<br>");
 }
@@ -73,7 +102,6 @@ function sendMessage() {
 }
 
 </script>
-
 
 
 </body>
