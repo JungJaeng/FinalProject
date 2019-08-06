@@ -7,13 +7,15 @@ public class Payment {
 	private String name;
 	private int paid_amount;
 	private String buyer_id;
-	private String buyer_email;
-		
+	private String buyer_tel;
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Payment [imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", pay_method=" + pay_method
-				+ ", name=" + name + ", paid_amount=" + paid_amount + ", buyer_id=" + buyer_id + ", buyer_email="
-				+ buyer_email + "]";
+				+ ", name=" + name + ", paid_amount=" + paid_amount + ", buyer_id=" + buyer_id + ", buyer_tel="
+				+ buyer_tel + "]";
 	}
 	
 	public String getImp_uid() {
@@ -52,12 +54,15 @@ public class Payment {
 	public void setBuyer_id(String buyer_id) {
 		this.buyer_id = buyer_id;
 	}
-	public String getBuyer_email() {
-		return buyer_email;
+	public String getBuyer_tel() {
+		return buyer_tel;
 	}
-	public void setBuyer_email(String buyer_email) {
-		this.buyer_email = buyer_email;
+	public void setBuyer_tel(String buyer_tel) {
+		this.buyer_tel = buyer_tel;
 	}
+	
+	
+	
 
 	
 }

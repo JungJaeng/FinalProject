@@ -33,7 +33,6 @@ function requestPayment() {
 	    merchant_uid : 'merchant_' + new Date().getTime(), //고유주문번호 - random, unique
 	    name : '여행어쩌고 객실 예약', //주문명 - 선택항목, 결제정보 확인을 위한 입력, 16자 이내로 작성
 	    amount : '${view.room_price}' , //결제금액 - 필수항목
-	    buyer_email : 'hanwooram12@naver.com' , //주문자Email - 선택항목
 	    buyer_id : '${sessionScope.login_id }' , //주문자명 - 선택항목
 	    buyer_tel : '010-1234-5678' , //주문자연락처 - 필수항목, 누락되면 PG사전송 시 오류 발생
 	    
@@ -75,10 +74,13 @@ function requestPayment() {
 	    			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 	    		}
 	    	});
+	        // 성공시 이동할 페이지
+			location.href='/pension/reserveCheck';
 	        
 	    } else { // 결제 실패 로직
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
+	        location.href='/pension/reserveCheck';
 	    }
 	    alert(msg);
 	});
@@ -95,7 +97,9 @@ function requestPayment() {
  	border: 1px dotted black;
 }
 
-
+#payBtn {
+	text-align: center;
+}
 
 
 </style>
@@ -136,8 +140,9 @@ function requestPayment() {
 	
 </div>
 </form>
-
+<br>
+<div id="payBtn">
 <button id="pay">결제</button>
-
+</div>
 
 
