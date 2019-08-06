@@ -41,10 +41,10 @@ public class PensionController {
 	
 	@Autowired PensionService pensionService;
 	@Autowired ServletContext context;
-	// 占싸깍옙 占쏙옙占싱브러占쏙옙 占쏙옙체
+	// ���멸��� ���������깅��у������ ������泥�
 	private static final Logger logger = LoggerFactory.getLogger(PensionController.class);
 	
-	// 占쏙옙占� 占쏙옙占�
+	// ��������占� ��������占�
 	@RequestMapping(value = "/pension/list", method = RequestMethod.GET)
 	public void MemberList(@RequestParam(defaultValue = "1") int curPage, String name, String search, Model model) {
 
@@ -63,7 +63,7 @@ public class PensionController {
 	}
 	
 	
-	// 占쏙옙 占쏙옙占쏙옙
+	// ������ ������������
 	@RequestMapping(value="/pension/room_view", method=RequestMethod.GET)
 	public String View(
 		@RequestParam int pension_no,
@@ -77,7 +77,7 @@ public class PensionController {
 		check.setWriter_id((String)session.getAttribute("login_id"));
 		check.setWriter_nick((String)session.getAttribute("login_nick"));
 		
-		// ��湲� ��蹂�
+		// 占쏙옙疫뀐옙 占쏙옙癰�占�
 		PensionComment comment = new PensionComment();
 		List<PensionComment> commentList = pensionService.getCommentList(viewPension);
 		model.addAttribute("commentList", commentList);
@@ -117,7 +117,7 @@ public class PensionController {
 		return "redirect:/pension/list";
 	}
 	
-	// 占쏙옙풩占싹울옙청 占쌜억옙占쏙옙
+	// �������⒴���뱀�몄��泥� �����듭��������
 	@RequestMapping(value="/pension/register_apply"
 			, method=RequestMethod.GET)
 	public void write() { }
@@ -128,7 +128,7 @@ public class PensionController {
 			HttpSession session,
 			Member member) {
 				
-		// 占쌜쇽옙占쏙옙 占쏙옙占싱듸옙 占쌩곤옙
+		// �����쎌�������� ���������깅�몄�� ���⑷낀��
 		pensionRegisterApply.setWriter_id((String)session.getAttribute("login_id"));
 		
 		
@@ -163,8 +163,8 @@ public class PensionController {
 	         e1.printStackTrace();
 	      }
 	         
-	      //UTF-8 占쏙옙占쌘듸옙 占쏙옙占쏙옙 占쏙옙占쏙옙 (占싼글몌옙 占쌕뀐옙占� 占싹는듸옙 특占쏙옙占쏙옙호占쏙옙占쏙옙 占쌕꿔서 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙째占�)
-	      filename = filename.replace("+", "%20"); //占쏙옙杵뀐옙占�
+	      //UTF-8 �����������몄�� ������������ ������������ (���쇨�紐��� ����������占� ���밸���몄�� �밧�������������멨������������ ����轅��� ������������������ ������������吏멨��占�)
+	      filename = filename.replace("+", "%20"); //�������듬������占�
 	      filename = filename.replace("%5B", "["); 
 	      filename = filename.replace("%5D", "]");
 	      filename = filename.replace("%21", "!"); 
@@ -220,10 +220,20 @@ public class PensionController {
 	public String Reservation(
 		Model model,
 		HttpSession session) {
-				
 		
-					
 		return "pension/reserve";
 	}
+	
+	@RequestMapping(value="/pension/reserveCheck", method=RequestMethod.GET)
+	public void ReserveCheck() {
+		
+	}
+	
+	
+	@RequestMapping(value="/pension/reserveFail", method=RequestMethod.GET)
+	public void ReserveFail() {
+		
+	}
+	
 
 }

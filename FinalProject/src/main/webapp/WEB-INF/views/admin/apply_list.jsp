@@ -78,7 +78,9 @@ $(document).ready(function() {
 </table>
 
 
+<div class="clearfix"></div>
 
+<jsp:include page="/WEB-INF/views/admin/apply_paging.jsp" />
 
 
 

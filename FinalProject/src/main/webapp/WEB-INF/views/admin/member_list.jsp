@@ -133,8 +133,8 @@ function checkAll() {
 
 
 
-<div class="paging">
+<div class="clearfix"></div>
 
-</div>
+<jsp:include page="/WEB-INF/views/admin/member_paging.jsp" />
 
 
