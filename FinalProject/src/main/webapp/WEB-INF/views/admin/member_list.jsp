@@ -6,6 +6,7 @@
 
 
 
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -68,15 +69,54 @@ function checkAll() {
 
 <style type="text/css">
 
+
 #pagingBox {
 	position: relative;
 }
 
-.serach {
-	display:block;
-	text-align: center;
+.serach { 
+ 	display:block;
+	text-align:center; 
+	background:#D8D8D8;
+	padding:0 0 0 35px;
+	font-size:18px;
+	color:#5e5e5e;
+	font-weight:bold;
+	line-height: 50px;
+	cursor:pointer;
+	box-sizing: content-box;
+	margin: 10px 0; !important
 	
 }
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+    text-align: center;
+    line-height: 1.5;
+}
+
+table thead {
+	padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+
+}
+
+
+
+
+      
+th, tr {
+     padding: 10px;
+     text-align: center;
+      }
+      
+
+
+
+
+
 </style>
 
 
@@ -90,15 +130,15 @@ function checkAll() {
 				<option value="user_id">아이디</option>
 				<option value="user_nick">닉네임</option>
 		</select>
-		<input type="text"  name="search" >
-	 	<button  style="vertical-align: middle;">검색</button>
+		<input type="search"  name="search" >
+	 	<button style="vertical-align: middle;">검색</button>
 </form>
 </div>
 <hr>
 
 
 
-<table class="table table-striped" border="1" style=" text-align: center;
+<table class="table table-striped" border="1" style="text-align: center;
  	width: 100%; margin-left: auto; margin-right: auto;">
 
 
@@ -115,6 +155,7 @@ function checkAll() {
 </thead>
 
 <tbody>
+
 <c:forEach items="${memberlist}" var="i">
 	<tr>		
 		<td><input type="checkbox" name="checkRow" value="${i.user_no }"/>${i.user_no }</td>

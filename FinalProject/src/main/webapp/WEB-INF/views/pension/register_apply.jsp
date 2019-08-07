@@ -127,11 +127,62 @@ function execPostCode() {
 
 </script>
 
+<style type="text/css">
+
+
+.txtbox {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #666;
+	text-decoration: none;
+	height: 20px;
+	border: 1px solid #CCC;
+}
+
+.writer {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #666;
+	text-decoration: none;
+	height: 20px;
+	border: 1px solid #CCC;
+}
+.style4 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #999;
+	text-decoration: none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCC;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.style5 {
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #CCC;
+	border-bottom-color: #CCC;
+	font-family: "돋움", "돋움체";
+	font-size: 12px;
+	color: #333;
+	text-decoration: none;
+}
+.txtarea {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #333;
+	text-decoration: none;
+	height: 150px;
+	border: 1px solid #CCC;
+}
 
 
 
-</head>
-<body>
+</style>
 
 <h1>펜션등록 요청</h1>
 <hr>
@@ -149,7 +200,7 @@ function execPostCode() {
       
       <div class="form-group">
       	<label>작성자</label>
-      	<input class="form-control" type="text" name="writer" id="writer" value=${user_nick } readonly="readonly">
+      	<input class="form-control" type="text" name="writer" id="writer" value=${sessionScope.login_id } readonly="readonly">
       
       </div>
 		

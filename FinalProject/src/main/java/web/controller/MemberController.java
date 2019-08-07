@@ -27,14 +27,14 @@ import web.util.NaverLoginBO;
 @Controller
 public class MemberController {
    
-   // 로그 라이브러리 객체
+   // 濡�洹� �쇱�대��щ━ 媛�泥�
    private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
    
    private NaverLoginBO naverLoginBO;
    private String apiResult = null;
    
-   // 서비스 객체
+   // ��鍮��� 媛�泥�
    @Autowired MemberService memberService;
 
    @Autowired
@@ -52,7 +52,7 @@ public class MemberController {
       
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       
-      logger.info("네이버:" + naverAuthUrl.toString());
+      logger.info("�ㅼ�대�:" + naverAuthUrl.toString());
       
       model.addAttribute("url", naverAuthUrl);
       
@@ -68,13 +68,13 @@ public class MemberController {
       
       String redirectUrl = null;
       if( memberService.login(member) ) {
-         // 로그인 성공
+         // 濡�洹몄�� �깃났
          
          member = memberService.selectMember(member);
          
 //         logger.info(member.toString());
          
-         // 세션 정보 저장
+         // �몄�� ��蹂� ����
          session.setAttribute("login", true);
          session.setAttribute("login_id", member.getUser_id());
          session.setAttribute("login_nick", member.getUser_nick());
@@ -82,12 +82,13 @@ public class MemberController {
          session.setAttribute("login_emil", member.getUser_email());
          
          
-         // 리다이렉트 URL 지정
+         
+         // 由щ�ㅼ�대���� URL 吏���
          redirectUrl = "/main"; 
         
       } else {
-         // 로그인 실패
-         // 리다이렉트 URL 지정
+         // 濡�洹몄�� �ㅽ��
+         // 由щ�ㅼ�대���� URL 吏���
          redirectUrl = "/member/login";
          
       }
@@ -105,13 +106,13 @@ public class MemberController {
          HttpSession session
          ) throws IOException {
       
-//      logger.info("여기는 callback");
+//      logger.info("�ш린�� callback");
       
        OAuth2AccessToken oauthToken;
        oauthToken = naverLoginBO.getAccessToken(session, code, state);
        
-       //로그인 사용자 정보를 읽어온다.
-       apiResult = naverLoginBO.getUserProfile(oauthToken); // String형식의 json데이터 
+       //濡�洹몄�� �ъ�⑹�� ��蹂대�� �쎌�댁�⑤��.
+       apiResult = naverLoginBO.getUserProfile(oauthToken); // String������ json�곗�댄�� 
        
 //       logger.info("apiResult="+apiResult);
        
@@ -136,22 +137,22 @@ public class MemberController {
          Model model
          ) { 
       
-      // 로그인 후 code get
+      // 濡�洹몄�� �� code get
       logger.info("code: " + code);
       
-      // 카카오 rest api 객체 선언
+      // 移댁뭅�� rest api 媛�泥� ����
       KakaoApi ka = new KakaoApi();
       
-      // 결과값을 node에 담아줌 
+      // 寃곌낵媛��� node�� �댁��以� 
       JsonNode node = ka.getAccessToken(code);
 
-      // 결과값 출력
+      // 寃곌낵媛� 異���
       logger.info(node.toString());
       
-      // 노드 안에 있는 access_token값을 꺼내 문자열로 변환
+      // �몃�� ���� ���� access_token媛��� 爰쇰�� 臾몄���대� 蹂���
       String token = node.get("access_token").toString();
       
-      // 세션에 담아준다.
+      // �몄���� �댁��以���.
       session.setAttribute("KakaoLogin", true);
       
       model.addAttribute("token", token);
@@ -165,7 +166,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
-   public void idcheck() { logger.info("중복아이디 체크 페이지"); }
+   public void idcheck() { logger.info("以�蹂듭���대�� 泥댄�� ���댁�"); }
 
    
    @ResponseBody
@@ -196,7 +197,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/nickcheck", method=RequestMethod.GET)
-   public void nickcheck() { logger.info("중복닉네임 체크 페이지"); }
+   public void nickcheck() { logger.info("以�蹂듬���ㅼ�� 泥댄�� ���댁�"); }
 
    
    @ResponseBody
@@ -227,12 +228,12 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.GET)
-   public void join() { logger.info("회원가입 페이지"); }
+   public void join() { logger.info("����媛��� ���댁�"); }
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.POST)
    public String joinProc(Member member) {
-//      logger.info("회원가입처리");
+//      logger.info("����媛���泥�由�");
       
       memberService.insert(member);
       
@@ -242,7 +243,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.GET)
-   public void idFind() { logger.info("아이디찾기 페이지"); }
+   public void idFind() { logger.info("���대��李얘린 ���댁�"); }
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.POST)
@@ -250,7 +251,7 @@ public class MemberController {
          Member member, 
          Model model
          ) {
-//      logger.info("아이디 찾기 처리");
+//      logger.info("���대�� 李얘린 泥�由�");
       
       if( memberService.idFind(member) == true ) {
          
@@ -258,7 +259,7 @@ public class MemberController {
          
 //         logger.info("idFind="+idFind.toString());
                   
-         model.addAttribute("idFind", "회원님의 아이디는 "+idFind.getUser_id()+" 입니다");
+         model.addAttribute("idFind", "�������� ���대���� "+idFind.getUser_id()+" ������");
          
 //         logger.info("idFindId="+idFind);
          
@@ -273,7 +274,7 @@ public class MemberController {
    
    @RequestMapping(value="/member/pwFind", method=RequestMethod.GET)
    public void pwFind() { 
-      // logger.info("비밀번호찾기 페이지"); 
+      // logger.info("鍮�諛�踰��몄갼湲� ���댁�"); 
    }
    
    
@@ -283,9 +284,9 @@ public class MemberController {
          Member member, 
          Model model
          ) {
-//      logger.info("비밀번호 찾기 처리");
+//      logger.info("鍮�諛�踰��� 李얘린 泥�由�");
       
-//      logger.info("아이디="+member.getUser_id());
+//      logger.info("���대��="+member.getUser_id());
       
       Member pwFind = memberService.pwFindSelectMember(member);
       
@@ -304,7 +305,7 @@ public class MemberController {
    
    @RequestMapping(value="/member/logout", method=RequestMethod.GET)
    public String logout( HttpSession session ) {
-//      logger.info("로그아웃");
+//      logger.info("濡�洹몄����");
       
       session.invalidate();
       

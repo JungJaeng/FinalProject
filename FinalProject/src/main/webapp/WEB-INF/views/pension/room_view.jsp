@@ -4,6 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+
+
 <style type="text/css">
 
 #button {
@@ -73,32 +75,58 @@ function deleteComment(commentNo) {
 </script>
 
 
-<div class="container">
-<div>
+
 <h1 class="pull-left">펜션 상세보기</h1>
-</div>
+
 <div class="clearfix"></div>
 <hr>
 
-<!-- 상세보기 영역 -->
-<div id="pension_view">
-펜션번호 : ${pension.pension_no }<br>
-펜션이름 : ${pension.pension_name }<br>
-펜션위치 : ${pension.pension_postcode } ${pension.pension_address } ${pension.pension_detailAddress }<br>
-펜션소개 : ${pension.pension_content }<br>
-</div>	<!-- 상세보기 영역 end -->
+
+<table>
+<thead>
+	<tr>
+		<td class="">펜션번호</td>
+		<td class="success">펜션이름 </td>
+		<td class="success">펜션위치</td>
+		<td class="success">펜션소개</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>${pension.pension_no }</td>
+		<td>${pension.pension_name }</td>
+		<td>${pension.pension_postcode } ${pension.pension_address } ${pension.pension_detailAddress }</td>
+		<td>${pension.pension_content }</td>
+	</tr>
+</tbody>
+</table>
+
 <hr>
 
-<div id="room-view">
-방 번호 : ${pension.room_no }<br>
-방 이름 : ${pension.room_name }<br>
-방 소개 : ${pension.room_content}<br>
-방 인원 : ${pension.room_men}<br>
-방 크기 : ${pension.room_size }<br>
-방 가격 : ${pension.room_price }<br>
- 
 
-</div>
+
+<table>
+<thead>
+	<tr>
+		<td class="success">객실 번호</td>
+		<td class="success">객실 소개 및 사진 </td>
+		<td class="success">객실 인원</td>
+		<td class="success">객실 크기</td>
+		<td class="success">객실 가격</td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>${pension.room_name }</td>
+		<td>${pension.room_content }</td>
+		<td>${pension.room_men }</td>
+		<td>${pension.room_size }</td>
+		<td>${pension.room_price }</td>
+	</tr>
+</tbody>
+</table>
+
+
 
 
 <hr>
@@ -107,7 +135,7 @@ function deleteComment(commentNo) {
 	<a href="/pension/list"><button class="btn btn-default">목록</button></a>
 	<a href="/pension/reserve?pension_no=${pension.pension_no }"><button class="btn btn-default">바로 예약하기</button></a>
 	<c:if test="${login_nick eq '관리자' }">
-		<a href="/pension/delete?pension_no=${pension.pension_no }"><button class="btn btn-danger">삭제</button></a>
+		<a href="/pension/delete?pension_no=${pension.pension_no }"><button class="btn btn-default">삭제</button></a>
 	</c:if>
 </div>	<!-- 버튼 영역 end -->
 <!-- 댓글 처리 -->

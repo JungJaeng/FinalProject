@@ -80,7 +80,7 @@ function requestPayment() {
 	    } else { // 결제 실패 로직
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
-	        location.href='/pension/reserveCheck';
+	        location.href='/pension/reserveFail';
 	    }
 	    alert(msg);
 	});
@@ -101,6 +101,9 @@ function requestPayment() {
 	text-align: center;
 }
 
+#info {
+	text-align: center;
+}
 
 </style>
 
@@ -108,8 +111,9 @@ function requestPayment() {
 <div class="clearfix"></div>
 <hr>
 
-<h2>예약정보</h2>
+<h2 id="info">예약정보</h2>
 
+<div style="width:600px; margin: 0 auto; margin-top: 30px; padding: 30px; border-radius: 10px; background-color: #EEEEEE;">
 <form action="/pension/reserve" method="post">
 <div id="res_information">
 	<div class="form-group">
@@ -144,5 +148,5 @@ function requestPayment() {
 <div id="payBtn">
 <button id="pay">결제</button>
 </div>
-
+</div>
 
