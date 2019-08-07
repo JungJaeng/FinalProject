@@ -130,133 +130,124 @@ function execPostCode() {
 <style type="text/css">
 
 
-.txtbox {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
-	color: #666;
-	text-decoration: none;
-	height: 20px;
-	border: 1px solid #CCC;
-}
-
-.writer {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
-	color: #666;
-	text-decoration: none;
-	height: 20px;
-	border: 1px solid #CCC;
-}
-.style4 {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
-	color: #999;
-	text-decoration: none;
-	border-bottom-width: 1px;
-	border-bottom-style: solid;
-	border-bottom-color: #CCC;
-	padding-left: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-.style5 {
-	border-top-width: 1px;
-	border-bottom-width: 1px;
-	border-top-style: solid;
-	border-bottom-style: solid;
-	border-top-color: #CCC;
-	border-bottom-color: #CCC;
-	font-family: "돋움", "돋움체";
-	font-size: 12px;
-	color: #333;
-	text-decoration: none;
-}
-.txtarea {
-	font-family: Verdana, Geneva, sans-serif;
-	font-size: 12px;
-	color: #333;
-	text-decoration: none;
-	height: 150px;
-	border: 1px solid #CCC;
+.board_type1_write_wrap{width:90%;margin:auto;background:white;}
+.board_type1_write_button_wrap{width:90%;margin:auto;background:white;font-size:16px;padding-left: 10px;padding-right: 10px;}
+.board_write_type1{width:100%;table-layout:fixed;font-size:16px;color:black;}
+.board_write_type1 tbody tr td{height:100px;}
+.board_write_type1 tbody tr td .split_three{padding:0;margin:0;width:100%;list-style:none;}
+.board_write_type1 tbody tr td .split_three li{width:33.333%;padding:0;margin:0;float:left;padding-right:5%;}
+.board_write_type1 tbody tr td div{padding-top:5px;padding-bottom:5px;}
+.board_write_type1 tbody tr .column_name{font-weight:800;}
+.board_write_type1 tbody tr .column_desc{}
+.board_write_type1 tbody tr .left{text-align:left;padding-left:10px;padding-right:10px;}
+.text_type1{width:100%;height:35px;border-radius:5px;padding-left:10px;padding-right:10px;}
+.text_type2{width:90%;height:35px;border-radius:5px;padding-left:10px;padding-right:10px;}
+.textarea_type1{width:100%;height:350px;border-radius:5px;}
+@media only screen and (max-width:1080px){
+	.board_write_type1 tbody tr td .split_three li{width:100%;float:none;padding-right:0%;}
+	
 }
 
 
 
 </style>
 
-<h1>펜션등록 요청</h1>
+<h2>펜션등록 요청</h2>
 <hr>
 
 <div class="container">
     <form action="/pension/register_apply" method="post" enctype="multipart/form-data">
             
-      <input type="text" style="display: none;" id="apply_no" name="apply_no" value="0"/>
+ <input type="text" style="display: none;" id="apply_no" name="apply_no" value="0"/>
       
-      
-      <div class="form-group">
-        <label for="pension_name">펜션명</label>
-        <input type="text" class="form-control" name="pension_name" placeholder="펜션명을 입력하세요.">
-      </div>
-      
-      <div class="form-group">
-      	<label>작성자</label>
-      	<input class="form-control" type="text" name="writer" id="writer" value=${sessionScope.login_id } readonly="readonly">
-      
-      </div>
-		
-	
-	
-      <label>펜션 위치</label><br>
-         <div class="form-group">                   
-			<input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="pension_postcode" id="pension_postcode" type="text" readonly="readonly" >
-    		<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                               
-		</div>
-		<div class="form-group">
-   			 <input class="form-control" style="top: 5px;" placeholder="주소" name="pension_address" id="pension_address" type="text" readonly="readonly" />
-		</div>
-		<div class="form-group">
-    		<input class="form-control" placeholder="상세주소" name="pension_detailAddress" id="pension_detailAddress" type="text"  />
-		</div>
-
-      
-      <div class="form-group">
-        <label for="pension_content">펜션 소개</label>
-        <textarea class="form-control" name="pension_content" placeholder="펜션소개를 입력하세요."></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label for="room_name">객실명</label><br>
-        <input type="text" class="form-c
-        ontrol" name="room_name" placeholder="객실명을 입력하세요.">
-      </div>
-      
-      <div class="form-group">
-      		<div>
-        <label for="room_content">객실 소개</label><br>
-        <textarea class="form-c" name="room_content" id="summernote" placeholder="객실 소개를 입력하세요.."></textarea>
-      		</div>
-      </div>
-      
-      <div class="form-group">
-        <label for="room_men">인원</label><br>
-        <input type="text" class="form-c"  name="room_men" placeholder="방 인원을 입력하세요.">
-      </div>
-      
-      <div class="form-group">
-        <label for="room_size">크기</label><br>
-        <input type="text" class="form-c" name="room_size" placeholder="방 크기를 입력하세요.">
-      </div>
-      
-       <div class="form-group">
-        <label for="room_price">요금</label><br>
-        <input type="text" class="form-c" name="room_price" placeholder="방 요금을 입력하세요.">
-      </div>  
-      
-<div class="text-center">	
-	<button type="button" id="btnWrite" class="btn btn-info">등록 신청</button>
+      <table class="board_write_type1">
+      	<tr>
+      		<td class="left">
+      			<div class="pension_name">펜션명</div>
+      			<input type="text" class="text_type1" name="pension_name" placeholder="펜션명을 입력하세요.">
+      		</td>  	
+      	</tr>
+      	
+      	<tr>
+      		<td class="left">
+      			<ul class="split_three">
+      			<li>
+      				<div class="writer">작성자</div>
+      				<input type="text" class="text_type1" name="writer" value="${sessionScope.login_id }" readonly="readonly">
+      				
+      			 </li>    			
+      				<li>
+      					<div class="pension_postcode">펜션위치</div>
+      					<input class="text_type1" style="width: 40%; display: inline;" placeholder="우편번호" name="pension_postcode" id="pension_postcode" type="text" readonly="readonly" >
+      					<button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+      					<input class="form-control" style="top: 5px;" placeholder="주소" name="pension_address" id="pension_address" type="text" readonly="readonly" />
+    					<input class="form-control" placeholder="상세주소" name="pension_detailAddress" id="pension_detailAddress" type="text"  />
+      				</li>    			
+      			</ul>
+      		</td>
+      	<tr>
+      		<td class="left">
+      		<div class="pension_content">펜션 소개</div>
+      		<textarea class="form-control" name="pension_content" placeholder="펜션소개를 입력하세요."></textarea>   		
+      		</td>
+      	</tr>
+      	
+     	<tr>
+      		<td class="left">
+      			<div class="room_name">객실명</div>
+      			<input type="text" class="text_type1" name="room_name" placeholder="객실명을 입력하세요.">
+      		</td>  	
+      	</tr>
+      	
+      	<tr>
+      		<td class="left">
+      			<div class="room_content">객실소개</div>
+       		    <textarea class="form-c" name="room_content" id="summernote"></textarea>
+      		</td>  	
+      	</tr>
+ 
+ 		<tr>
+      		<td class="left">
+      			<ul class="split_three">
+      				<li>
+      					<div class="room_men">인원</div>
+      					<input type="text" class="text_type1" name="room_men" placeholder="방 인원을 입력하세요.">
+      				
+      				</li>
+      			</ul>
+      		</td>
+      	</tr>
+      	
+      	 <tr>
+      		<td class="left">
+      			<ul class="split_three">
+      				<li>
+      					<div class="room_size">크기</div>
+      					<input type="text" class="text_type1" name="room_size" placeholder="방 크기를 입력하세요.">     				
+      				</li>
+      			</ul>
+      		</td>
+      	</tr>
+      	
+      	 <tr>
+      		<td class="left">
+      			<ul class="split_three">
+      				<li>
+      					<div class="room_price">요금</div>
+      					<input type="number" class="text_type1" name="room_price" placeholder="방 요금을 입력하세요.">
+      				
+      				</li>
+      			</ul>
+      		</td>
+      	</tr>     
+      </table>
+    
+ <div class="text-center">	
+	<button type="button" id="btnWrite" class="btn btn-info">등록</button>
 	<button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 </div>
-     
     </form>
 </div>
+
+
 

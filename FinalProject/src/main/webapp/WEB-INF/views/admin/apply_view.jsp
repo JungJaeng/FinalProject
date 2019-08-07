@@ -30,12 +30,11 @@
 
 
 <div>
-<h1 class="pull-left">펜션등록요청 상세보기</h1>
+<h2 class="pull-left">펜션등록요청 상세보기</h2>
 </div>
 <div class="clearfix"></div>
 <hr>
 
-<form action="/admin/apply_view" method="post">
 <div class="row">
 	<div class=".col-lg-4 col-lg-4"></div>
 	<div class=".col-lg-9 .col-lg-9">
@@ -45,7 +44,7 @@
 			<th class="success">요청 번호</th>
 			<td>${view.apply_no }</td>
 			<th class="success">작성자</th>
-			<td>${view.writer_nick }</td>
+			<td>${view.writer_id }</td>
 		</tr>
 		  
 		
@@ -60,7 +59,11 @@
 			<th class="success">펜션 소개</th>
 			<td colspan="3">${view.pension_content }</td>
 		</tr>
+		</table>
 		
+		
+		
+		<table class="table">
 		<tr>
 			<th class="success">객실명</th>
 			<td colspan="3">${view.room_name }</td>
@@ -92,7 +95,7 @@
 		</div>
 		</div>
 		</div>
-</form>
+
 
 <div class="text-center">
 	<a href="/admin/apply_list"><button class="btn btn-default">목록</button></a>
