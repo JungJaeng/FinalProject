@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Recommend;
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
 import web.util.Paging;
@@ -33,6 +34,10 @@ public interface TripspotService {
 	public void update(TripSpot tripspot, String images);
 
 	public void delete(int board_no);
+
+	public String recommend(Recommend recommend);
+
+	public int cntRecommend(Recommend recommend);
 	
 	
 

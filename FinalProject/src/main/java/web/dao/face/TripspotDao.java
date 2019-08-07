@@ -3,6 +3,7 @@ package web.dao.face;
 import java.util.List;
 import java.util.Map;
 
+import web.dto.Recommend;
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
 import web.util.Paging;
@@ -28,5 +29,11 @@ public interface TripspotDao {
 	public void update(TripSpot tripspot);
 
 	public void deletetripspotByBoard_no(int board_no);
+
+	public int countRecommend(Recommend recommend);
+
+	public void insertRecommend(Recommend recommend);
+
+	public void deleteRecommend(Recommend recommend);
 
 }

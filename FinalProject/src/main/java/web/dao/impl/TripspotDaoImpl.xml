@@ -85,4 +85,17 @@
 	<delete id="deletetripspotByBoard_no" parameterType="int">
 		DELETE FROM tripspot WHERE board_no = #{board_no}
 	</delete>
+	
+	<select id="countRecommend" parameterType="web.dto.Recommend" resultType="int">
+		SELECT COUNT(*) FROM recommend 
+		WHERE board_no=#{board_no} AND recommender = #{recommender}
+	</select>
+	<insert id="insertRecommend">
+		INSERT INTO recommend(board_no,recommender)
+		VALUES (#{board_no},#{recommender})
+	</insert>
+	<delete id="deleteRecommend">
+		DELETE FROM recommend
+		WHERE board_no=#{board_no} AND recommender = #{recommender}
+	</delete>
 </mapper>

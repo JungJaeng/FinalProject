@@ -6,7 +6,7 @@
 $(document).ready(function() {
 	var commentno;
 	var dept
-	var board_no = ${board.board_no};
+	var board_no = ${board.board_no}
 	var writer_nick = "${login_nick}";
 	
 	$("#commentdiv").on("click", ".recommentanchor", function() {

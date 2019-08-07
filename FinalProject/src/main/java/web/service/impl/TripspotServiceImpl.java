@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.TripspotDao;
+import web.dto.Recommend;
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
 import web.service.face.TripspotService;
@@ -120,5 +121,24 @@ public class TripspotServiceImpl implements TripspotService{
 		tripspotDao.deletetripspotByBoard_no(board_no);
 		
 	}
+	@Override
+	public String recommend(Recommend recommend) {
+		int chk = tripspotDao.countRecommend(recommend);
+		
+		if(chk == 0) {
+			tripspotDao.insertRecommend(recommend);
+			return "추가";
+		}else if(chk == 1) {
+			tripspotDao.deleteRecommend(recommend);
+			return "삭제";
+		}
+		return null;
+	}
+	@Override
+	public int cntRecommend(Recommend recommend) {
+		return tripspotDao.countRecommend(recommend);
+	}
+	
+
 
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Recommend;
 import web.dto.TripSpot;
 import web.dto.Upload_Image;
 import web.service.face.TripspotService;
@@ -54,11 +55,20 @@ public class TripspotController {
 	}@RequestMapping(value = "/tripspot/view", method = RequestMethod.GET)
 	public void View(
 			@RequestParam int board_no,
-			Model model) {
+			Model model,
+			HttpSession session) {
 		
 		tripspotService.hitview(board_no);
 		TripSpot viewtripspot = tripspotService.view(board_no);
 		model.addAttribute("tripspot",viewtripspot);
+		
+		if(session.getAttribute("login_id") != null) {
+			Recommend recommend = new Recommend();
+			recommend.setBoard_no(board_no);
+			recommend.setRecommender((String)session.getAttribute("login_id"));
+			int recommendcnt = tripspotService.cntRecommend(recommend);
+			model.addAttribute("recommendcnt",recommendcnt);
+		}
 //		List<Comment> list = boardService.commentView(board_no);
 //		model.addAttribute("commentlist",list);
 	}
@@ -131,8 +141,11 @@ public class TripspotController {
 	public String Delete(
 			@RequestParam int board_no) {
 		tripspotService.delete(board_no);
-		
 		return "redirect:/tripspot/list";
+	}
+	@RequestMapping(value = "/tripspot/recommend", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public @ResponseBody String recommend(Recommend recommend) {
+		return tripspotService.recommend(recommend);
 	}
 	
 }

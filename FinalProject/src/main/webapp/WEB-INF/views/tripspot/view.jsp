@@ -48,6 +48,31 @@ img {
 	max-width: 100%;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#recommendDiv").on("click", ".recommendBtn", function(){
+		var board_no = "${tripspot.board_no }";
+		var recommender = "${login_id}";
+		$.ajax({
+			url : "/tripspot/recommend",
+			type : "POST",
+			data : {"board_no":board_no,
+					"recommender":recommender},
+			dataType : "text",
+	  		success: function(data){
+	  			if(data == "추가"){
+	  				$("#recommendDiv").html("<button class='recommendBtn'>추천 취소</button>");
+	  			}else if(data == "삭제"){
+	  				$("#recommendDiv").html("<button class='recommendBtn'>추천</button>");
+	  			}
+			} 
+			, error: function(res){
+			}
+			
+		});		
+	})
+});
+</script>
 <table>
 <thead>
 	<tr>
@@ -66,6 +91,14 @@ img {
 </table>
 <div class="contentdiv">
 ${tripspot.content }
+</div>
+<div id="recommendDiv">
+<c:if test="${recommendcnt eq 0}">
+<button class="recommendBtn">추천</button>
+</c:if>
+<c:if test="${recommendcnt eq 1}">
+<button class="recommendBtn">추천 취소</button>
+</c:if>
 </div>
 <button onclick="location.href='/tripspot/list'">목록으로</button>&nbsp;&nbsp;&nbsp;
 <button onclick="location.href='/tripspot/update?board_no=${tripspot.board_no}'">수정</button>&nbsp;&nbsp;&nbsp;
