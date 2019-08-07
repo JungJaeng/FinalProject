@@ -64,7 +64,7 @@ th, tr {
 
 
 
-<h1>관리자페이지 - 펜션요청확인</h1>
+<h2>관리자페이지 - 펜션요청확인</h2>
 <hr>
 
 <div class="serach">
@@ -88,7 +88,7 @@ th, tr {
 <thead>
 	<tr>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 번호</th>
-		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 닉네임</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 아이디</th>
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">펜션명</th>
 		<th style="width: 20%; text-align: center; background-color: #D8D8D8;">펜션위치</th>				
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 날짜</th>
@@ -100,7 +100,7 @@ th, tr {
 <c:forEach items="${applylist}" var="i">
 	<tr>		
 		<td>${i.apply_no }</td>
-		<td>${i.writer_nick }</td>
+		<td>${i.writer_id }</td>
 		<td><a href="/admin/apply_view?apply_no=${i.apply_no }">${i.pension_name }</a></td>
 		<td>${i.pension_postcode } ${i.pension_address } ${i.pension_detailAddress }
 		<td><fmt:formatDate value="${i.apply_date }" pattern="yy-MM-dd"/></td>

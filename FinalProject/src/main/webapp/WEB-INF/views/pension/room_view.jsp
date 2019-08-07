@@ -76,7 +76,7 @@ function deleteComment(commentNo) {
 
 
 
-<h1 class="pull-left">펜션 상세보기</h1>
+<h2 class="pull-left">펜션 상세보기</h2>
 
 <div class="clearfix"></div>
 <hr>

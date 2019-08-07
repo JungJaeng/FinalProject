@@ -21,7 +21,7 @@ public interface PensionDao {
 	
 	public void delete(Pension pension);
 	
-	public void write(PensionRegisterApply pensionRegisterApply);
+	public void res_write(PensionRegisterApply pensionRegisterApply);
 		
 	public int getApply_no();
 

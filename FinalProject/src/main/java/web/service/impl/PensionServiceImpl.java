@@ -27,7 +27,7 @@ public class PensionServiceImpl implements PensionService {
 
 	@Autowired PensionDao pensionDao;
 	
-	// 占싸깍옙 占쏙옙占싱브러占쏙옙 占쏙옙체
+	// ���멸��� ���������깅��у������ ������泥�
 	private static final Logger logger = LoggerFactory.getLogger(PensionServiceImpl.class);
 
 	@Override
@@ -57,7 +57,7 @@ public class PensionServiceImpl implements PensionService {
 
 	@Override
 	public void write(PensionRegisterApply pensionRegisterApply) {
-		pensionDao.write(pensionRegisterApply);
+		pensionDao.res_write(pensionRegisterApply);
 		
 	}
 
@@ -66,16 +66,16 @@ public class PensionServiceImpl implements PensionService {
 		String storedPath = context.getRealPath("WEB-INF/upload");
 	      String uId = UUID.randomUUID().toString().split("-")[4];
 	      
-	      //占쏙옙占쏙옙占� 占쏙옙占쏙옙占쏙옙 占싱몌옙(占쏙옙占쏙옙占싱몌옙+UUID)
+	      //��������������占� ������������������ ���깅���(���������������깅���+UUID)
 	      String name=file.getOriginalFilename()+"_"+uId;
 	      
 	      
-	      //占쏙옙占쏙옙占� 占쏙옙占쏙옙 占쏙옙체
+	      //��������������占� ������������ ������泥�
 	      File dest = new File(storedPath,name);
 	      
-	      //占쏙옙占쏙옙 占쏙옙占쏙옙
+	      //������������ ������������
 	      try {
-	         file.transferTo(dest); //占쏙옙占쏙옙 占쏙옙占쏙옙
+	         file.transferTo(dest); //������������ ������������
 	      } catch (IllegalStateException e) {
 	         e.printStackTrace();
 	      } catch (IOException e) {

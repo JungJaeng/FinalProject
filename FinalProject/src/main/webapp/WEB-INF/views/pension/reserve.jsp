@@ -107,7 +107,7 @@ function requestPayment() {
 
 </style>
 
-<h1 class="pull-left">펜션 예약</h1>
+<h2 class="pull-left">펜션 예약</h2>
 <div class="clearfix"></div>
 <hr>
 
