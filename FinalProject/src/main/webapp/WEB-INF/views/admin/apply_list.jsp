@@ -22,11 +22,44 @@ $(document).ready(function() {
 	position: relative;
 }
 
-.serach {
-	display:block;
-	text-align: center;
+.serach { 
+ 	display:block;
+	text-align:center; 
+	background:#D8D8D8;
+	padding:0 0 0 35px;
+	font-size:18px;
+	color:#5e5e5e;
+	font-weight:bold;
+	line-height: 50px;
+	cursor:pointer;
+	box-sizing: content-box;
+	margin: 10px 0; !important
 	
 }
+	
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+    text-align: center;
+    line-height: 1.5;
+      }
+      
+table thead {
+	padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+
+}
+
+
+
+      
+th, tr {
+        
+        padding: 10px;
+        text-align: center;
+      }
 </style>
 
 

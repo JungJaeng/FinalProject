@@ -31,8 +31,8 @@
 						<when test="name.equals('pesion_name')">
 							pension_name LIKE '%'||#{search}||'%'
 						</when>
-						<when test="name.equals('pension_location')">
-							pension_location LIKE '%'||#{search}||'%'
+						<when test="name.equals('pension_address')">
+							pension_address LIKE '%'||#{search}||'%'
 						</when>
 						
 						</choose>
