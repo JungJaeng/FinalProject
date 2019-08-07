@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <!DOCTYPE html "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +12,21 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style>
+
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+.body {
+	font-family: 'Lato', sans-serif;
+	background: #353535;
+	color: CCC;
+}
+
+.memberCheck {
+	color: #FFF;
+	text-align: center;
+	font-size: 10px;
+}
 
 .login_content {
    margin: 0 auto;
@@ -27,6 +43,7 @@
    margin: 19px 0 8px;
    font-size: 14px;
    font-weight: 700;
+   color: #FFF;
 }
 
 .inputtext {
@@ -63,7 +80,9 @@
 
 .btnarea {
    margin: 30px 0 9px;
+   border: 2px solid #D24D57;
 }
+
 
 .btn_type {
    display: block;
@@ -91,7 +110,19 @@ $(document).ready(function() {
       //form submit 수행
       $("form").submit();
    });
+
+
+	$('#user_pw').keydown(function(e) {
+	    if( e.keyCode == 13 ) {
+	    	login();
+	    }
+	});
 });
+
+function login(){
+	$("#btn_login").click();
+}
+
 </script>   
    
 
@@ -100,11 +131,27 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-   <h1>로그인</h1>
+	
    <hr>
    
-   <div>
-      <form action="/member/login" method="post">
+	<div class="body">
+	<br><br>
+		<div class="memberCheck">
+			<span style="color: #CCC">회원 구분을 반드시 체크해주세요</span>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<input type="radio" id="user_join_no" name="user_join_no" value="1"  checked="checked"/>&nbsp;일반회원 
+				
+			&nbsp;&nbsp;
+				
+			<input type="radio" id="user_join_no" name="user_join_no" value="2" />&nbsp;사업자 
+			
+		
+		</div>
+		<br>
+	<hr>
+   
+	<form action="/member/login" method="post" name="loginForm">
          <div class="login_content">
             <div class="row_group">
                <h3 class="login_title">
@@ -125,30 +172,32 @@ $(document).ready(function() {
             </div>
             
             <div class="btnarea">
-               <button type="button" id="btn_login" class="btn_type">
-                  <span>로그인</span>
-               </button>
+            	<div>
+	            	<button type="button" id="btn_login" class="btn_type">
+	                	<span>Login</span>
+	            	</button>
+            	</div>
             </div>
             
             <div class="menu">
                <table>
                   <tr>
                      <td> </td>
-                     <td><a href="/member/idFind" style="text-decoration:none; color: black;">&nbsp;아이디 찾기</a></td>
-                     <td> &nbsp;&nbsp; │ </td>
-                     <td><a href="/member/pwFind" style="text-decoration:none; color: black;">&nbsp;&nbsp;비밀번호 찾기</a></td>
-                     <td> &nbsp; │ </td>
-                     <td><a href="/member/join" style="text-decoration:none; color: black;">&nbsp;&nbsp;회원가입</a></td>
+                     <td><a href="/member/idFind" style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디 찾기</a></td>
+                     <td style="color: #FFF;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
+                     <td><a href="/member/pwFind" style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</a></td>
+                     <td style="color: #FFF;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
+                     <td><a href="/member/join"   style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원가입</a></td>
                   </tr>
                </table>
             </div>
             
          </div>   
       </form>
-   </div>
+
    <br>
    
-   
+   <div class="sns_login">
    <!-- 네이버아이디로로그인 버튼 노출 영역 -->
    <div id="naver_id_login" style="text-align:center">
       <a href="${url}">
@@ -163,10 +212,12 @@ $(document).ready(function() {
    //    naver_id_login.setPopup(); 
       naver_id_login.init_naver_id_login; 
    </script>
-
+   
+	<br>
+	
    <div id="kakao_id_login" style="text-align:center">
       <a id="kakao-login-btn" 
-      href = "https://kauth.kakao.com/oauth/authorize?client_id=2c8bb256bd1dfd39210162d0e5b2b96e&redirect_uri=http://localhost:8088/member/kakaoLogin&response_type=code"></a>
+      href="https://kauth.kakao.com/oauth/authorize?client_id=2c8bb256bd1dfd39210162d0e5b2b96e&redirect_uri=http://localhost:8088/member/kakaoLogin&response_type=code"></a>
    </div>
    
    
@@ -183,11 +234,11 @@ $(document).ready(function() {
          Kakao.API.request({
             url: '/v1/user/me',
             success: function(res) {
-               console.log(res);
-               console.log(JSON.stringify(res.kaccount_email));
-               console.log(JSON.stringify(res.id));
-               console.log(JSON.stringify(res.properties.profile_image));
-               console.log(JSON.stringify(res.properties.nickname));
+//                console.log(res);
+//                console.log(JSON.stringify(res.kaccount_email));
+//                console.log(JSON.stringify(res.id));
+//                console.log(JSON.stringify(res.properties.profile_image));
+//                console.log(JSON.stringify(res.properties.nickname));
                  
 //                alert(res.properties.nickname+'님 환영합니다.');
                },
@@ -258,9 +309,11 @@ $(document).ready(function() {
 //        Kakao.Auth.setAccessToken(refreshToken , true);
 //        var getAccessToken=  Kakao.Auth.getAccessToken();
 //        console.log(getAccessToken);   
-//    });
-   
+//    });   
    </script>
-
+   </div>
+   <br><br>
+   </div>
+   <hr>
 </body>
 </html>
