@@ -35,12 +35,16 @@
   <div class="input-group-append" style="padding: 0px;">
     <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button>
     <div class="member">
-		<p>현재 접속자</p> 
-		<c:forEach items="${memberlist}" var="i">
-			<tr class="content">
-				<th>${i.chat_memberid}</th><br>
-			</tr>
-		</c:forEach>
+    	<div class="memberlist">
+<%-- 		<c:forEach items="${memberlist}" var="i"> --%>
+<!-- 			<tr class="content"> -->
+<%-- 				<th>${i.chat_memberid}</th><br> --%>
+<!-- 			</tr> -->
+<%-- 		</c:forEach> --%>
+		</div>
+		<div class="nowmember">
+		
+		</div>
 	</div>
   </div>
 </div>
@@ -68,7 +72,6 @@ $(document).ready(function() {
        });
 });
 
-
 // 웹소켓을 지정한 url로 연결한다.
 // var ws = new WebSocket("ws://"+window.location.host+"${pageContext.request.contextPath}/echo"); //WebSocket사용
 var ws = new SockJS("<c:url value='/echo'/>"); //SockJs 사용
@@ -80,15 +83,49 @@ console.log(ws)
 
 function onOpen(){
 	console.log('websocket opened');
+// 	var json = JSON.parse(msg.data);
+// 	console.log(json);
 }
 
 // 서버로부터 메시지를 받았을 때
 function onMessage(msg) {
+       
 		console.log(msg);
-// 		var json = JSON.parse(msg);
-// 		console.log(json);
-       var data = msg.data;
-       $("#data").append(data + "<br>");
+// 	var data = msg.data;
+	var json = JSON.parse(msg.data);
+	console.log(json); 
+       $("#data").append(json.msg + "<br>");
+       $(".nowmem").remove();
+       $(".memlist").remove();
+       $(".nowmember").append("<p class='nowmem'>현재접속자 수 : "+json.usercnt+"명</p>")
+       
+       $.ajax({
+		type:'POST'
+		,url:'/chatting'
+		,dataType:'json'
+		,success : function(res) {
+			console.log(res)
+			
+			for(var i in res){
+			console.log(res[i].chat_memberid)
+				$(".memberlist").append("<p class='memlist'>"+res[i].chat_memberid+"</p>");
+			}
+		}
+	})
+       
+       
+}
+
+function changelist() {
+	$.ajax({
+		type:'POST'
+		,url:'/chatting'
+		,dataType:'json'
+		,success:function(data){
+			console.log("change")
+			console.log(data)
+		}
+	})
 }
 
 // 서버와 연결을 끊었을 때
