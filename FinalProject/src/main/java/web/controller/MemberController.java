@@ -52,7 +52,9 @@ public class MemberController {
       
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       
-      logger.info("�ㅼ�대�:" + naverAuthUrl.toString());
+
+//      logger.info("네이버:" + naverAuthUrl.toString());
+
       
       model.addAttribute("url", naverAuthUrl);
       
@@ -80,6 +82,7 @@ public class MemberController {
          session.setAttribute("login_nick", member.getUser_nick());
          session.setAttribute("login_pw", member.getUser_pw());
          session.setAttribute("login_emil", member.getUser_email());
+         session.setAttribute("login_user_join_no", member.getUser_join_no());
          
          
          
@@ -137,8 +140,10 @@ public class MemberController {
          Model model
          ) { 
       
-      // 濡�洹몄�� �� code get
-      logger.info("code: " + code);
+
+      // 로그인 후 code get
+//      logger.info("code: " + code);
+
       
       // 移댁뭅�� rest api 媛�泥� ����
       KakaoApi ka = new KakaoApi();
@@ -146,9 +151,10 @@ public class MemberController {
       // 寃곌낵媛��� node�� �댁��以� 
       JsonNode node = ka.getAccessToken(code);
 
-      // 寃곌낵媛� 異���
-      logger.info(node.toString());
-      
+
+      // 결과값 출력
+//      logger.info(node.toString());
+
       // �몃�� ���� ���� access_token媛��� 爰쇰�� 臾몄���대� 蹂���
       String token = node.get("access_token").toString();
       
@@ -197,7 +203,9 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/nickcheck", method=RequestMethod.GET)
-   public void nickcheck() { logger.info("以�蹂듬���ㅼ�� 泥댄�� ���댁�"); }
+
+   public void nickcheck() { }
+
 
    
    @ResponseBody
@@ -211,7 +219,7 @@ public class MemberController {
       
       String userNick = req.getParameter("user_nick");
       
-      logger.info("userNick="+userNick.toString());
+//      logger.info("userNick="+userNick.toString());
       
       boolean nickcheck = memberService.nickcheck(userNick);
       
@@ -228,7 +236,9 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.GET)
-   public void join() { logger.info("����媛��� ���댁�"); }
+
+   public void join() {  }
+
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.POST)
@@ -243,7 +253,9 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.GET)
-   public void idFind() { logger.info("���대��李얘린 ���댁�"); }
+
+   public void idFind() {  }
+
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.POST)
@@ -311,5 +323,10 @@ public class MemberController {
       
       return "redirect:/main"; 
    }
+   
+   @RequestMapping(value = "/member/test", method = { RequestMethod.GET, RequestMethod.POST })
+   public void test() { }
+    
+   
    
 }

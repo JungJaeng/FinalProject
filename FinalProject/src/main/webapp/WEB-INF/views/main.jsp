@@ -340,7 +340,7 @@ function Detail(contentId, contentTypeId){
 	color: #ffffff;
 }
 .tour{
-background-image: url("/resources/img/mainimage.jpg");
+background-image: url("/resources/img/mainimage2.jpg"); 
 }
 .utubediv{
 	text-align: center;

@@ -73,23 +73,23 @@ $(window).scroll(function() {
          </c:if>
    <!--       로그인상태 -->
          <c:if test="${login and login_nick ne '관리자' }">
-         <a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="atag" href="/connectionBinder">채팅</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="atag" href="/mypage/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
          </c:if> 
          
    <!--       네이버 로그인상태 -->
       <c:if test="${naverLogin }">
-         <a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="atag" href="/connectionBinder">채팅</a>&nbsp;&nbsp;&nbsp;&nbsp;
          <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-         <a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="atag" href="/mypage/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp;
       </c:if>
       
    <!--       카카오 로그인상태 --> 
       <c:if test="${KakaoLogin }">
-         <a class="atag" href="/connectionBinder">현재 접속자</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="atag" href="/connectionBinder">채팅</a>&nbsp;&nbsp;&nbsp;&nbsp;
          <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
-         <a class="atag" href="/member/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp; 
+         <a class="atag" href="/mypage/mypage">마이페이지</a>&nbsp;&nbsp;&nbsp;&nbsp; 
       </c:if>
          
    <!--       관리자상태 -->
