@@ -52,7 +52,7 @@ public class MemberController {
       
       String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
       
-      logger.info("네이버:" + naverAuthUrl.toString());
+//      logger.info("네이버:" + naverAuthUrl.toString());
       
       model.addAttribute("url", naverAuthUrl);
       
@@ -80,6 +80,7 @@ public class MemberController {
          session.setAttribute("login_nick", member.getUser_nick());
          session.setAttribute("login_pw", member.getUser_pw());
          session.setAttribute("login_emil", member.getUser_email());
+         session.setAttribute("login_user_join_no", member.getUser_join_no());
          
          
          // 리다이렉트 URL 지정
@@ -137,7 +138,7 @@ public class MemberController {
          ) { 
       
       // 로그인 후 code get
-      logger.info("code: " + code);
+//      logger.info("code: " + code);
       
       // 카카오 rest api 객체 선언
       KakaoApi ka = new KakaoApi();
@@ -146,7 +147,7 @@ public class MemberController {
       JsonNode node = ka.getAccessToken(code);
 
       // 결과값 출력
-      logger.info(node.toString());
+//      logger.info(node.toString());
       
       // 노드 안에 있는 access_token값을 꺼내 문자열로 변환
       String token = node.get("access_token").toString();
@@ -196,7 +197,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/nickcheck", method=RequestMethod.GET)
-   public void nickcheck() { logger.info("중복닉네임 체크 페이지"); }
+   public void nickcheck() { }
 
    
    @ResponseBody
@@ -210,7 +211,7 @@ public class MemberController {
       
       String userNick = req.getParameter("user_nick");
       
-      logger.info("userNick="+userNick.toString());
+//      logger.info("userNick="+userNick.toString());
       
       boolean nickcheck = memberService.nickcheck(userNick);
       
@@ -227,7 +228,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.GET)
-   public void join() { logger.info("회원가입 페이지"); }
+   public void join() {  }
    
    
    @RequestMapping(value="/member/join", method=RequestMethod.POST)
@@ -242,7 +243,7 @@ public class MemberController {
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.GET)
-   public void idFind() { logger.info("아이디찾기 페이지"); }
+   public void idFind() {  }
    
    
    @RequestMapping(value="/member/idFind", method=RequestMethod.POST)
@@ -310,5 +311,10 @@ public class MemberController {
       
       return "redirect:/main"; 
    }
+   
+   @RequestMapping(value = "/member/test", method = { RequestMethod.GET, RequestMethod.POST })
+   public void test() { }
+    
+   
    
 }
