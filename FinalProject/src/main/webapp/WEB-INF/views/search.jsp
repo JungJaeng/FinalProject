@@ -271,9 +271,10 @@ function map(mapx, mapy){
 }
 .subMenu{
 	list-style: none;
-    width: 30%;
-    margin-left: 20px;
-    display: -webkit-inline-box;
+	margin-top: 10px;
+/*     width: 30%; */
+/*     margin-left: 20px; */
+/*     display: -webkit-inline-box; */
     background-color: #ccc;
 /*     margin-top: 0px !important; */
 }

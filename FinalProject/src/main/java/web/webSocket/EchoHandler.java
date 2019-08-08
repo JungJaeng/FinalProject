@@ -77,7 +77,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(WebSocketSession s : sessionList) {
 //			s.sendMessage(new TextMessage(userId+"님이 접속하셨습니다"));
 //			s.sendMessage(new TextMessage(obj.toString()));
-			s.sendMessage(new TextMessage("{\"usercnt\":"+usercnt+",\"users\":[\"user01\",\"user02\",\"user03\"],\"msg\":\""+userId+"님이 접속하셨습니다"+"\"}"));
+			s.sendMessage(new TextMessage("{\"usercnt\":"+usercnt+",\"msg\":\""+userId+"님이 접속하셨습니다"+"\"}"));
 //			s.sendMessage(new TextMessage("{\"usercnt\":3,\"users\":[\"user01\",\"user02\",\"user03\"],\"msg\":\"user01님이 접속하셨습니다\"}"));
 			
 			logger.info("se:"+s.getId());
@@ -85,6 +85,8 @@ public class EchoHandler extends TextWebSocketHandler {
 		}
 		
 		chatting.setChat_memberid(userId);
+		
+		chatting.setChat_session(session.getId());
 		
 		chattingDao.insertMember(chatting);
 		
@@ -135,10 +137,24 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	//클라이언트와 연결을 끊었을 때 실행되는 메소드
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		chatting.setChat_session(session.getId());
+		
+		logger.info("session"+session.getId());
+		
 		sessionList.remove(session);
 		
 		Map <String, Object> map = session.getAttributes();
 		String userId = (String)map.get("login_id");
+		
+		int usercnt = 0;
+		for(int i=0; i<=sessionList.size(); i++) {
+		usercnt = i;
+		}
+		
+		for(WebSocketSession s : sessionList) {
+			s.sendMessage(new TextMessage("{\"usercnt\":"+usercnt+",\"msg\":\""+userId+"님이 퇴장하셨습니다"+"\"}"));
+		
+		}	
 		
 		chatting.setChat_memberid(userId);
 		
@@ -147,8 +163,9 @@ public class EchoHandler extends TextWebSocketHandler {
 //		session.sendMessage(new TextMessage(userId+"님이 퇴장하셨습니다"));
 		
 		logger.info("{} 연결 끊김", userId);
-	}
+		
 	
+	}
 }
 
 

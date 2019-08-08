@@ -39,27 +39,6 @@ public class MainController {
 
 		return "/search";
 	}
-//	@RequestMapping(value = "/chatting", method = RequestMethod.GET)
-//	public void chat(Model model, Chatting chatting) {
-//		
-//		List<Chatting> memberlist = chattingService.getmemberAll();
-//		model.addAttribute("memberlist",memberlist);
-//		
-//		List<Chatting> chatlist = chattingService.getchatAll();
-//		model.addAttribute("chatlist",chatlist);
-//		
-////		logger.info("memberlist:"+memberlist);
-////		logger.info("chatlist:"+chatlist);
-//		
-//	}
-	
-//	@RequestMapping(value="/chatting", method= RequestMethod.POST)
-//	public @ResponseBody List<Chatting> chatting() {
-//		
-//		List<Chatting> memberlist = chattingService.getmemberAll();
-//		
-//		return memberlist;
-//	}
 	@RequestMapping(value = "/map", method = RequestMethod.POST)
 	public String map(Model model,
 			double mapx,

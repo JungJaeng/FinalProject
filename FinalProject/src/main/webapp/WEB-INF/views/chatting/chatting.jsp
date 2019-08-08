@@ -17,13 +17,53 @@
 <style type="text/css">
 .member{
 	float: right;
+	background-color: darkgray;
+}
+.member_list{
+	overflow: auto;
+	height: 150px;
+	width: 200px;
+	background-color: #ccc;
+	margin-left: 50px;
+	margin-right: 50px;
+    margin-top: 15%;
+}
+.memlist{
+	text-align: center;
 }
 
 .chat{
 	float: left;
 }
+.chat_list{
+	overflow: auto;
+	height: 300px;
+	width: 700px;
+	background-color: #ccc;
+	margin-left: auto;
+	border: double;
+}
 
-
+.list-group{
+    margin: 0;
+    padding: 0;
+}
+.input-group-append{
+	padding: 0px;
+}
+.chatPtag{
+	margin-left: 285px;
+	font-size: 50px;
+}
+.nowmem{
+	text-align: center;
+}
+#message{
+	width: 600px;
+}
+#sendBtn{
+	width: 66px;
+}
 </style>
 </head>
 <body>
@@ -31,16 +71,12 @@
 
 
 <div class="input-group mb-3">
-  <input type="text" id="message" class="form-control" placeholder="Message">
-  <div class="input-group-append" style="padding: 0px;">
-    <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button>
+<!--   <input type="text" id="message" class="form-control" placeholder="Message"> -->
+  <div class="input-group-append">
+<!--     <button id="sendBtn" class="btn btn-outline-secondary" type="button">Send</button> -->
+    <p class="chatPtag">채팅방</p>
     <div class="member">
-    	<div class="memberlist">
-<%-- 		<c:forEach items="${memberlist}" var="i"> --%>
-<!-- 			<tr class="content"> -->
-<%-- 				<th>${i.chat_memberid}</th><br> --%>
-<!-- 			</tr> -->
-<%-- 		</c:forEach> --%>
+    	<div class="member_list" id="member_list">
 		</div>
 		<div class="nowmember">
 		
@@ -48,7 +84,7 @@
 	</div>
   </div>
 </div>
-<div>
+<div class="chat_list" id="chat_list">
 	<ul class="list-group list-group-flush" id="data">
 	<c:forEach items="${chatlist}" var="l">
 		<tr class="content">
@@ -57,6 +93,8 @@
 		</tr>
 	</c:forEach>
 	</ul>
+	<input type="text" id="message" class="form-control" placeholder="내용을 입력하세요">
+	<button id="sendBtn" class="btn btn-outline-secondary" type="button">보내기</button>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -70,6 +108,7 @@ $(document).ready(function() {
                       $('#message').val('')
                }
        });
+
 });
 
 // 웹소켓을 지정한 url로 연결한다.
@@ -101,32 +140,33 @@ function onMessage(msg) {
        
        $.ajax({
 		type:'POST'
-		,url:'/chatting'
+		,url:'/chatting/chatting'
 		,dataType:'json'
 		,success : function(res) {
 			console.log(res)
 			
 			for(var i in res){
 			console.log(res[i].chat_memberid)
-				$(".memberlist").append("<p class='memlist'>"+res[i].chat_memberid+"</p>");
+				$(".member_list").append("<p class='memlist'>"+res[i].chat_memberid+"</p>");
 			}
 		}
 	})
-       
-       
+
+	$('#chat_list').scrollTop($('#chat_list').prop('scrollHeight'));
+
 }
 
-function changelist() {
-	$.ajax({
-		type:'POST'
-		,url:'/chatting'
-		,dataType:'json'
-		,success:function(data){
-			console.log("change")
-			console.log(data)
-		}
-	})
-}
+// function changelist() {
+// 	$.ajax({
+// 		type:'POST'
+// 		,url:'/chatting/chatting'
+// 		,dataType:'json'
+// 		,success:function(data){
+// 			console.log("change")
+// 			console.log(data)
+// 		}
+// 	})
+// }
 
 // 서버와 연결을 끊었을 때
 function onClose(evt) {

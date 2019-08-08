@@ -2,10 +2,10 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <script type="text/javascript">
 var curPage = 1;
 function changed(cat1,areacode,sigungucode,keyword, pageNo) {
+	$('.slider').remove();
 	$('.resultLi').remove();
 	$('.totalCnt').remove();
 	if($('input[name=keyword]').val() == ""|| $('input[name=keyword]').val().length<2 ){
@@ -409,6 +409,8 @@ background-image: url("/resources/img/mainimage2.jpg");
 <div class="result">
 	<ul class="resultUl">
 	</ul>
+	<!--슬라이더  -->
+  <!-- 슬라이더 종료 -->
 </div>
 
 <div class="paginations">
