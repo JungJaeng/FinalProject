@@ -92,6 +92,7 @@ th, tr {
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">펜션명</th>
 		<th style="width: 20%; text-align: center; background-color: #D8D8D8;">펜션위치</th>				
 		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">요청 날짜</th>
+		<th style="width: 10%; text-align: center; background-color: #D8D8D8;">확인 날짜</th>
 	</tr>
 
 </thead>
@@ -104,6 +105,7 @@ th, tr {
 		<td><a href="/admin/apply_view?apply_no=${i.apply_no }">${i.pension_name }</a></td>
 		<td>${i.pension_postcode } ${i.pension_address } ${i.pension_detailAddress }
 		<td><fmt:formatDate value="${i.apply_date }" pattern="yy-MM-dd"/></td>
+		<td></td>
 	</tr>
 	
 </c:forEach>

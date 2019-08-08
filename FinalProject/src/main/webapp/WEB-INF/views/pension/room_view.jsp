@@ -11,7 +11,9 @@
 #button {
 	text-align: center;
 }
+
 </style>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -77,59 +79,42 @@ function deleteComment(commentNo) {
 
 
 <h2 class="pull-left">펜션 상세보기</h2>
+<hr>
 
 <div class="clearfix"></div>
+
+
+<div class="pension">
+
+ <div class="thumb">
+  <img src="/resources/img/pen1.jpg">
+ </div>
+ 
+ <div class="pensionInfo">
+  <p class="pensionName"><span>펜션명 </span>${pension.pension_name}</p>
+  
+  <p class="pensionLocation"><span>펜션위치 </span>
+  <p class="pensionLocation"><span>${pension.pension_postcode}</span><br><span>${pension.pension_address }</span><br><span>${pension.pension_detailAddress }</span></p>
+  
+  <p class="pensionContent"><span>펜션소개 </span><br><br>${pension.pension_content}</p>
+ 
+ </div>
+ </div>
 <hr>
 
+ <div class=room>
+ <div class="roomInfo">
+  <p class="room_content"><span>객실소개 </span>${pension.room_content}</p>
+  
+  <p class="room_name"><span>객실명 </span>${pension.room_name}</p>
 
-<table>
-<thead>
-	<tr>
-		<td class="">펜션번호</td>
-		<td class="success">펜션이름 </td>
-		<td class="success">펜션위치</td>
-		<td class="success">펜션소개</td>
-	</tr>
-</thead>
-<tbody>
-	<tr>
-		<td>${pension.pension_no }</td>
-		<td>${pension.pension_name }</td>
-		<td>${pension.pension_postcode } ${pension.pension_address } ${pension.pension_detailAddress }</td>
-		<td>${pension.pension_content }</td>
-	</tr>
-</tbody>
-</table>
-
-<hr>
-
-
-
-<table>
-<thead>
-	<tr>
-		<td class="success">객실 번호</td>
-		<td class="success">객실 소개 및 사진 </td>
-		<td class="success">객실 인원</td>
-		<td class="success">객실 크기</td>
-		<td class="success">객실 가격</td>
-	</tr>
-</thead>
-<tbody>
-	<tr>
-		<td>${pension.room_name }</td>
-		<td>${pension.room_content }</td>
-		<td>${pension.room_men }</td>
-		<td>${pension.room_size }</td>
-		<td>${pension.room_price }</td>
-	</tr>
-</tbody>
-</table>
-
-
-
-
-<hr>
+  <p class="room_men"><span>객실인원 </span>${pension.room_men}</p>
+  
+  <p class="room_size"><span>객실크기 </span>${pension.room_size}</p>
+  
+  <p class="room_price"><span>객실요금 </span>${pension.room_price}원</p>
+</div>
+</div>
 <!-- 버튼 영역 -->
 <div id="button">
 	<a href="/pension/list"><button class="btn btn-default">목록</button></a>
