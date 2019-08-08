@@ -17,14 +17,14 @@ public class ChattingController {
 
 	@Autowired ChattingService chattingService;
 	
-	@RequestMapping(value="/chatting", method= RequestMethod.POST)
+	@RequestMapping(value="/chatting/chatting", method= RequestMethod.POST)
 	public @ResponseBody List<Chatting> chatting() {
 		
 		List<Chatting> memberlist = chattingService.getmemberAll();
 		
 		return memberlist;
 	}
-	@RequestMapping(value = "/chatting", method = RequestMethod.GET)
+	@RequestMapping(value = "/chatting/chatting", method = RequestMethod.GET)
 	public void chat(Model model, Chatting chatting) {
 		
 		List<Chatting> memberlist = chattingService.getmemberAll();

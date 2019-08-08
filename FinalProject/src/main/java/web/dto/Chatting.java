@@ -6,11 +6,18 @@ public class Chatting {
 	private String chat_memberid;
 	private int chat_no;
 	private String chat_content;
+	private String chat_session;
 	
 	@Override
 	public String toString() {
 		return "Chatting [chat_memberno=" + chat_memberno + ", chat_memberid=" + chat_memberid + ", chat_no=" + chat_no
-				+ ", chat_content=" + chat_content + "]";
+				+ ", chat_content=" + chat_content + ", chat_session=" + chat_session + "]";
+	}
+	public String getChat_session() {
+		return chat_session;
+	}
+	public void setChat_session(String chat_session) {
+		this.chat_session = chat_session;
 	}
 	public int getChat_memberno() {
 		return chat_memberno;
