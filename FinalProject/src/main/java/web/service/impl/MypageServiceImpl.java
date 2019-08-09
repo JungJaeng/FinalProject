@@ -2,6 +2,8 @@ package web.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -11,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.face.MypageDao;
+import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
 import web.service.face.MypageService;
+import web.util.Paging;
 
 @Service
 public class MypageServiceImpl implements MypageService{
@@ -93,9 +97,36 @@ public class MypageServiceImpl implements MypageService{
 	}
 
 	@Override
-	public void SelectAll2(String loginid) {
+	public Paging getCurPage(Map<String,Object> map) {
+		
 
-		mypageDao.selectAllDao2(loginid);
+		int totalCount = mypageDao.selectCntAll2(map.get("writer_id").toString());
+		int curPage = Integer.parseInt(map.get("curPage").toString());
+		
+		Paging paging = new Paging(totalCount,curPage);
+		
+
+		
+		return paging;
 	}
+
+	@Override
+	public List<Board> getList(Map<String,Object> map) {
+		return mypageDao.selectAll2(map);
+	}
+
+//	@Override
+//	public boolean checkpw(String user_id, String user_pw) {
+//		boolean result = false;
+//		Map<String,String> map = new HashMap<String,String>();
+//		map.put("userId", user_id);
+//		map.put("userPw", user_pw);
+//		int count = sqlSession.selectOne("member.checkPw",map);
+//		if(count==1) result=true;
+//		
+//		return mypageDao.checkpw(user_id,user_pw);
+	}
+
+
 	
-}
+

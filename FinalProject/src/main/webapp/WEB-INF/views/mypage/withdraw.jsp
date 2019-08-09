@@ -11,11 +11,8 @@
 <body>
 
 <style>
-#withdraw {
-margin-left :370px;
-}
-#cancel {
-margin-left:400px;
+#control {
+margin-left:450px;
 }
 </style>
 
@@ -29,7 +26,7 @@ margin-left:400px;
 <br>
    <label for="name" class="col-sm-1 control-label"> 아이디&nbsp;&nbsp;&nbsp; </label> 
    <div class="col-sm-3" style="padding-left:70px; ">
-	<span>${info.id }</span>
+	<span>${info.user_id }</span>
       </div>  
  <br><br>
          	
@@ -49,9 +46,11 @@ margin-left:400px;
       </div>     
       <h5><label for="text1" style="margin-left:550px;">(0/500자 내외입력)</label></h5>
      <hr style="border-top:1px solid #777">
-            
+        
+<div id="control">
 <input type="submit" id="withdraw" value="회원탈퇴" class="form-control"/>
 <input type="button" id="cancel" value="취소" class="form-control"/>
+</div>    
    
 <br><br>
 <hr>

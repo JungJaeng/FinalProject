@@ -1,7 +1,12 @@
 package web.dao.face;
 
+import java.util.List;
+import java.util.Map;
+
+import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
+import web.util.Paging;
 
 public interface MypageDao {
 
@@ -14,9 +19,11 @@ public interface MypageDao {
 
 	public Filetest selectImgDao(String loginid);
 	
-	public int selectImgCnt(String userid);
+	public int selectImgCnt(String loginid);
 
 	public void Imgdelete(String userid);
-	public void selectAllDao2(String loginid);
+	public int selectCntAll2(String writer_id);
+	public List<Board> selectAll2(Map<String,Object> map);
+//	public boolean checkpw(String user_id, String user_pw);
 
 }
