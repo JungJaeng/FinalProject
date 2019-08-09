@@ -36,8 +36,8 @@ public class BoardServiceImpl implements BoardService {
 
 		int totalCount = boardDao.selectCntAll(map);
 		int curPage = Integer.parseInt(map.get("curPage").toString());
-		
-		Paging paging = new Paging(totalCount,curPage);
+		int listCount = 30;
+		Paging paging = new Paging(totalCount,curPage,listCount);
 		
 		paging.setName((String)map.get("name"));
 		paging.setSearch((String)map.get("search"));
