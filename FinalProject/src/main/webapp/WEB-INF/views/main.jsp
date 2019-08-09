@@ -293,15 +293,15 @@ function Detail(contentId, contentTypeId){
 
 <style type="text/css">
 .totalCnt{
-	color: #ffffff;
+	color: #000000;
 }
 .resultImg{
 	height: 200px;
 	width: 200px;
-} 
+}  
 .resultPtag{
 	overflow: hidden;
-	color: #ffffff; 
+	color: #000000; 
 }
 .resultLi{
     overflow: hidden;
@@ -311,17 +311,19 @@ function Detail(contentId, contentTypeId){
     margin-left: 39px;
 }
 .result{
-	height: 900px;
+	height: 550px;
 	left: -50%;
 }
 .paginations{
 	height: 100px;
 	 left: 40%;
+	 padding-bottom: 30px;
 }
 .pagination{
 	list-style: none;
 	height: 80px;
-	margin-left: 28%;
+	margin-left: 24%;
+    font-size: 24px;
 }
 .pagination>li{
 	float: left;
@@ -332,25 +334,42 @@ function Detail(contentId, contentTypeId){
 	font-weight: bold;
 }
 .selectTitle{
-	color: #ffffff;
+	color: #000000;
 	text-align: center;
 	font-size: -webkit-xxx-large;
 }
 .subSelect{
-	color: #ffffff;
-}
-.tour{
-background-image: url("/resources/img/mainimage2.jpg"); 
+	color: #000000;
+	font-size: 25px;
 }
 .utubediv{
 	text-align: center;
 }
+.selectMenu{
+    text-align: center;
+	margin-bottom: 20px;
+	background-color: #d5d5d5; 
+}
+.total{ 
+	text-align: center;
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+.slider{
+	margin-top: 30px;
+	padding-top: 30px;
+	padding-bottom: 150px;
+}
+#search{ padding-bottom: 20px;}
+#cat1{ width: 220px;height: 30px;}
+#keyword{ width:216px; height:20px;}
+#areacode{ width: 210px; height: 30px;}
+#sigungucode{ width:175px; height: 30px;}
+#searchlabel{margin-left: 48px;}
 </style>
 <div class="tour">
-	<div>
-		<p class="selectTitle">어디갈래?</p>
-	</div>
 <div class="selectMenu">
+	<p class="selectTitle">어디갈래?</p>
 	<input type="hidden" name="cat2">
 	<input type="hidden" name="cat3">
 	<div class="subdiv">
@@ -369,7 +388,7 @@ background-image: url("/resources/img/mainimage2.jpg");
 	<div class="subdiv">
 	<span id="test"></span>
 		<label class="subSelect">시/도</label>
-		 <select name="areacode" onchange="change(this.selectedIndex);" >
+		 <select name="areacode" id="areacode" onchange="change(this.selectedIndex);" >
                        <option value="">시/도 선택</option>
                        <option value="1">서울</option>
                        <option value="2">인천</option>
@@ -398,8 +417,8 @@ background-image: url("/resources/img/mainimage2.jpg");
 	</div>
 	
 	<div id="search" class="subdiv">
-		<label class="subSelect">검색</label> 
-		<input type="text" name="keyword" value="공원"/><button id="btnSearch">검색</button> 
+		<label class="subSelect" id="searchlabel">검색</label> 
+		<input type="text" id="keyword" name="keyword" value="공원"/>&nbsp;<button id="btnSearch">검색</button> 
 	</div>
 </div>
 	<div class="total">
@@ -410,6 +429,10 @@ background-image: url("/resources/img/mainimage2.jpg");
 	<ul class="resultUl">
 	</ul>
 	<!--슬라이더  -->
+	
+	<div class="slider">
+	<c:import url="/WEB-INF/views/slider/slider.jsp" />
+	</div>
   <!-- 슬라이더 종료 -->
 </div>
 
