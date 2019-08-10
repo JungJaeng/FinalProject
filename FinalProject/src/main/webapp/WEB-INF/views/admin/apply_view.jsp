@@ -24,10 +24,43 @@
 // 	})
 // });
 
-
-
 </script>
 
+<style type="text/css">
+.pensionTable{
+	border-top:1px solid black;
+	background-color: #b08e9954;
+	width : 100%;
+	border-bottom: 1px solid black;
+}
+
+.roomTable{
+	border-top:1px solid black;
+	background-color: #b08e9954;
+	width : 100%;
+	border-bottom: 1px solid black;
+}
+
+.listBtn{
+	-webkit-border-radius:10px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	display:inline-block;
+	font-size:1px;
+	padding:7px 7px;
+	font-family:Arial;
+	color:#585858;
+	cursor:pointer;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ccc;
+	line-height: 10px !important;
+	width: 40px;
+	size: 10cm;
+}
+
+</style>
 
 <div>
 <h2 class="pull-left">펜션등록요청 상세보기</h2>
@@ -35,69 +68,65 @@
 <div class="clearfix"></div>
 <hr>
 
-<div class="row">
-	<div class=".col-lg-4 col-lg-4"></div>
-	<div class=".col-lg-9 .col-lg-9">
-	<div class="table table-responsive">
-		<table class="table">
+
+		<table class="pensionTable">
 		<tr>
-			<th class="success">요청 번호</th>
+			<th style="width: 10%; ">요청 번호</th>
 			<td>${view.apply_no }</td>
-			<th class="success">작성자</th>
+			<th style="width: 10%">작성자</th>
 			<td>${view.writer_id }</td>
 		</tr>
 		  
 		
 		<tr>
-			<th class="success">펜션 이름</th>
+			<th style="width: 20%;">펜션 이름</th>
 			<td>${view.pension_name }</td>
-			<th class="success">펜션 위치</th>
+			<th style="width: 20%;">펜션 위치</th>
 			<td>${view.pension_postcode } ${view.pension_address } ${view.pension_detailAddress }</td>
 		</tr>
 		
 		<tr>
-			<th class="success">펜션 소개</th>
+			<th style="width: 30%;">펜션 소개</th>
 			<td colspan="3">${view.pension_content }</td>
 		</tr>
 		</table>
 		
+		<br><br><br>
 		
+		<table class="roomTable">
 		
-		<table class="table">
 		<tr>
-			<th class="success">객실명</th>
-			<td colspan="3">${view.room_name }</td>
+			<th style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">객실명</th>
+			<td style="width: 20%; border-top: 1px solid black; border-bottom: 1px solid black;">${view.room_name }</td>
 		</tr>
 		
 		<tr>
-			<th class="success">객실 소개</th>
-			<td colspan="3">${view.room_content }</td>
+			<th style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">객실 소개</th>
+			<td style="width: 20%; border-top: 1px solid black; border-bottom: 1px solid black; ">${view.room_men}</td>
 		</tr>
 		
 		<tr>
-			<th class="success">객실 인원</th>
-			<td colspan="3">${view.room_men}</td>
+			<th style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">객실 크기</th>
+			<td style="width: 20%; border-top: 1px solid black; border-bottom: 1px solid black; ">${view.room_size}</td>
 		</tr>
 		
 		<tr>
-			<th class="success">객실 크기</th>
-			<td colspan="3">${view.room_size}</td>
+			<th style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">객실 인원</th>
+			<td style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black;">${view.room_content} 2명</td>
 		</tr>
 		
 		<tr>
-			<th class="success">객실 요금</th>
-			<td colspan="3">${view.room_price}</td>
+			<th style="width: 15%; border-top: 1px solid black; border-bottom: 1px solid black; border-right: 1px solid black;">객실 요금</th>
+			<td style="width: 20%; border-top: 1px solid black; border-bottom: 1px solid black; ">${view.room_price}</td>
 		</tr>
 		
 		<tr>
 		</tr>
 		</table>
-		</div>
-		</div>
-		</div>
+	
 
-
+<br><br>
 <div class="text-center">
-	<a href="/admin/apply_list"><button class="btn btn-default">목록</button></a>
+	<a href="/admin/apply_list"><button class="listBtn">목록</button></a>
 </div>	
 
