@@ -30,57 +30,20 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		sessionList.add(session);
 		
-		
 		Map <String, Object> map = session.getAttributes();
 		String userId = (String)map.get("login_id");
 
-		
-//		logger.info("map"+(String)map.get("login_Id"));
-//		List<String> list = new ArrayList<String>();
-
 		int usercnt = 0;
+		
 		for(int i=0; i<=sessionList.size(); i++) {
 		usercnt = i;
 		}
-		logger.info("usercnt:"+usercnt);
-		
-		
-//		list.add(userId);
-		
-		
-//		JSONObject obj = new JSONObject();
-//		
-//		JSONArray jsonArray = new JSONArray();
-		
-//		logger.info("map:",map);
-		
-//		List<Chatting> chatlist = chattingDao.memberlist();
-		
-//		for(int i=0; i<=list.size(); i++) {
-//			JSONObject sObject = new JSONObject();
-//			sObject.put("users", list.get(i).lastIndexOf(userId));
-//			jsonArray.add(sObject);
-//		}
-		
-//		logger.info("session:",sessionList);
-		
-		
-//		jsonArray.add
-		
-//		obj.put("usercnt",usercnt);
-//		obj.put("msg",userId+"님이접속하셨습니다");
-//		obj.put("users",jsonArray);
-
-//		logger.info(obj.toString());
-//		logger.info(jsonArray.toString());
+//		logger.info("usercnt:"+usercnt);
 		
 		for(WebSocketSession s : sessionList) {
-//			s.sendMessage(new TextMessage(userId+"님이 접속하셨습니다"));
-//			s.sendMessage(new TextMessage(obj.toString()));
 			s.sendMessage(new TextMessage("{\"usercnt\":"+usercnt+",\"msg\":\""+userId+"님이 접속하셨습니다"+"\"}"));
-//			s.sendMessage(new TextMessage("{\"usercnt\":3,\"users\":[\"user01\",\"user02\",\"user03\"],\"msg\":\"user01님이 접속하셨습니다\"}"));
 			
-			logger.info("se:"+s.getId());
+//			logger.info("se:"+s.getId());
 			
 		}
 		
@@ -90,7 +53,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		chattingDao.insertMember(chatting);
 		
-		logger.info("{} 연결됨", userId);
+//		logger.info("{} 연결됨", userId);
 	}
 	
 	//클라이언트가 서버로 메시지를 전송했을 때 실행되는 메소드
@@ -104,28 +67,20 @@ public class EchoHandler extends TextWebSocketHandler {
 		for(int i=0; i<=sessionList.size(); i++) {
 		usercnt = i;
 		}
-		logger.info("usercnt:"+usercnt);
+//		logger.info("usercnt:"+usercnt);
 		
 		List<Chatting> list = chattingDao.memberlist();
 		
 		for (Chatting c : list) {
-			logger.info(c.getChat_memberid());
+//			logger.info(c.getChat_memberid());
 		}
 
 //		logger.info(msg);
 		
-		logger.info("{}로 부터 {} 받음", userId, message.getPayload());
-		
-//		session.sendMessage(new TextMessage(userId+"님이 접속하셨습니다"));
+//		logger.info("{}로 부터 {} 받음", userId, message.getPayload());
 		
 		for(WebSocketSession s : sessionList) {
 			
-//			List<Chatting> slist = new ArrayList<Chatting>();
-//			
-//			for(int i = 0 ; i<=list.size(); i++) {
-//				slist.add(chatting);
-//			}
-//			s.sendMessage(new TextMessage("{\"usercnt\":"+usercnt+",\"users\":[\"user01\",\"user02\",\"user03\"],\"msg\":\""+userId+"님이 접속하셨습니다"+"\"}"));
 			s.sendMessage(new TextMessage("{\"msg\":\""+userId+" : " + message.getPayload()+"\",\"usercnt\":"+usercnt+"}" ));
 			
 			chatting.setChat_content(message.getPayload());
@@ -139,7 +94,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		chatting.setChat_session(session.getId());
 		
-		logger.info("session"+session.getId());
+//		logger.info("session"+session.getId());
 		
 		sessionList.remove(session);
 		
@@ -160,9 +115,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		chattingDao.deleteMember(chatting);
 		
-//		session.sendMessage(new TextMessage(userId+"님이 퇴장하셨습니다"));
-		
-		logger.info("{} 연결 끊김", userId);
+//		logger.info("{} 연결 끊김", userId);
 		
 	
 	}

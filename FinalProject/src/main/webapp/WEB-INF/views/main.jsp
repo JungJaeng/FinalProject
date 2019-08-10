@@ -5,15 +5,16 @@
 <script type="text/javascript">
 var curPage = 1;
 function changed(cat1,areacode,sigungucode,keyword, pageNo) {
-	$('.slider').remove();
-	$('.resultLi').remove();
-	$('.totalCnt').remove();
 	if($('input[name=keyword]').val() == ""|| $('input[name=keyword]').val().length<2 ){
 		alert("두글자이상 키워드를 입력해주세요!");
 		$('input[name=keyword]').focus();
 		return false; 
-	}
-	
+	}else{
+		$('.tripcontent').remove();
+		$('.tripcontent_right').remove();
+		$('.slider').remove();
+		$('.resultLi').remove();
+		$('.totalCnt').remove();
 	$.ajax({
 			type:"get"
 			,url:"http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"
@@ -233,6 +234,7 @@ function changed(cat1,areacode,sigungucode,keyword, pageNo) {
 			}
 	})
 }
+}
 $(document).ready(function() {
 	$("#btnSearch").click(function() {
 		changed($("[name='cat1']").val(), $("[name='areacode']").val(), $("[name='sigungucode']").val(), $("[name='keyword']").val(), 1);
@@ -288,20 +290,33 @@ function Detail(contentId, contentTypeId){
     $f.submit();
 }
 
+$(document).ready(function() {
+	$('#div1').click(function(){
+		location.href="https://www.yeosu.go.kr/tour/information/sightseeing_call/tour_info";
+	})
+	$('#div2').click(function(){
+		location.href="https://www.visitjeju.net/kr";
+	})
+	$('#div3').click(function(){
+		location.href="https://www.gn.go.kr/tour/index.do";
+	})
+	
+	
+})
 
 </script>
 
 <style type="text/css">
 .totalCnt{
-	color: #ffffff;
+	color: #000000;
 }
 .resultImg{
 	height: 200px;
 	width: 200px;
-} 
+}  
 .resultPtag{
 	overflow: hidden;
-	color: #ffffff; 
+	color: #000000; 
 }
 .resultLi{
     overflow: hidden;
@@ -317,11 +332,13 @@ function Detail(contentId, contentTypeId){
 .paginations{
 	height: 100px;
 	 left: 40%;
+	 padding-bottom: 30px;
 }
 .pagination{
 	list-style: none;
 	height: 80px;
-	margin-left: 28%;
+	margin-left: 24%;
+    font-size: 24px;
 }
 .pagination>li{
 	float: left;
@@ -332,25 +349,136 @@ function Detail(contentId, contentTypeId){
 	font-weight: bold;
 }
 .selectTitle{
-	color: #ffffff;
+	color: #000000;
 	text-align: center;
 	font-size: -webkit-xxx-large;
 }
 .subSelect{
-	color: #ffffff;
-}
-.tour{
-background-image: url("/resources/img/mainimage2.jpg"); 
+	color: #000000;
+	font-size: 25px;
 }
 .utubediv{
 	text-align: center;
 }
+.selectMenu{
+    text-align: center;
+	margin-bottom: 20px;
+	background-color: #d5d5d5; 
+}
+.total{ 
+	text-align: center;
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+.slider{
+	margin-top: 30px;
+	padding-top: 30px;
+	padding-bottom: 100px;
+}
+#search{ padding-bottom: 20px;}
+#cat1{ width: 220px;height: 30px;}
+#keyword{ width:222px; height:20px;}
+#areacode{ width: 210px; height: 30px;}
+#sigungucode{ width:175px; height: 30px;}
+#searchlabel{margin-left: 48px;}
+
+ .tripcontent{ 
+ 	float: left; 
+     display: inline-block; 
+     width: 220px; 
+     padding-left: 30px;
+ } 
+.tripcontent, .title_h3{
+	line-height: 140%;
+    word-break: keep-all;
+    letter-spacing: -1px;
+    padding-bottom: 22px;
+}
+.tripcontent, .title_h3:after{
+	content: '';
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: #333;
+    margin-left: 30px;
+}
+.content_ul>li>img{
+	height: 300px;
+	width: 300px;
+}
+.content_ul>li{
+	    position: relative;
+    transition: transform 0.4s;
+    float: left;
+    display: inline-block;
+    width: 270px;
+    margin-left: 20px;
+    overflow: hidden;
+}
+.content_ul{
+    display: block;
+    margin-left: 110px;
+}
+.content_ptag{
+	text-align: center;
+}
+ .white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+ .btn {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: 8px 7px 5px;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.btn:hover {
+	text-decoration: none;
+}
+.btn:active {
+	position: relative;
+	top: 1px;
+}
+#div1:hover{cursor: pointer;}
+#div2:hover{cursor: pointer;}
+#div3:hover{cursor: pointer;}
+.goFirstPage,.goBackPage,.goPage,.goNextPage,.goLastPage,.contentAtag{ cursor: pointer;}
 </style>
 <div class="tour">
-	<div>
-		<p class="selectTitle">어디갈래?</p>
-	</div>
 <div class="selectMenu">
+	<p class="selectTitle">어디갈래?</p>
 	<input type="hidden" name="cat2">
 	<input type="hidden" name="cat3">
 	<div class="subdiv">
@@ -369,7 +497,7 @@ background-image: url("/resources/img/mainimage2.jpg");
 	<div class="subdiv">
 	<span id="test"></span>
 		<label class="subSelect">시/도</label>
-		 <select name="areacode" onchange="change(this.selectedIndex);" >
+		 <select name="areacode" id="areacode" onchange="change(this.selectedIndex);" >
                        <option value="">시/도 선택</option>
                        <option value="1">서울</option>
                        <option value="2">인천</option>
@@ -398,8 +526,8 @@ background-image: url("/resources/img/mainimage2.jpg");
 	</div>
 	
 	<div id="search" class="subdiv">
-		<label class="subSelect">검색</label> 
-		<input type="text" name="keyword" value="공원"/><button id="btnSearch">검색</button> 
+		<label class="subSelect" id="searchlabel">검색</label> 
+		<input type="text" id="keyword" name="keyword" />&nbsp;<button class="btn white" id="btnSearch">검색</button> 
 	</div>
 </div>
 	<div class="total">
@@ -410,7 +538,30 @@ background-image: url("/resources/img/mainimage2.jpg");
 	<ul class="resultUl">
 	</ul>
 	<!--슬라이더  -->
+	<div class="slider">
+	<c:import url="/WEB-INF/views/slider/slider.jsp" />
+	</div>
   <!-- 슬라이더 종료 -->
+  
+  	<div class="tripcontent">
+  		<h3 class="title_h3">추천 여행지!!
+  		</h3>
+  		<p>#훨씬 저렴한 국내</p>
+  		<p>#귀찮지 않은 계획</p> 
+  	</div>
+  	<div class="tripcontent_right">
+  			<ul class="content_ul">
+  			<li id="div1"><img src="http://mblogthumb3.phinf.naver.net/20160408_258/koempr_146004149328375ukp_PNG/160408_%BF%A9%BC%F6%BF%A9%C7%E0%C4%DA%BD%BA_%BF%A9%BC%F6%B9%E3%B9%D9%B4%D9_%BF%A9%BC%F6%BE%DF%B0%E6.png?type=w2">
+  			<p class="content_ptag">여수</p>
+  			</li>
+  			<li id="div2"><img src="https://pbs.twimg.com/media/DcuBU_tU0AAZ_XU.jpg">
+  			<p class="content_ptag">제주</p>
+  			</li>
+  			<li id="div3"><img src="http://m.young.hyundai.com/upload/CMS_NEWS_IMAGE/2017/01/20/CMS_NEWS_IMAGE_JBjugS5KD3ocOgKTsc9K.png">
+  			<p class="content_ptag">강릉</p>
+  			</li>
+  			</ul>
+  	</div>
 </div>
 
 <div class="paginations">
