@@ -8,15 +8,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-
 <style>
 #info {
 margin-left:300px;
 }
 
+img1{
+float:right;
+}
+
+img2{
+float:right;
+}
+
 </style>
+</head>
+<body>
+
 
 <form action="/mypage/infochange" method="post" enctype="multipart/form-data">
 
@@ -25,22 +33,22 @@ margin-left:300px;
 <input type="file" name="file" /><br><br>
 <div id="fileload">
 <c:if test="${n==0 }">
-	<img src="${paceContext.request.contextPath}/resources/image/pen4.jpg"/>
+	<img src="${paceContext.request.contextPath}/resources/img/pen4.jpg" id="img1"/>
 </c:if>
 <c:if test="${n==1 }">
-	<img src="/upload/${fileup.stored_name }" style="height: 300px; width: 300px;">
+	<img src="/upload/${fileup.stored_name }" id="img2" />
 </c:if>	
 </div>     
 
 
 <div id="info">
-아이디 : <input type="text" id="id"  name="id" value="${member.id }"/>
+아이디 : <input type="text" id="id"  name="user_id" value="${login.user_id }"/>
 <br>
-이메일 : <input type="text" id="email"  name="email" value="${member.email }"/>
+이메일 : <input type="text" id="email"  name="user_email" value="${login.user_email }"/>
 <br>
-닉네임 : <input type="text" id="phone"  name="phone" value="${member.nick }"/>
+닉네임 : <input type="text" id="nick"  name="user_nick" value="${login.user_nick }"/>
 <br>
-비밀번호 : <input type="text" id="pw"  name="pw"/>
+비밀번호 : <input type="text" id="pw"  name="user_pw"/>
 <br>
 	<button>수정</button>
 </div>

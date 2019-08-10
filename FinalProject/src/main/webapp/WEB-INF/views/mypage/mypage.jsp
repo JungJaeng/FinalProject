@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-
 <style type="text/css">
 img {
 float:left;
@@ -20,17 +17,22 @@ margin-left:350px;
 #info2{
 margin-left: 250px;
 }
+#menu {
+margin-left: 300px;
+}
 </style>
+</head>
+<body>
 
 
 <h1>마이페이지</h1>
 <hr>
 
 
-<form action="/login/mypage" method="post" enctype="multipart/form-data">
+<form action="/mypage/mypage" method="post" enctype="multipart/form-data">
 <div id="mypage">
 <c:if test="${n==0 }">
-	<img src="${paceContext.request.contextPath}/resources/image/img4.jpg"/>
+	<img src="${paceContext.request.contextPath}/resources/img/img4.jpg"/>
 </c:if>
 <c:if test="${n==1 }">
 	<img src="/upload/${fileup.stored_name }" style="height: 150px; width: 150px; ">
@@ -42,14 +44,17 @@ margin-left: 250px;
 </div>
 </div>
 </form>
-
+<br><br>
+<div id="menu">
 <a href="/main"><button>메인 페이지</button></a>
 <a href="/mypage/infochange"><button>내 정보 수정</button></a>
 <a href="/mypage/withdraw"><button>회원 탈퇴</button></a>
+<a href="/mypage/community"><button>내가 쓴 글 바로가기</button></a>
+<a href="/mypage/likepage"><button>추천한 목록 바로가기</button></a>
+</div>
 
 </body>
 </html>
-
 
 
 

@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
-import web.service.face.BoardService;
 import web.service.face.MypageService;
 import web.util.Paging;
 
@@ -33,8 +32,7 @@ public class MypageController {
 	
 	@Autowired MypageService mypageService;
 	@Autowired ServletContext context;
-	@Autowired BoardService boardService;
-
+	
 	
 	
 	@RequestMapping(value="/mypage/mypage", method=RequestMethod.GET)
@@ -76,7 +74,7 @@ public class MypageController {
 						Member member,
 						HttpSession session) { 
 		
-		member.setUser_id((String) session.getAttribute("loginid"));
+		member.setUser_id((String) session.getAttribute("login_id"));
 		
 		member =mypageService.info(member);
 		
@@ -93,7 +91,7 @@ public class MypageController {
 		//세션에서 id정보 가져오기
 
 		
-		String id=(String)session.getAttribute("loginid");
+		String id=(String)session.getAttribute("login_id");
 		
 		
 		
@@ -111,17 +109,22 @@ public class MypageController {
 							Model model,
 							Filetest filetest
 			) {
-		Member member = new Member();
 		
-		member.setUser_id((String) session.getAttribute("loginid"));
+		
 
-		String loginid = (String) session.getAttribute("loginid");
+		String loginid = (String) session.getAttribute("login_id");
+		
+		Member member = new Member();
+		member.setUser_id(loginid);
 		
 		member = mypageService.info(member);
 		
 		model.addAttribute("login", member);
 		
+//		logger.info("hhhhhhhhhhhhhhhhh"+member.toString());
 		logger.info("내 정보변경페이지");
+		
+		logger.info("로그인된 아이디: "+loginid);
 		
 		int n = 0;
 		if( mypageService.ImgCnt(loginid) > 0 ) {
@@ -135,8 +138,18 @@ public class MypageController {
 			
 		model.addAttribute("n",n);
 		
-	}	
+//		boolean result = mypageService.checkpw(member.getUser_id(),member.getUser_pw());
+//		if(result) {
+//			return "mypage/mypage";
+//		} else {
+//			
+//			model.addAttribute("message","비밀번호 불일치");
+//			return "mypage/infochange";
+		}
 		
+		
+//	}	
+	
 		// id로 로그인 정보 가져오기
 		
 	@RequestMapping(value="/mypage/infochange", method=RequestMethod.POST)
@@ -145,37 +158,46 @@ public class MypageController {
 			HttpSession session)
 			 { 
 		
-		String userid = (String) session.getAttribute("loginid");
+		String userid = (String) session.getAttribute("login_id");
+		
+		
+
+		
 		logger.info(userid);
 		
 		
 		mypageService.filesave(file, context, userid);
 		
 		
-			
+		
+//		logger.info("hhhhhhhhhhhhhhhhh"+member.toString());
 		mypageService.update(member);
+		
 		
 		return "redirect:/main";
 
 	}	
 	
-	@RequestMapping(value = "/mypage/mylist", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/community", method = RequestMethod.GET)
 	public void MyBoardList(
-			@RequestParam(defaultValue="1")int curPage,String name,String search,Model model,String loginid) {
-		Map<String,Object> map = new HashMap<String, Object>();
+			@RequestParam(defaultValue="1")int curPage,HttpSession session,Model model,String loginid) {
+		Map<String,Object> map =  new HashMap<String,Object>();
 		map.put("curPage",curPage);
-		map.put("name",name);
-		map.put("search",search);
-		
+		String writer_id = (String)session.getAttribute("login_id");
+		map.put("writer_id",writer_id);
 		logger.info(map.toString());
 		
-		Paging paging = boardService.getCurPage(map);
+		Paging paging = mypageService.getCurPage(map);
 		model.addAttribute("paging",paging);
 		
-		List<Board> list = boardService.getList(paging);
+		map = new HashMap<String,Object>();
+		
+		map.put("paging",paging);
+		map.put("writer_id",writer_id);
+		
+		List<Board> list = mypageService.getList(map);
 		model.addAttribute("myboardlist",list);
 		
-		mypageService.SelectAll2(loginid);
 	}
 	
 	
