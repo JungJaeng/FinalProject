@@ -124,9 +124,9 @@ $(document).ready(function() {
 
 <div id="sliderbox">
 	<ul id="slider">
-		<li><img id="1" class="imgslider" src="/resources/img/img1.jpg" /></li>
-		<li><img id="2" class="imgslider" src="/resources/img/img2.jpg" /></li>
-		<li><img id="3" class="imgslider" src="/resources/img/img3.jpg" /></li>
+		<li><img id="1" class="imgslider" src="https://t1.daumcdn.net/cfile/tistory/27698E4A557FEBC601" /></li>
+		<li><img id="2" class="imgslider" src="http://www.hayantravel.co.kr/data/FILE_BBS/banner_hayantour_74220190517170243.jpg" /></li>
+		<li><img id="3" class="imgslider" src="http://img.modetour.com//promotion/10724/1100_10724.jpg?resize=1100px:480px&output-quality=75&output-format=jpg" /></li>
 	</ul> 
 </div>
 <br>

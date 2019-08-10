@@ -129,8 +129,9 @@ function info() {
 			//홈페이지
 			$(".contentUl").append("<li><Strong class='context'>홈페이지 : "+item.homepage+"</Strong></li>");
 			
+			$(".contentUl").append("<br>");
 			//지도
-			$(".contentUl").append("<li><a class='mapAtag' id="+item.mapx+" data="+item.mapy+">지도</a></li>");
+			$(".contentUl").append("<li><a class='mapAtag' id="+item.mapx+" data="+item.mapy+">지도보기</a></li>");
 			
 			$(".resultSummary").append("<hr>");
 			
@@ -138,7 +139,9 @@ function info() {
 			
 			$(".resultSummary").append("<p>"+item.overview+"</p>");
 			
-			$(".resultBack").append("<input type='button' onclick='location.href=\"/main\"' id='btnBack' value='돌아가기'/>")
+			$(".resultBack").append("<hr>")
+			
+			$(".resultBack").append("<input type='button' onclick='location.href=\"/main\"' class='btn white' id='btnBack' value='돌아가기'/>")
 			
 			$(".mapAtag").click(function(){
 				
@@ -284,6 +287,59 @@ function map(mapx, mapy){
 }
 .Menu{
 	text-align: center; 
+}
+.mapAtag,.subMenu>a:hover{cursor: pointer;}
+.resultBack{text-align: right;}
+ .white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+ .btn {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: 8px 7px 5px;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.btn:hover {
+	text-decoration: none;
+}
+.btn:active {
+	position: relative;
+	top: 1px;
+}
+.mapAtag{
+	border: 2px solid #ccc;
+	background-color: #ccc;
 }
 </style>
 <div class="Menu">
