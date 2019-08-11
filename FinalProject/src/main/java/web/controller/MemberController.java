@@ -84,8 +84,6 @@ public class MemberController {
          session.setAttribute("login_emil", member.getUser_email());
          session.setAttribute("login_user_join_no", member.getUser_join_no());
          
-         
-         
          // 由щ�ㅼ�대���� URL 吏���
          redirectUrl = "/main"; 
         
@@ -167,12 +165,40 @@ public class MemberController {
       
    }
 
+   @RequestMapping(value="/member/userIdcheck1", method=RequestMethod.GET)
+   public void userIdcheck1() { }
+
    
+   @ResponseBody
+   @RequestMapping(value="/member/userIdcheck1", method=RequestMethod.POST)
+   public String userIdcheckProc1(
+         HttpServletRequest req, 
+         @RequestParam("user_id") String user_id
+         ) {
+      
+//      logger.info("post idCheck");
+      
+      String userId = req.getParameter("user_id");
+      
+//      logger.info("userID="+userId.toString());
+      
+      boolean userIdcheck1 = memberService.useridcheck1(userId);
+      
+      String n = null;
+      if(userIdcheck1) {
+         n="true";
+      } else if(!userIdcheck1) {
+         n="false";
+      }
+      logger.info(n);
+      return n;
+      
+   } 
    
    
    
    @RequestMapping(value="/member/idcheck", method=RequestMethod.GET)
-   public void idcheck() { logger.info("以�蹂듭���대�� 泥댄�� ���댁�"); }
+   public void idcheck() { }
 
    
    @ResponseBody
@@ -196,7 +222,7 @@ public class MemberController {
       } else if(!idcheck) {
          n="false";
       }
-      
+      logger.info(n);
       return n;
       
    } 
@@ -230,6 +256,7 @@ public class MemberController {
          n="false";
       }
       
+      logger.info(n);
       return n;
       
    } 
@@ -271,7 +298,7 @@ public class MemberController {
          
 //         logger.info("idFind="+idFind.toString());
                   
-         model.addAttribute("idFind", "�������� ���대���� "+idFind.getUser_id()+" ������");
+         model.addAttribute("idFind", "회원님의 아이디는 "+idFind.getUser_id()+" 입니다.");
          
 //         logger.info("idFindId="+idFind);
          
@@ -323,10 +350,6 @@ public class MemberController {
       
       return "redirect:/main"; 
    }
-   
-   @RequestMapping(value = "/member/test", method = { RequestMethod.GET, RequestMethod.POST })
-   public void test() { }
-    
    
    
 }

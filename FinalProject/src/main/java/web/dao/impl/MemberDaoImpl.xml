@@ -61,6 +61,13 @@
 		VALUES (member_seq.nextval, #{id }, 1) 
 	</insert>
       
+   <select id="useridcheck1" parameterType="web.dto.Member" resultType="int">
+	    SELECT COUNT(*) FROM member
+	    WHERE user_join_no = 1
+		OR user_nick = '관리자'
+   </select>
+
+
    
 
 </mapper>

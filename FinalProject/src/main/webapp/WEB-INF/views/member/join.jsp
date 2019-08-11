@@ -10,15 +10,21 @@
    src="http://code.jquery.com/jquery-2.2.4.js"></script>
    
 <style>
+
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+
 .error {
    font-size: 10px;
    color: red;
 }
 
 .join_content {
-   margin: 0 auto;
-   max-width: 335px;
-   min-width: 200px;
+	font-family: 'Lato', sans-serif;
+	margin: 0 auto;
+	max-width: 335px;
+	min-width: 200px;
 }
 
 .row_group {
@@ -64,8 +70,8 @@
    margin-top: 3px;
 }
 
-.btnarea {
-   margin: 30px 0 9px;
+.btnarea {  
+	margin: 30px 0 9px;
 }
 
 .btn_type {
@@ -106,9 +112,7 @@ var ch_email=false;
                $('#idMsg').html("중복되거나 이미 있는 아이디입니다").css("color", "red");   
                ch_id=false;
             }
-      
          }
-
       })
    }
    
@@ -131,9 +135,7 @@ var ch_email=false;
                $('#nickMsg').html("이미 있는 닉네임입니다").css("color", "red");   
                ch_id=false;
             }
-      
          }
-
       })
    }
 
@@ -183,7 +185,6 @@ var ch_email=false;
          $('#pwMsg2').show();
       })
 
-            
       $('#user_email').blur(
             function() {
                if ($('#user_email').val() === ''
@@ -195,7 +196,6 @@ var ch_email=false;
                   ch_email=true;
                }
             })
- 
    });
 
 $(function() {
@@ -258,6 +258,8 @@ $(document).ready(function() {
 });
 
 
+
+
 </script>
 
 
@@ -265,7 +267,8 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-   <h1>회원가입</h1>
+   <hr>
+   <h1 style="text-align: center; font-family: 'Lato', sans-serif;">회원가입</h1>
    <hr>
 
 
@@ -322,17 +325,19 @@ $(document).ready(function() {
          </div>
             <br>
          
-         <div>
-            <input type="radio" id="user_join_no" name="user_join_no" value="1"  checked="checked"/> 일반회원
-            <input type="radio" id="user_join_no" name="user_join_no" value="2" /> 사업자
-
-            <div class="btnarea">
-               <button type="button" id="btn_join" class="btn_type">
-                  <span>가입하기</span>
-               </button>
-            </div>               
+         <div class="memberCheck">
+            <input type="radio" name="user_join_no" value="1" checked="checked"/> 일반회원
+			<input type="radio" name="user_join_no" value="2" /> 사업자
          </div>
+         
+		<div class="btnarea">
+			<button type="button" id="btn_join" class="btn_type">
+				<span>가입하기</span>
+			</button>
+		</div>               
       </div>
    </form>
 </body>
 </html>
+
+
