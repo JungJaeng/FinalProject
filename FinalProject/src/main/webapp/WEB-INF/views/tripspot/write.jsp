@@ -11,6 +11,7 @@
 <script type="text/javascript">
 var images = "";
 var isfirst = true;
+var thumbnail = 0;
 $(document).ready(function(){
 	$('#summernote').summernote({
 		toolbar: [
@@ -58,6 +59,7 @@ function sendFile(file, editor) {
         		images = images + data.fileno;
         		isfirst = false;
         		document.getElementById("images").value = images;
+        		document.getElementById("thumbnail").value = images;
         	}else{
         		images = images + "," + data.fileno;
         		document.getElementById("images").value = images;
@@ -105,6 +107,7 @@ function change(idx){
 </script>
 <form action="/tripspot/write" method="post">
 <input type="text" style="display: none;" id="images" name="images" value=""/>
+<input type="text" style="display: none;" id="thumbnail" name="thumbnail" value="0"/>
 아이디 : ${tripspot.writer_id  }<input type="hidden" name="writer_id" value="${tripspot.writer_id  }"/><br>
 닉네임 : ${tripspot.writer_nick  }<input type="hidden" name="writer_nick" value="${tripspot.writer_nick  }"/><br>
 제목 : <input type="text" name = "title"/><br><br>

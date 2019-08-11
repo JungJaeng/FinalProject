@@ -38,6 +38,10 @@ public interface TripspotService {
 	public String recommend(Recommend recommend);
 
 	public int cntRecommend(Recommend recommend);
+
+	public int cntrecommend(int board_no);
+
+	
 	
 	
 

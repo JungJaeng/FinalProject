@@ -2,44 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<div class="wrap">
-<div class="tablediv">
-<table>
-<thead>
-	<tr>
-		<th style="width: 10%;">구분</th>
-		<th style="width: 10%;">지역</th>
-		<th style="width: 35%;">제목</th>
-		<th style="width: 15%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 20%;">작성일</th>
-	</tr>
-</thead>
-<tbody>
-<c:forEach items="${tripspotlist}" var="i">
-		<tr class="content">
-			<td>${i.board_no}</td>
-			<td>${i.region } ${i.region_detail }</td>
-			<td><a href="/tripspot/view?board_no=${i.board_no }">${i.title }</a></td>
-			<td>${i.writer_nick }</td>
-			<td>${i.hit }</td>
-		 	<td><fmt:formatDate value="${i.writendate }" pattern="yyyy-MM-dd" /></td>
-		</tr>
-</c:forEach>
-</tbody>
-</table>
-<c:if test="${loginnick eq '관리자'}">
-<button type="button" id="btnlistDelete" class="btn btn-primary" onclick="checklist();">체크 삭제</button>
-</c:if>
-</div>
-<div class="paging">
-<c:if test="${login_id ne null}">
-<div class="button-right"><button id="btnWrite" onclick="location.href='/tripspot/write'">글 쓰기</button></div>
-</c:if>
-</div>
-<div class="search">
 <script type="text/javascript">
+$(document).ready(function(){
+	$(".searchbtn").click(function(){
+		$("#searchform").submit();
+	});
+	$(".writebtn").click(function(){
+		location.href="/tripspot/write";
+	});
+	
+});
+
 var cnt = new Array();
 cnt[0] = new Array("시/군구선택");
 cnt[1] = new Array("시/군구선택","강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구");
@@ -71,8 +44,242 @@ function change(idx){
 	
 }
 </script>
-<form action="/tripspot/list" method="get">
-	<div>
+<style type="text/css">
+
+.btn {
+	-moz-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	box-shadow:inset 0px 0px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 8px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #bfbdbf;
+	line-height: 10px !important;
+}
+.btn:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.btn:active {
+	position:relative;
+	top:1px;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote : before, blockquote : after, q : before, q : after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*css 초기화*/
+.card {
+	height: 340px;
+	width: 300px;
+	border-radius: 15px;
+	display: inline-block;
+	margin-top: 30px;
+	margin-left: 30px;
+	margin-bottom: 30px;
+	position: relative;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	overflow: hidden;
+}
+
+
+
+.card-header {
+	-webkit-transition: 0.5s; /*사파리 & 크롬*/
+    -moz-transition: 0.5s;  /*파이어폭스*/
+    -ms-transition: 0.5s;	/*인터넷 익스플로러*/
+    -o-transition: 0.5s;  /*오페라*/
+    transition: 0.5s;
+	width: 100%;
+	height: 220px;
+	border-radius: 15px 15px 0 0;
+	background-size: 100% 280px;
+	background-repeat: no-repeat;	
+}
+
+
+
+.card:hover .card-header  {
+	opacity: 0.8;
+	height: 100px;
+}
+
+
+
+.card-header-is_closed{
+    background-color: #EF5A31 ;
+    color: #FFF ;
+    font-weight: bold ;
+    text-align: center ;
+    float: right;
+    margin: 15px 15px 0 0;
+    border-radius: 50%;
+    font-weight: bold;
+    padding: 10px 10px;
+    line-height: 20px;
+}
+h1 {
+    font-size: 22px;
+    font-weight: bold;
+}
+.card-body {
+
+}
+.card-body-header{
+	line-height: 25px;
+	margin: 10px 20px 0px 20px;
+}
+.card-body-description  {
+    opacity: 0;
+    color: #757B82;
+    line-height: 25px;
+    -webkit-transition: .2s ease-in-out; /*사파리&크롬*/
+    -moz-transition: .2s ease-in-out; /*파이어폭스*/
+    -ms-transition: .2s ease-in-out; /*익스플로러*/
+    -o-transition: .2s ease-in-out; /*오페라*/
+    transition : .2s ease-in-out;
+    overflow: hidden;
+	height: 180px;
+	margin: 5px 20px;
+
+}
+.card:hover .card-body-description {
+    opacity: 1;
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -ms-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition : .5s ease-in-out;
+    overflow: hidden;
+}
+.card-body-region {
+	color: #2478FF;
+	font-style: italic;
+}
+.card-body-footer {
+  	position: absolute; 
+  	margin-top: 15px;
+  	margin-bottom: 6px;
+    bottom: 0; 
+    width: 270px;
+    font-size: 14px;
+    color: #9FA5A8;
+    padding: 0 15px;
+}
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.icon-view_count {
+    width: 25px;
+    height: 17px;
+}
+
+.icon-comments_count {
+	margin-left: 5px;
+	width: 25px;
+    height: 17px;
+}
+.reg_date {
+	float: right;
+}
+.wrap{
+	text-align: center;
+}
+.search{
+	background : #d9e1e8; 
+}
+.button-right{
+	text-align: right;
+}
+
+</style>
+<div class="wrap">
+<c:forEach items="${tripspotlist}" var="i">
+	<a href="/tripspot/view?board_no=${i.board_no}"> <!-- 클릭 시 링크 설정 -->
+	<div class="card">
+		<!-- 카드 헤더 -->
+		<div class="card-header" style="background-image: url('/tripspotimage?fileno=${i.thumbnail}');" >
+			<div class = "card-header-is_closed" > 
+                <div class = "card-header-text" >추천수</div> 
+                <div class = "card-header-number" >
+                <c:forEach items="${recommendlist }" var = "j">
+ 					<c:if test="${i.board_no eq j.board_no }">
+ 					${j.recommendcnt }
+ 					</c:if>
+                </c:forEach>
+                
+                </div > 
+            </div >
+
+		</div>
+		<!--  카드 바디 -->
+		<div class="card-body">
+			<!--  카드 바디 헤더 -->
+			<div class="card-body-header">
+				<h1 style="margin-top: 0px;margin-bottom: 0px;">${i.title }</h1>
+				<p style="margin-top: 0px;margin-bottom: 0px;" class="card-body-region">${i.region } ${i.region_detail }</p>
+				<p style="margin-top: 0px;margin-bottom: 0px;" class = "card-body-nickname"> 
+					작성자:${i.writer_nick }
+				</p>
+			</div>
+			<!--  카드 바디 푸터 -->
+			<div class="card-body-footer">
+				<hr style="margin-bottom: 8px; opacity: 0.5; border-color: #EF5A31">
+				조회 ${i.hit }회
+				<i class="reg_date"><fmt:formatDate value="${i.writendate }" pattern="yyyy-MM-dd" /></i>
+			</div>
+		</div>
+	</div>
+	</a>
+</c:forEach>
+</div>
+
+<c:if test="${login_id ne null}">
+<div class="button-right"><a class="writebtn btn">글 쓰기</a></div>
+</c:if>
+<div class="paging">
+</div>
+<div class="search">
+
+<h2>지역별로 검색하기</h2>
+<form action="/tripspot/list" method="get" id="searchform">
 	<label>시/도</label>
 		<select name="region" onchange="change(this.selectedIndex);" >
  			<option value="">시/도 선택</option>
@@ -94,14 +301,11 @@ function change(idx){
  			<option value="전남">전남</option>
 			<option value="제주">제주</option>
 		</select>         
-	</div>
-	<div>
 		<label> 시/군/구</label>
 		<select id="region_detail" name="region_detail">
 			<option value="">시/군구선택</option>
 		</select>
-	</div><button  style="vertical-align: middle;">검색</button>
+	<a class="searchbtn btn">검색</a>
 </form>
 
-</div>
 </div>

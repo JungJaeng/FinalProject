@@ -127,16 +127,21 @@ public class TripspotServiceImpl implements TripspotService{
 		
 		if(chk == 0) {
 			tripspotDao.insertRecommend(recommend);
-			return "추가";
+			return "insert";
 		}else if(chk == 1) {
 			tripspotDao.deleteRecommend(recommend);
-			return "삭제";
+			return "delete";
 		}
 		return null;
 	}
+	
 	@Override
 	public int cntRecommend(Recommend recommend) {
 		return tripspotDao.countRecommend(recommend);
+	}
+	@Override
+	public int cntrecommend(int board_no) {
+		return tripspotDao.cntrecommend(board_no);
 	}
 	
 
