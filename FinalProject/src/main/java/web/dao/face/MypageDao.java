@@ -6,6 +6,7 @@ import java.util.Map;
 import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
+import web.dto.TripSpot;
 import web.util.Paging;
 
 public interface MypageDao {
@@ -25,5 +26,7 @@ public interface MypageDao {
 	public int selectCntAll2(String writer_id);
 	public List<Board> selectAll2(Map<String,Object> map);
 //	public boolean checkpw(String user_id, String user_pw);
+	public List<TripSpot> selectAll3(Map<String, Object> map);
+	public int selectCntAll3(String writer_id);
 
 }

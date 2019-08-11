@@ -16,6 +16,7 @@ import web.dao.face.MypageDao;
 import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
+import web.dto.TripSpot;
 import web.service.face.MypageService;
 import web.util.Paging;
 
@@ -113,6 +114,23 @@ public class MypageServiceImpl implements MypageService{
 	@Override
 	public List<Board> getList(Map<String,Object> map) {
 		return mypageDao.selectAll2(map);
+	}
+
+	public Paging getCurPage2(Map<String, Object> map) {
+		int totalCount = mypageDao.selectCntAll3(map.get("writer_id").toString());
+		int curPage = Integer.parseInt(map.get("curPage").toString());
+		Paging paging = new Paging(totalCount,curPage);
+		
+		
+		return paging;
+	}
+
+	
+	
+	@Override
+	public List<TripSpot> getList2(Map<String, Object> map) {
+		
+		return mypageDao.selectAll3(map);
 	}
 
 //	@Override

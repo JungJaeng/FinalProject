@@ -8,17 +8,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-img {
+#img3 {
 float:left;
+text-align:center;
+}
+#img4 {
+float:left;
+text-align:center;
 }
 #mypage {
-margin-left:350px;
 }
 #info2{
-margin-left: 250px;
+margin-left:200px;
 }
 #menu {
-margin-left: 300px;
 }
 </style>
 </head>
@@ -32,10 +35,10 @@ margin-left: 300px;
 <form action="/mypage/mypage" method="post" enctype="multipart/form-data">
 <div id="mypage">
 <c:if test="${n==0 }">
-	<img src="${paceContext.request.contextPath}/resources/img/img4.jpg"/>
+	<img src="${paceContext.request.contextPath}/resources/img/img4.jpg" id="img3" style="height: 150px; width: 150px;" />
 </c:if>
 <c:if test="${n==1 }">
-	<img src="/upload/${fileup.stored_name }" style="height: 150px; width: 150px; ">
+	<img src="/upload/${fileup.stored_name }" id="img4" style="height: 150px; width: 150px; ">
 </c:if>	
 <div id="info2">
 <h4>아이디 : ${info.user_id }</h4>
@@ -50,7 +53,8 @@ margin-left: 300px;
 <a href="/mypage/infochange"><button>내 정보 수정</button></a>
 <a href="/mypage/withdraw"><button>회원 탈퇴</button></a>
 <a href="/mypage/community"><button>내가 쓴 글 바로가기</button></a>
-<a href="/mypage/likepage"><button>추천한 목록 바로가기</button></a>
+<a href="/mypage/tripspot"><button>내가 추천 한 글 바로가기</button></a>
+
 </div>
 
 </body>

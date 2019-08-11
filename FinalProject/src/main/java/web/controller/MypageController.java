@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import web.dto.Board;
 import web.dto.Filetest;
 import web.dto.Member;
+import web.dto.TripSpot;
 import web.service.face.MypageService;
 import web.util.Paging;
 
@@ -200,5 +201,29 @@ public class MypageController {
 		
 	}
 	
-	
+	@RequestMapping(value = "/mypage/tripspot", method = RequestMethod.GET)
+	public void TripspotList(@RequestParam(defaultValue="1")int curPage,
+			@RequestParam(name="region",defaultValue="")String name,
+			@RequestParam(name="region_detail",defaultValue="")String search,
+			Model model,HttpSession session,String loginid) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("curPage",curPage);
+		String writer_id = (String)session.getAttribute("login_id");
+		map.put("writer_id", writer_id);
+
+		
+		logger.info(map.toString());
+		Paging paging = mypageService.getCurPage2(map);
+		model.addAttribute("paging",paging);
+		
+		map = new HashMap<String,Object>();
+		map.put("paging", paging);
+
+		map.put("writer_id", writer_id);
+
+		
+		List<TripSpot> list = mypageService.getList2(map);
+		model.addAttribute("mytripspotlist",list);
+
+	}
 }
