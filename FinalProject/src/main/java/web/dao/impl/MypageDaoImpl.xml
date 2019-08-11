@@ -46,5 +46,20 @@ DELETE FROM fileupload WHERE userid=#{userid} </delete>
 		ORDER BY rnum) WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo} 
 </select>
 
+
+	<select id="selectCntAll3" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM tripspot WHERE writer_id=#{writer_id}
+</select>
+
+	<select id="selectAll3" parameterType="map" resultType="web.dto.TripSpot">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+				board_no, region,region_detail,title, content, writer_id, writer_nick, hit, writendate FROM tripspot
+				WHERE writer_id=#{writer_id}
+				ORDER BY board_no DESC ) B
+				ORDER BY rnum) WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+				</select>
+				
 </mapper>
     
