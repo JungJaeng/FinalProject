@@ -25,7 +25,7 @@ $(document).ready(function() {
 .serach { 
  	display:block;
 	text-align:center; 
-	background:#D8D8D8;
+	background:#efe8e8;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -60,6 +60,25 @@ th, tr {
         padding: 10px;
         text-align: center;
       }
+      
+.searchBtn {
+	-webkit-border-radius:10px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	display:inline-block;
+	font-size:1px;
+	padding:7px 7px;
+	font-family:Arial;
+	color:#585858;
+	cursor:pointer;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ccc;
+	line-height: 10px !important;
+	width: 100px;
+	size: 10cm;
+	}      
 </style>
 
 
@@ -74,7 +93,7 @@ th, tr {
 				<option value="user_nick">닉네임</option>
 		</select>
 		<input type="text"  name="search" >
-	 	<button  style="vertical-align: middle;">검색</button>
+	 	<button class="searchBtn">검색</button>
 </form>
 </div>
 <hr>

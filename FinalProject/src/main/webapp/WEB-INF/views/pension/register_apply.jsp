@@ -203,6 +203,7 @@ function execPostCode() {
       		<td class="left">
       			<div class="room_content">객실소개</div>
        		    <textarea class="form-c" name="room_content" id="summernote"></textarea>
+				
       		</td>  	
       	</tr>
  

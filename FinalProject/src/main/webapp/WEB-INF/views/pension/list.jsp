@@ -28,15 +28,50 @@
 
 }
 
-#reg_button {
-	display: block;	
+#reg_Btn {
+	-webkit-border-radius:10px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	display:inline-block;
+	font-size:1px;
+	padding:7px 7px;
+	font-family:Arial;
+	color:#585858;
+	cursor:pointer;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ccc;
+	line-height: 10px !important;
+	width: 100px;
+	size: 10cm;
+}
+.reg {
 	text-align: right;
 }
 
+.searchBtn {
+	-webkit-border-radius:10px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #ccc;
+	display:inline-block;
+	font-size:1px;
+	padding:7px 7px;
+	font-family:Arial;
+	color:#585858;
+	cursor:pointer;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ccc;
+	line-height: 10px !important;
+	width: 100px;
+	size: 10cm;
+	}
 .serach { 
  	display:block;
 	text-align:center; 
-	background:#D8D8D8;
+	background:#efe8e8;
 	padding:0 0 0 35px;
 	font-size:18px;
 	color:#5e5e5e;
@@ -56,8 +91,8 @@
 <hr>
 
 <c:if test="${login_user_join_no eq '2' }">
-<div id="reg_button">
-<button type="button" onclick="location.href='/pension/register_apply'" >펜션등록요청</button>
+<div class="reg">
+<button type="button" id="reg_Btn" onclick="location.href='/pension/register_apply'" >펜션등록요청</button>
 </div>
 </c:if>
 
@@ -71,7 +106,7 @@
 				<option value="pension_address">펜션위치</option>
 		</select>
 		<input type="text"  name="search" >
-	 	<button  style="vertical-align: middle;">검색</button>
+	 	<button class="searchBtn">검색</button>
 </form>
 </div>
 <hr>
