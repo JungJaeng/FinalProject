@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,19 @@ public class TripspotController {
 		model.addAttribute("paging",paging);
 		List<TripSpot> list = tripspotService.getList(paging);
 		model.addAttribute("tripspotlist",list);
-
-	}@RequestMapping(value = "/tripspot/view", method = RequestMethod.GET)
+		
+		List<Map<String,Object>> recommendlist = new ArrayList<Map<String,Object>>();
+		for(TripSpot i : list) {
+			int cnt = tripspotService.cntrecommend(i.getBoard_no());
+			Map<String,Object> recommendmap = new HashMap<String, Object>();
+			recommendmap.put("board_no", i.getBoard_no());
+			recommendmap.put("recommendcnt",cnt);
+			
+			recommendlist.add(recommendmap);
+		}
+		model.addAttribute("recommendlist",recommendlist);
+	}
+	@RequestMapping(value = "/tripspot/view", method = RequestMethod.GET)
 	public void View(
 			@RequestParam int board_no,
 			Model model,
@@ -101,7 +113,7 @@ public class TripspotController {
 	}
 	@RequestMapping(value = "/tripspotimage", method = RequestMethod.GET)
 	public void Imgload(Upload_Image tripspot_image, HttpServletResponse resp) {
-		
+		if(tripspot_image.getFileno() != 0){
 		tripspot_image = tripspotService.FindImage(tripspot_image);
 		
 		File file = tripspotService.findFile(tripspot_image, context);
@@ -124,6 +136,7 @@ public class TripspotController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 	@RequestMapping(value = "/tripspot/update", method = RequestMethod.GET)
 	public void Updateview(@RequestParam int board_no, Model model) {

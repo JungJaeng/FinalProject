@@ -36,4 +36,8 @@ public interface TripspotDao {
 
 	public void deleteRecommend(Recommend recommend);
 
+	public List<Map<String, Object>> selectrecommendAll();
+
+	public int cntrecommend(int board_no);
+
 }

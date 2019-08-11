@@ -12,6 +12,7 @@ public class TripSpot {
 	private String writer_nick;
 	private int hit;
 	private Date writendate;
+	private int thumbnail;
 	public int getBoard_no() {
 		return board_no;
 	}
@@ -66,10 +67,16 @@ public class TripSpot {
 	public void setWritendate(Date writendate) {
 		this.writendate = writendate;
 	}
+	public int getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(int thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	@Override
 	public String toString() {
 		return "TripSpot [board_no=" + board_no + ", region=" + region + ", region_detail=" + region_detail + ", title="
 				+ title + ", content=" + content + ", writer_id=" + writer_id + ", writer_nick=" + writer_nick
-				+ ", hit=" + hit + ", writendate=" + writendate + "]";
+				+ ", hit=" + hit + ", writendate=" + writendate + ", thumbnail=" + thumbnail + "]";
 	}
 }
