@@ -198,7 +198,7 @@ table .content:hover{
 </c:if>
 </div>
 <div class="paging">
-<c:import url="/WEB-INF/views/board/paging.jsp"></c:import>
+<c:import url="/WEB-INF/views/board/paging.jsp"/>
 </div>
 <c:if test="${login_id ne null}">
 <div class="button-right"><button id="btnWrite" class="btn" onclick="location.href='/board/write'">글 쓰기</button></div>

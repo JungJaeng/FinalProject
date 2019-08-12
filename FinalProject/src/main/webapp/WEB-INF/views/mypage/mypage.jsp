@@ -38,7 +38,7 @@ margin-left:200px;
 	<img src="${paceContext.request.contextPath}/resources/img/img4.jpg" id="img3" style="height: 150px; width: 150px;" />
 </c:if>
 <c:if test="${n==1 }">
-	<img src="/upload/${fileup.stored_name }" id="img4" style="height: 150px; width: 150px; ">
+	<img src="/mypagefile?userid=${fileup.userid}" id="img4" style="height: 150px; width: 150px; ">
 </c:if>	
 <div id="info2">
 <h4>아이디 : ${info.user_id }</h4>

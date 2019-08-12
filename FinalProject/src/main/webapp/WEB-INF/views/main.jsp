@@ -527,7 +527,7 @@ $(document).ready(function() {
 	
 	<div id="search" class="subdiv">
 		<label class="subSelect" id="searchlabel">검색</label> 
-		<input type="text" id="keyword" name="keyword" />&nbsp;<button class="btn white" id="btnSearch">검색</button> 
+		<input type="text" id="keyword" name="keyword" placeholder="2글자 이상의 키워드를 입력하세요" />&nbsp;<button class="btn white" id="btnSearch">검색</button> 
 	</div>
 </div>
 	<div class="total">
