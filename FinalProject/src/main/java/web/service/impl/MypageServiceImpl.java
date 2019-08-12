@@ -48,7 +48,7 @@ public class MypageServiceImpl implements MypageService{
 	public void filesave(MultipartFile file, ServletContext context,String userid) {
 		
 		//파일이 저장될 경로
-		String storedPath = context.getRealPath("upload");
+		String storedPath = context.getRealPath("WEB-INF/upload");
 
 		//UUID
 		String uId = UUID.randomUUID().toString().split("-")[4];

@@ -80,11 +80,8 @@ function test(){
 <input type="text" style="display: none;" id="images" name="images" value=""/>
 <input type="hidden" name="board_no" value="${board.board_no }">
 
-아이디 : ${board.writer_id }<br>
-
-닉네임 : ${board.writer_nick}<br>
-
-<label>제목 : <input type="text" name = "title" value="${board.title }"/></label><br>
+<h1>${board.writer_nick  }님의 자유게시판 수정 폼</h1>
+<input class="title" type="text" name ="title" style="width:600px;"/><br><br>
 <textarea name="content" id="summernote">${board.content }</textarea><br>
 
 
