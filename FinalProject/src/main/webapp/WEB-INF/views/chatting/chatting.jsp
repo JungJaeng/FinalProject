@@ -62,14 +62,19 @@
 	width: 600px;
 }
 #sendBtn{
-	width: 66px;
+	width: 90px;
+}
+.intext{
+	margin-left: 75px;
+	width: 700px;
+	border: ridge;
 }
 </style>
 </head>
 <body>
 
-
-
+<c:if test="${not login}"><h1>권한이 없습니다</h1></c:if>
+<c:if test="${login}">
 <div class="input-group mb-3">
 <!--   <input type="text" id="message" class="form-control" placeholder="Message"> -->
   <div class="input-group-append">
@@ -93,9 +98,11 @@
 		</tr>
 	</c:forEach>
 	</ul>
+</div>
+	<div class="intext">
 	<input type="text" id="message" class="form-control" placeholder="내용을 입력하세요">
 	<button id="sendBtn" class="btn btn-outline-secondary" type="button">보내기</button>
-</div>
+	</div>
 <script type="text/javascript">
 $(document).ready(function() {
        $("#sendBtn").click(function() {
@@ -180,6 +187,6 @@ function sendMessage() {
 
 </script>
 
-
+</c:if>
 </body>
 </html>
