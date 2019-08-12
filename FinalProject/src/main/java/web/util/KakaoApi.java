@@ -32,7 +32,7 @@ public class KakaoApi {
       
       postParams.add(new BasicNameValuePair("client_id", "2c8bb256bd1dfd39210162d0e5b2b96e"));
       
-      postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8088/member/kakaoLogin"));
+      postParams.add(new BasicNameValuePair("redirect_uri", "http://192.168.30.53:8088/member/kakaoLogin"));
       
       postParams.add(new BasicNameValuePair("code", autorize_code));
       

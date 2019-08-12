@@ -20,7 +20,7 @@ public class NaverLoginBO {
 	
 	private final static String CLIENT_ID = "dUxGrlsV_QuicpElosr7";       //네이버API Client ID
 	private final static String CLIENT_SECRET = "ZdtOHb6rBy";                      
-	private final static String REDIRECT_URI = "http://localhost:8088/member/callback";
+	private final static String REDIRECT_URI = "http://192.168.30.53:8088/member/callback";
 	private final static String SESSION_STATE = "oauth_state";
 	
 	/* 프로필 조회 API URL */

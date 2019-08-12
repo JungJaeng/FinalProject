@@ -333,9 +333,9 @@ public class MemberController {
       
       memberService.pwSendEmail( pwFind );
    
-//      logger.info(member.getUser_pw()); 
+      logger.info(member.getUser_pw()); 
    
-//      logger.info("pwFind=="+pwFind.toString());
+      logger.info("pwFind=="+pwFind.toString());
  
       return "redirect:/member/login";
    }
