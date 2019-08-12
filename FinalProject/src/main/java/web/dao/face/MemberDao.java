@@ -8,7 +8,6 @@ public interface MemberDao {
 	
 	public Member selectMember(Member member);
 	
-
 	public int idcheck(String user_id);
 	
 	public void insert(Member member);
@@ -26,6 +25,8 @@ public interface MemberDao {
 	public int nickcheck(String user_nick);
 
 	public void insertNaverLogin(String apiResult);
+
+	public int useridcheck1(String userId);
 
 	
 }

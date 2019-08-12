@@ -34,6 +34,8 @@ public interface MemberService {
 	
 	public void insertNaverLogin(String apiResult);
 
+	public boolean useridcheck1(String userId);
+
 
 
 

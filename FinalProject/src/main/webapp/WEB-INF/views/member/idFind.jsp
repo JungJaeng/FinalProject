@@ -10,8 +10,17 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js"></script>
 
 <style>
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+	
+
+.btnarea { overflow:hidden;clear:both;width:100% }
+.btnarea #btn_idFind{float: left}
+.btnarea #btn_Cancel{float: right}
+
 
 .idFind_content {
+	font-family: 'Lato', sans-serif;
 	margin: 0 auto;
 	max-width: 335px;
 	min-width: 200px;
@@ -71,7 +80,7 @@
 
 .btn_type {
 	display: block;
-	width: 100%;
+	width: 48%;
 	padding: 15px 0 15px;
 	font-size: 15px;
 	font-weight: 700;
@@ -103,12 +112,13 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-   <h1>아이디 찾기</h1>
-   <hr>
+	<hr>
+	<h1 style="text-align: center;">아이디 찾기</h1>
+	<hr>
    
-   <form action="/member/idFind" method="post">
+	<form action="/member/idFind" method="post">
    
-	   <div class="idFind_content">
+		<div class="idFind_content">
 			<div class="row_group">
 				<h3 class="idFind_title">
 					<label for="nick">닉네임</label>
@@ -139,9 +149,11 @@ $(document).ready(function() {
 			</div>
 		
 		   <br>
+		   
+
 		    
 		   <div class="btnarea">
-		      
+		   
 		      <button type="button" id="btn_idFind" class="btn_type" >
 		     	 <span>아이디 찾기</span>
 		      </button>

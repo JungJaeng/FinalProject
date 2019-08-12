@@ -16,16 +16,14 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
 
-.body {
+.login_content, .Check  {
 	font-family: 'Lato', sans-serif;
-	background: #353535;
-	color: CCC;
+	
 }
 
 .memberCheck {
-	color: #FFF;
 	text-align: center;
-	font-size: 10px;
+	font-size: 11px;
 }
 
 .login_content {
@@ -43,7 +41,6 @@
    margin: 19px 0 8px;
    font-size: 14px;
    font-weight: 700;
-   color: #FFF;
 }
 
 .inputtext {
@@ -80,7 +77,6 @@
 
 .btnarea {
    margin: 30px 0 9px;
-   border: 2px solid #D24D57;
 }
 
 
@@ -94,7 +90,7 @@
    cursor: pointer;
    box-sizing: border-box;
 }
-.menu {
+.loginMenu {
    width: 100%;
    font-size: 13px;
 
@@ -103,6 +99,10 @@
 </style>
  
 <script type="text/javascript">
+var ch_id=false;
+
+
+
 $(document).ready(function() {
    
    //로그인버튼 동작
@@ -123,6 +123,9 @@ function login(){
 	$("#btn_login").click();
 }
 
+
+
+ 
 </script>   
    
 
@@ -132,24 +135,24 @@ function login(){
 </head>
 <body>
 	
-   <hr>
-   
-	<div class="body">
+	<hr>
+	<h1 style="text-align: center;">LOGIN</h1>   
+	<hr>
+	<div class="Check">
 	<br><br>
-		<div class="memberCheck">
-			<span style="color: #CCC">회원 구분을 반드시 체크해주세요</span>
-			&nbsp;&nbsp;&nbsp;&nbsp;
+	<div class="memberCheck">
+		<span style="color: black;">회원 구분을 반드시 체크해주세요</span>
+		&nbsp;&nbsp;&nbsp;&nbsp;
 			
-			<input type="radio" id="user_join_no" name="user_join_no" value="1"  checked="checked"/>&nbsp;일반회원 
+		<input type="radio" name="user_join_no" value="1"  checked="checked"/>&nbsp;일반회원 
 				
-			&nbsp;&nbsp;
+		&nbsp;&nbsp;
 				
-			<input type="radio" id="user_join_no" name="user_join_no" value="2" />&nbsp;사업자 
+		<input type="radio" name="user_join_no" value="2" />&nbsp;사업자 
 			
 		
-		</div>
-		<br>
-	<hr>
+	</div>
+	<br>
    
 	<form action="/member/login" method="post" name="loginForm">
          <div class="login_content">
@@ -179,15 +182,15 @@ function login(){
             	</div>
             </div>
             
-            <div class="menu">
+            <div class="loginMenu">
                <table>
                   <tr>
                      <td> </td>
-                     <td><a href="/member/idFind" style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디 찾기</a></td>
-                     <td style="color: #FFF;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
-                     <td><a href="/member/pwFind" style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</a></td>
-                     <td style="color: #FFF;"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
-                     <td><a href="/member/join"   style="text-decoration:none; color: #CCC;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원가입</a></td>
+                     <td><a href="/member/idFind" style="text-decoration:none; color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;아이디 찾기</a></td>
+                     <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
+                     <td><a href="/member/pwFind" style="text-decoration:none; color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비밀번호 찾기</a></td>
+                     <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; │ </td>
+                     <td><a href="/member/join"   style="text-decoration:none; color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회원가입</a></td>
                   </tr>
                </table>
             </div>

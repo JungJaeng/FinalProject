@@ -109,20 +109,20 @@ public class MemberServiceImpl implements MemberService {
       
       // FROM
       final String FROM = "jams90666"; // <<------------------------------�������몄��
-      final String FROMNAME = "�ы�� �댁�怨� ��姨�怨�"; // <<------------------------------�������몄��
+      final String FROMNAME = "여행어쩌고"; // <<------------------------------�������몄��
             
       // TO
       final String TO = pwFind.getUser_email(); 
             
 //      logger.info("�����대���"+pwFind.getUser_email());
       
-      final String SUBJECT = "[�ы�� �댁�怨� ��姨�怨�] ����鍮�諛�踰��� 諛��� ���� ������.";
+      final String SUBJECT = "[여행어쩌고] 임시비밀번호 변경안내.";
             
 //      logger.info(SUBJECT.toString());
             
       final String BODY = String.join(
-            "<h1>�ы�� �댁�怨� ��姨�怨�</h1>",
-            "<p>�������� ����鍮�諛�踰��� ���댁������.</p><br><p>[���� 鍮�諛�踰���] : " + newKey + " ������.</p><br>"
+            "<h1>임시비밀번호 안내입니다.</h1>",
+            "<p>[여행어쩌고] 변경된 임시 비밀번호는  " + newKey + " 입니다"
                   
             );
             
@@ -195,6 +195,16 @@ public boolean nickcheck(String user_nick) {
 public void insertNaverLogin(String apiResult) {
 	memberDao.insertNaverLogin(apiResult);
 	
+}
+
+
+@Override
+public boolean useridcheck1(String userId) {
+    if( memberDao.useridcheck1(userId) > 0 ) {
+        return false;
+     } 
+     
+     return true; 
 }
 
 

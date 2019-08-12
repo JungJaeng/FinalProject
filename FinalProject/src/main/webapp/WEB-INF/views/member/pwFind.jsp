@@ -11,8 +11,16 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js"></script>
 
 <style>
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
+	
+.btnarea { overflow:hidden;clear:both;width:100% }
+.btnarea #btn_pwFind{float: left}
+.btnarea #btn_Cancel{float: right}
+	
 
 .pwFind_content {
+	font-family: 'Lato', sans-serif;
 	margin: 0 auto;
 	max-width: 335px;
 	min-width: 200px;
@@ -23,7 +31,7 @@
 	width: 100%;
 }
 
-.pwFind_title {
+.pwFind_title { 
 	margin: 19px 0 8px;
 	font-size: 14px;
 	font-weight: 700;
@@ -61,7 +69,7 @@
  
 .btn_type {
 	display: block;
-	width: 100%;
+	width: 48%;
 	padding: 15px 0 15px;
 	font-size: 15px;
 	font-weight: 700;
@@ -97,13 +105,18 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
-
-   <h1>비밀번호 찾기 페이지</h1>
-   <hr>
+	<hr>
+	<h1 style="text-align: center;">비밀번호 찾기</h1>
+	<hr>
    
+   
+	<br>
+	<div class="msg">
+		<p style="color:blue;">비밀번호 찾기 서비스를 이용하시면 <br>임시비밀번호로 변경해서 가입하신 메일로 보내드립니다.</p>
+	</div>
+	<br> 
 
 	<form action="/member/pwFind" method="post" >
-   
 		<div class="pwFind_content">
 		
 			<div class="row_group">
@@ -123,13 +136,6 @@ $(document).ready(function() {
 					<input type="text" name="user_email" id="user_email" class="inputtext" maxlength="100"/>
 				</span>
 			</div>
-	
-		   <br>
-		   	<div class="msg">
-			   <p style="color:blue;">비밀번호 찾기 서비스를 이용하시면 <br>
-			   임시비밀번호로 변경해서 가입하신 메일로 보내드립니다.</p>
-			</div>
-		   <br> 
 		   
 			<div class="btnarea">
 				<button type="button" id="btn_pwFind" class="btn_type">
@@ -142,7 +148,7 @@ $(document).ready(function() {
 		      
 			</div>
 		</div>	
-   </form>
+	</form>
 
 </body>
 </html>
