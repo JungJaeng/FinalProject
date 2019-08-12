@@ -114,6 +114,23 @@
 	width: 40px;
 	size: 10cm;
 }
+
+.pensionInfo{
+	border-top:1px solid black;
+	width : 100%;
+	height: 20px;
+	
+}
+
+.roomInfo {
+	border-top:1px solid black;
+	width : 100%;
+	height: 20px;
+}
+
+th, tr, td{
+	padding: 30px;
+}
 </style>
 
 
@@ -190,32 +207,46 @@ function deleteComment(commentNo) {
 
  <div class="thumb">
   <img src="/resources/img/pen1.jpg">
+  <img src="/resources/img/pen2.jpg">
  </div>
  
- <div class="pensionInfo">
-  <p class="pensionName"><span><h3>펜션명</h3> </span>${pension.pension_name}</p>
+ <table class="pensionInfo">
+  <tr>
+  <th class="pensionName" style="width: 10%;">펜션명</th>
+  <td class="pensionName" style="width: 10%;">${pension.pension_name}</td>
   
-  <p class="pensionLocation"><span><h3>펜션위치</h3> </span>
-  <p class="pensionLocation"><span>${pension.pension_postcode}</span><br><span>${pension.pension_address }</span><br><span>${pension.pension_detailAddress }</span></p>
+  <th class="pensionLocation" style="width: 10%;">펜션위치</th>
+  <td class="pensionLocation" style="width: 15%;">${pension.pension_postcode}<br>${pension.pension_address }<br>${pension.pension_detailAddress }</td>
   
-  <p class="pensionContent"><span><h3>펜션소개</h3> </span>${pension.pension_content}</p>
+  <th class="pensionContent" style="width: 10%;">펜션소개</th>
+  <td class="pensionContent" style="width: 10%;">${pension.pension_content}</td>
+ </tr>
+ </table>
+ </div>
  
- </div>
- </div>
-<hr>
+
 
  <div class=room>
- <div class="roomInfo">
-  <p class="room_content"><span><h3>객실소개 </h3></span>${pension.room_content}</p>
-  
-  <p class="room_name"><span><h3>객실명</h3> </span>${pension.room_name}</p>
+ <table class="roomInfo">
+ <tr>
+  <th class="room_content" style="width: 10%;">객실소개</th> 
+  <td class="room_content" style="width: 30%; text-align:center;">${pension.room_content}</td>
 
-  <p class="room_men"><span><h3>객실인원</h3> </span>${pension.room_men}</p>
   
-  <p class="room_size"><span><h3>객실크기</h3> </span>${pension.room_size}</p>
+  <th class="room_name" style="width: 10%;">객실명</th>
+  <td class="room_name" style="width: 10%; text-align:center;">${pension.room_name}</td>
+
+  <th class="room_men" style="width: 10%;">객실인원</th>
+  <td class="room_men" style="width: 10%; text-align:center;">${pension.room_men}</td>
   
-  <p class="room_price"><span><h3>객실요금</h3> </span>${pension.room_price}원</p>
-</div>
+  <th class="room_size" style="width: 10%;">객실크기</th>
+  <td class="room_size" style="width: 2%; text-align:center;">${pension.room_size}</td>
+  
+  <th class="room_price" style="width: 10%;">객실요금</th>
+  <td class="room_price" style="width: 2%; text-align:center;">${pension.room_price}원</td>
+</tr>
+</table>
+<hr>
 </div>
 <!-- 버튼 영역 -->
 <div id="button">
@@ -227,7 +258,6 @@ function deleteComment(commentNo) {
 </div>	<!-- 버튼 영역 end -->
 <!-- 댓글 처리 -->
 <div>
-
 <hr>
 <!-- 댓글 입력 -->
 <div id="commentDiv">
