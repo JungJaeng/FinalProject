@@ -140,18 +140,6 @@ function login(){
 	<hr>
 	<div class="Check">
 	<br><br>
-	<div class="memberCheck">
-		<span style="color: black;">회원 구분을 반드시 체크해주세요</span>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-			
-		<input type="radio" name="user_join_no" value="1"  checked="checked"/>&nbsp;일반회원 
-				
-		&nbsp;&nbsp;
-				
-		<input type="radio" name="user_join_no" value="2" />&nbsp;사업자 
-			
-		
-	</div>
 	<br>
    
 	<form action="/member/login" method="post" name="loginForm">
@@ -173,7 +161,14 @@ function login(){
                   <input type="password" name="user_pw" id="user_pw" class="inputtext" maxlength="20"/>
                </span>
             </div>
-            
+            <br>
+			<div class="memberCheck">
+				<span style="color: black;">회원 구분을 반드시 체크해주세요</span>
+				&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="user_join_no" value="1"  checked="checked"/>&nbsp;일반회원 
+				&nbsp;&nbsp;
+				<input type="radio" name="user_join_no" value="2" />&nbsp;사업자 
+			</div>            
             <div class="btnarea">
             	<div>
 	            	<button type="button" id="btn_login" class="btn_type">
@@ -208,9 +203,9 @@ function login(){
       </a>
    </div>
    <script type="text/javascript"> 
-      var naver_id_login = new naver_id_login("dUxGrlsV_QuicpElosr7", "http://localhost:8088/member/callback"); 
+      var naver_id_login = new naver_id_login("dUxGrlsV_QuicpElosr7", "http://192.168.30.53:8088/member/callback"); 
       var state = naver_id_login.getUniqState(); 
-      naver_id_login.setDomain("http://localhost:8088/member/login"); 
+      naver_id_login.setDomain("http://192.168.30.53:8088/member/login"); 
       naver_id_login.setState(state); 
    //    naver_id_login.setPopup(); 
       naver_id_login.init_naver_id_login; 
@@ -220,7 +215,7 @@ function login(){
 	
    <div id="kakao_id_login" style="text-align:center">
       <a id="kakao-login-btn" 
-      href="https://kauth.kakao.com/oauth/authorize?client_id=2c8bb256bd1dfd39210162d0e5b2b96e&redirect_uri=http://localhost:8088/member/kakaoLogin&response_type=code"></a>
+      href="https://kauth.kakao.com/oauth/authorize?client_id=2c8bb256bd1dfd39210162d0e5b2b96e&redirect_uri=http://192.168.30.53:8088/member/kakaoLogin&response_type=code"></a>
    </div>
    
    

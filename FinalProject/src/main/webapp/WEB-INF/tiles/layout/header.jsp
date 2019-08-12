@@ -94,10 +94,10 @@ $(window).scroll(function() {
          
    <!--       관리자상태 -->
         <c:if test="${login_nick eq '관리자' }">
-         <a href="/admin/member_list">회원관리</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/admin/apply_post">펜션등록</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/admin/apply_list">펜션요청확인</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+         <a class="atag" href="/admin/member_list">회원관리</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="atag" href="/admin/apply_post">펜션등록</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="atag" href="/admin/apply_list">펜션요청확인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="atag" href="/member/logout">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
          </c:if>
    </div>
 
