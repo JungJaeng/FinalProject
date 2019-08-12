@@ -275,6 +275,7 @@ h1 {
 <div class="button-right"><a class="writebtn btn">글 쓰기</a></div>
 </c:if>
 <div class="paging">
+<c:import url="/WEB-INF/views/tripspot/paging.jsp"/>
 </div>
 <div class="search">
 

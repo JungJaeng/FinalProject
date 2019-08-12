@@ -36,7 +36,7 @@ float:left;
 	<img src="${paceContext.request.contextPath}/resources/img/img4.jpg" id="img1" style="height: 200px; width: 200px;"/>
 </c:if>
 <c:if test="${n==1 }">
-	<img src="/upload/${fileup.stored_name }" id="img2" style="height: 200px; width: 200px;"/>
+	<img src="/mypagefile?userid=${fileup.userid}" id="img2" style="height: 200px; width: 200px;"/>
 </c:if>	
 </div>     
 

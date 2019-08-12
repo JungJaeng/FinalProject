@@ -17,6 +17,12 @@ $(document).ready(function(){
 	change($("#region option[value='${tripspot.region}']:selected").attr('data-idx'));
 	$("#region_detail option[value='${tripspot.region_detail}']").attr("selected", true);
 	
+	$(".update").click(function(){
+		$("#updateform").submit();
+	});
+	$(".back").click(function(){
+		location.href='/tripspot/list';
+	});
 	
 	$('#summernote').summernote({
 		toolbar: [
@@ -112,12 +118,59 @@ function change(idx){
 
 
 </script>
-<form action="/tripspot/update" method="post">
+<style type="text/css">
+.btn {
+	-moz-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #ffffff;
+	box-shadow:inset 0px 0px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #f6f6f6));
+	background:-moz-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-webkit-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-o-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:-ms-linear-gradient(top, #ffffff 5%, #f6f6f6 100%);
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
+	background-color:#ffffff;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:8px 8px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #bfbdbf;
+	line-height: 10px !important;
+}
+.btn:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
+	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-o-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:-ms-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
+	background-color:#f6f6f6;
+}
+.btn:active {
+	position:relative;
+	top:1px;
+}
+.btn-right{
+	text-align: right;
+}
+</style>
+<form action="/tripspot/update" method="post" id="updateform">
 <input type="text" style="display: none;" id="images" name="images" value=""/>
 <input type="text" style="display: none;" name="board_no" value="${tripspot.board_no }"/>
-아이디 : ${tripspot.writer_id  }<input type="hidden" name="writer_id" value="${tripspot.writer_id  }"/><br>
-닉네임 : ${tripspot.writer_nick  }<input type="hidden" name="writer_nick" value="${tripspot.writer_nick  }"/><br>
-제목 : <input type="text" name="title" value="${tripspot.title  }"/><br><br>
+<input type="hidden" name="writer_id" value="${tripspot.writer_id  }"/><br>
+<input type="hidden" name="writer_nick" value="${tripspot.writer_nick  }"/><br>
+<h1>${tripspot.writer_nick  }님의 여행추천게시판 수정 폼</h1>
+<input class="title" type="text" name ="title" style="width:600px;"/><br><br>
 
 	
 <label>시/도</label>
@@ -146,7 +199,6 @@ function change(idx){
 	<option value="">시/군구선택</option>
 </select>
 <textarea name="content" id="summernote">${tripspot.content }</textarea><br>
-<button>수정</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button type="button" onclick="location.href='/board/list'">돌아가기</button>
+<a class="btn btn-right update">수정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a class="btn btn-right back">돌아가기</a>
 </form>
-<button onclick="test();">test</button>

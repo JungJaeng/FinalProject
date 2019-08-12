@@ -70,9 +70,10 @@ function sendFile(file, editor) {
 </script>
 <form action="/board/write" method="post">
 <input type="text" style="display: none;" id="images" name="images" value=""/>
-아이디 : ${board.writer_id  }<input type="hidden" name="writer_id" value="${board.writer_id  }"/><br>
-닉네임 : ${board.writer_nick  }<input type="hidden" name="writer_nick" value="${board.writer_nick  }"/><br>
-제목 : <input type="text" name = "title"/><br>
+<input type="hidden" name="writer_id" value="${board.writer_id  }"/><br>
+<input type="hidden" name="writer_nick" value="${board.writer_nick  }"/><br>
+<h1>${board.writer_nick  }님의 자유게시판 작성 폼</h1>
+<input class="title" type="text" name ="title" style="width:600px;"/><br><br>
 <textarea name="content" id="summernote">
 
 </textarea><br>
